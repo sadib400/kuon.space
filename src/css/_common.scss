@@ -59,3 +59,11 @@ $red: #ff4d5a;
     display: none;
   }
 }
+
+body {
+  @include font_family();
+
+  &.is_lock {
+    overflow: hidden;
+  }
+}

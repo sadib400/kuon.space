@@ -2,29 +2,49 @@
     ly_main
 ===================== */
 .ly_main {
+  overflow: hidden;
   position: relative;
-  &:before,
-  &:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    transform: translateX(10%);
-    z-index: 1;
-    width: 100%;
-    max-width: 1390px;
-    height: 100%;
-    background-repeat: no-repeat;
-  }
-  &:before {
-    background-image: url("../../images/star.svg");
-  }
-  &:after {
-    top: -6%;
-    background-image: url("../../images/moonlight.svg");
-  }
 }
 /* end ly_main
+===================== */
+
+/* =====================
+    bl_background
+===================== */
+.bl_background {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+
+  &_imageBox {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%,-17%);
+    width: 160%;
+    @include mediaQuery(mobile) {
+      &:nth-child(2) {
+        top: 16%;
+        width: 150%;
+      }
+    }
+    @include mediaQuery(desktop) {
+      top: 50%;
+      right: 0;
+      left: 26%;
+      transform: translate(10%,-50%);
+      width: 1390px;
+    }
+
+    > img {
+      width: 100%;
+    }
+  }
+}
+/* end bl_background
 ===================== */
 
 /* =====================
@@ -32,10 +52,60 @@
 ===================== */
 .bl_currentNav {
   position: fixed;
-  top: 50%;
-  left: 0;
   z-index: 1;
   color: #fff;
+  @include mediaQuery(mobile) {
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  @include mediaQuery(desktop) {
+    top: 42%;
+    left: 40px;
+    height: 58%;
+  }
+
+  &_dots {
+    @include mediaQuery(mobile) {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+    @include mediaQuery(desktop) {
+      width: 60px;
+    }
+  }
+
+  &_dot {
+    width: 2px;
+    height: 15px;
+    background-color: #fff;
+    @include mediaQuery(mobile) {
+      margin: 0 20px;
+      transition: height .3s;
+    }
+    @include mediaQuery(desktop) {
+      width: 50%;
+      height: 3px;
+      transition: width .3s;
+      &:not(:first-child) {
+        margin-top: 40px;
+      }
+    }
+    &.is_active {
+      @include mediaQuery(mobile) {
+        height: 35px;
+      }
+      @include mediaQuery(desktop) {
+        width: 100%;
+      }
+    }
+  }
+
+  &_link {
+    display: block;
+    height: 100%;
+  }
 }
 /* end topPage
 ===================== */
@@ -52,31 +122,186 @@
 
   &_textBox {
     position: absolute;
-    top: 50%;
-    left: 10%;
-    transform: translateY(-50%);
+    z-index: 3;
+    @include mediaQuery(mobile) {
+      right: 0;
+      bottom: 15%;
+      left: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 25px;
+      min-height: 188px;
+    }
+    @include mediaQuery(desktop) {
+      top: 50%;
+      left: 10%;
+      transform: translateY(-50%);
+    }
+
+    &__first {
+      @include mediaQuery(mobile) {
+        padding: 0 45px;
+      }
+    }
+  }
+
+  &_title {
+    position: relative;
+    font-size: 4.2rem;
+    letter-spacing: 0.15em;
+    text-shadow: 0 10px 10px rgba(0,0,0,.3);
+    margin-bottom: 30px;
+    @include font_family(medium);
+    @include mediaQuery(desktop) {
+      font-size: 13rem;
+      letter-spacing: .1em;
+      margin-bottom: 80px;
+    }
+    &:before,
+    &:after {
+      content: '';
+      position: absolute;
+      top: 110%;
+      left: 0;
+      width: 45px;
+      height: 2px;
+      background-color: $red;
+      border-radius: 4px;
+      @include mediaQuery(desktop) {
+        width: 90px;
+        height: 4px;
+      }
+    }
+    &:after {
+      left: 30px;
+      margin-top: 10px;
+      @include mediaQuery(desktop) {
+        left: 60px;
+        margin-top: 20px;
+      }
+    }
+  }
+
+  &_text {
+    font-size: 1.6rem;
+    line-height: 1.5;
+    @include mediaQuery(desktop) {
+      font-size: 3rem;
+    }
+  }
+
+  &_imageBox {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%,0);
+    z-index: 2;
+    width: 80%;
+    height: 55%;
+    @include mediaQuery(desktop) {
+      top: 50%;
+      left: 37%;
+      transform: translate(0,-50%);
+      width: 55%;
+      height: 75%;
+      font-size: 3rem;
+    }
+  }
+
+  &_image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+
+    > img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      font-family: 'object-fit: cover;';
+    }
+  }
+
+  &_numberBox {
+    overflow: hidden;
+    position: absolute;
+    right: -9%;
+    bottom: 10%;
+  }
+
+  &_number {
+    position: relative;
+    top: 160px;
+    transition: top .3s;
+    font-size: 16rem;
+    text-shadow: 0 10px 10px rgba(0,0,0,.3);
+    @include font_family(medium);
+
+    &.is_active {
+      top: 0;
+    }
+  }
+
+  &_scrollDown {
+    position: fixed;
+    bottom: 35px;
+    writing-mode: vertical-lr;
+    font-size: 1.2rem;
+    letter-spacing: 0.3em;
+    padding-bottom: 10px;
+    @include mediaQuery(mobile) {
+      right: 20px;
+    }
+    @include mediaQuery(desktop) {
+      bottom: 70px;
+      left: 40px;
+      font-size: 1.6rem;
+      padding-bottom: 20px;
+    }
+    &:after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 35px;
+      background-color: #fff;
+      @include mediaQuery(desktop) {
+        height: 70px;
+      }
+    }
   }
 
   &_moon {
     position: absolute;
-    top: 50%;
-    right: 0;
     z-index: 2;
-    transform: translate(-29%,-50%);
+    top: 11%;
+    left: 50%;
+    transform: translate(-50%,0);
+    width: 65%;
     @include mediaQuery() {
-      min-width: 1000px;
+      top: 50%;
+      right: 0;
+      left: 27%;
+      transform: translate(10%,-50%);
+      width: 1390px;
     }
 
     > p {
       position: absolute;
       top: 50%;
-      left: 37%;
+      left: -14%;
       transform: translateY(-50%);
       color: $red;
-      @include font_family(primary);
+      font-size: 2.8rem;
       font-weight: bold;
       letter-spacing: .1em;
-      @include mediaQuery() {
+      text-shadow: 0 10px 10px rgba(0,0,0,.3);
+      @include font_family(primary);
+      @include mediaQuery(desktop) {
+        left: 22%;
         font-size: 7rem;
       }
     }
@@ -84,49 +309,147 @@
 
   &_moonImg {
     display: block;
-    margin-left: auto;
+    margin: 0 auto;
+    @include mediaQuery(mobile) {
+      width: 100%;
+    }
   }
 
   &_cloudImg {
     position: absolute;
+    width: 90%;
+    @include mediaQuery(desktop) {
+      width: 38%;
+    }
 
     &__upperLeft {
-      top: 0;
-      left: 20%;
+      top: -5%;
+      left: -40%;
+      @include mediaQuery(desktop) {
+        top: -12%;
+        left: 14%;
+      }
     }
 
     &__upperRight {
-      top: -25%;
-      left: 62%;
+      top: -23%;
+      left: 38%;
+      @include mediaQuery(mobile) {
+        width: 70%;
+      }
+      @include mediaQuery(desktop) {
+        top: -25%;
+        left: 45%;
+      }
     }
 
     &__LowerLeft {
-      bottom: -10%;
-      left: 20%;
+      bottom: -8%;
+      left: -50%;
+      @include mediaQuery(desktop) {
+        bottom: -10%;
+        left: 13%;
+      }
     }
 
     &__LowerCenter {
-      bottom: 30%;
-      left: 85%;
+      @include mediaQuery(mobile) {
+        top: 20%;
+        left: 60%;
+      }
+      @include mediaQuery(desktop) {
+        bottom: 30%;
+        left: 56%;
+      }
     }
 
     &__LowerRight {
-      top: 80%;
-      left: 70%;
+      top: 78%;
+      left: 44%;
+      @include mediaQuery(mobile) {
+        width: 85%;
+      }
+      @include mediaQuery(desktop) {
+        top: 80%;
+        left: 50%;
+      }
     }
 
   }
 
   &_awards {
     position: absolute;
-    top: 12%;
+    top: 8%;
     right: 0;
+    z-index: 2;
+    @include mediaQuery(desktop) {
+      top: 15%;
+    }
 
     > img {
       width: 100%;
-      max-width: 100px;
+      max-width: 45px;
+      @include mediaQuery(desktop) {
+        max-width: 100px;
+      }
+    }
+  }
+
+  .bl_contact {
+    &_item {
+      font-size: 1.4rem;
+      letter-spacing: .1em;
+      margin-top: 12px;
+      @include mediaQuery(desktop) {
+        font-size: 3rem;
+        margin-top: 30px;
+      }
+    }
+
+    &_link {
+      display: inline-block;
+      margin-right: 20px;
+      transition: opacity .3s ease;
+      &:hover {
+        opacity: .6;
+      }
     }
   }
 }
 /* end bl_slide
+===================== */
+
+/* =====================
+    el_btn
+===================== */
+.el_btn_wrapper {
+  margin-top: 10px;
+  @include mediaQuery(mobile) {
+    text-align: center;
+  }
+  @include mediaQuery(desktop) {
+    margin-top: 40px;
+  }
+}
+
+.el_btn {
+  display: inline-block;
+  font-size: 1.6rem;
+  border-radius: 50px;
+  padding: 12px 28px;
+  transition: transform .3s ease;
+  @include mediaQuery(desktop) {
+    font-size: 2rem;
+    padding: 15px 40px;
+    &:hover {
+      transform: translateY(-5px);
+    }
+  }
+
+  &__color {
+    background-color: $red;
+  }
+}
+
+/* end el_btn
 ===================== */

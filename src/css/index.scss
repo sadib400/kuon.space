@@ -1,9 +1,5 @@
-@import "./barba";
+// @import "./barba";
 @import "./reset.css";
 @import "./common";
 @import "./haeder";
 @import "./top";
-
-body {
-  @include font_family();
-}

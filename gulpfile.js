@@ -9,25 +9,10 @@ const browserSync = require("browser-sync");
 const postcss = require("gulp-postcss");
 const cssImport = require("postcss-import");
 
-// const ejs = require("gulp-ejs");
-// const rename = require("gulp-rename");
-// const replace = require("gulp-replace"); 
-
 // webpackの設定ファイルの読み込み
 const webpackStream = require("webpack-stream");
 const webpack = require("webpack");
 const webpackConfig = require("./webpack.config");
-
-// ejs
-// gulp.task("ejs", done => {
-//   gulp
-//     .src(["src/ejs/*.ejs", "!" + "src/ejs/**/_*.ejs"])
-//     .pipe(ejs({}, {}, { ext: ".html" }))
-//     .pipe(rename({ extname: ".html" }))
-//     .pipe(replace(/[\s\S]*?(<!DOCTYPE)/, "$1"))
-//     .pipe(gulp.dest("./dest/"));
-//   done();
-// });
 
 // Sass
 gulp.task("sass", function () {
@@ -36,37 +21,30 @@ gulp.task("sass", function () {
       path: [ 'node_modules' ]
     })
   ];
-  return gulp.src('./src/css/index.scss')
+  return gulp.src('./src/css/*.scss')
     .pipe(sassGlob())
     .pipe(sass())
     .pipe(postcss(plugins))
-    .pipe(autoprefixer()) // ベンダープレフィックス付与
-    .pipe(gulp.dest('./dest/asset/css'));
+    .pipe(autoprefixer())
+    .pipe(gulp.dest('./dist/asset/css'));
 });
 
 // .min.cssを生成する
 gulp.task("mincss", function () {
-  return gulp.src('./dest/asset/css/index.css')//上のタスクで出力したcssファイル
+  return gulp.src('./dist/asset/css/index.css')//上のタスクで出力したcssファイル
           .pipe(cleanCSS()) // cssを圧縮
-          .pipe(gulp.dest('./dest/asset/css'));
-});
-
-gulp.task("css", function (done) {
-  gulp.watch('./src/css/*.scss', gulp.series('sass', 'mincss'));
-  done();
+          .pipe(gulp.dest('./dist/asset/css'));
 });
 
 
 // js
 gulp.task("bundle", function () {
   return webpackStream(webpackConfig, webpack)
-    .pipe(gulp.dest("dest/asset/js"))
-    .pipe(autoprefixer({
-      cascade: false
-    }));
+    .pipe(gulp.dest("dist/asset/js"));
 });
 
-gulp.task("js", function (done) {
+gulp.task("bild", function (done) {
+  gulp.watch('./src/css/*.scss', gulp.series('sass', 'mincss'));
   gulp.watch('./src/js/*.js', gulp.series('bundle'));
   done();
 });
@@ -75,14 +53,14 @@ gulp.task("js", function (done) {
 gulp.task("browserSync", function() {
   browserSync({
     server: {
-      baseDir: "./"
+      baseDir: "./dist/"
     }
   });
-  gulp.watch("./dest/**", function(done) {
+  gulp.watch("./dist/**", function(done) {
     browserSync.reload();
     done();
   });
 });
 
 // html, css, jsを生成
-gulp.task('default', gulp.series(gulp.parallel('js', 'css', 'browserSync')));
+gulp.task('default', gulp.series(gulp.parallel('bild', 'browserSync')));

@@ -1,21 +1,19 @@
-import barba from '@barba/core';
-import barbaCss from '@barba/css';
 import top from './scrollEvent';
 
 document.addEventListener('DOMContentLoaded', function () {
-  barba.use(barbaCss);
-  barba.init({
-    transitions: [{
-      leave({ current, next, trigger }) {
-        // do something with `current.container` for your leave transition
-        // then return a promise or use `this.async()`
-      },
-      enter({ current, next, trigger }) {
-        // do something with `next.container` for your enter transition
-        // then return a promise or use `this.async()`
-      }
-    }]
-  });
 
-  top();
+  // top();
+
+  //ハンバーガーメニュー
+  document.getElementById('js_hamburgerMenu').addEventListener('click', function () {
+    this.classList.toggle('is_close');
+    document.querySelector('.js_menuOpen').classList.toggle('is_open');
+    document.body.classList.toggle('is_lock');
+    document.querySelectorAll('.js_link').forEach(function (ele) {
+      setTimeout(function () {
+        ele.classList.toggle('is_open');
+      },400);
+    });
+  });
+  
 });

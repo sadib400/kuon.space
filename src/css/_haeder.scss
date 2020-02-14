@@ -7,9 +7,12 @@
   right: 0;
   left: 0;
   z-index: 100;
-  padding: 40px;
+  padding: 20px;
   color: #fff;
   background-color: transparent;
+  @include mediaQuery(desktop) {
+    padding: 40px;
+  }
 
   /* =====================
       bl_headerNav
@@ -24,8 +27,9 @@
     &_item {
       cursor: pointer;
       display: inline-block;
+      font-size: 1.8rem;
+      letter-spacing: .1em;
       margin-right: 30px;
-      transition: opacity .3s;
       &:first-child {
         margin-right: auto;
       }
@@ -34,7 +38,7 @@
       }
       @include mediaQuery(desktop){
         font-size: 2.6rem;
-        letter-spacing: .1em;
+        margin-right: 40px;
       }
 
       &:hover {
@@ -42,12 +46,22 @@
           opacity: .6;
         }
       }
+
+      &:not(.bl_headerNav_item__both) {
+        @include mediaQuery(mobile) {
+          display: none;
+        }
+      }
     }
 
     &_btn {
       position: relative;
-      width: 50px;
-      height: 20px;
+      width: 25px;
+      height: 15px;
+      @include mediaQuery(desktop) {
+        width: 50px;
+        height: 20px;
+      }
       &:before,
       &:after {
         content: '';
@@ -83,6 +97,7 @@
       bl_hamburgerMenu
   ===================== */
   .bl_hamburgerMenu {
+    overflow: hidden;
     position: fixed;
     top: 0;
     left: 0;
@@ -105,7 +120,9 @@
 
     &_item {
       overflow: hidden;
+      font-size: 5rem;
       text-shadow: 0 10px 10px rgba(0,0,0,.3);
+      margin-top: 30px;
       &:first-child {
         margin-top: 0;
       }
@@ -118,6 +135,7 @@
 
     &_link {
       position: relative;
+      top: 50px;
       transition: top .3s;
       @include mediaQuery(desktop) {
         top: 130px;
@@ -138,6 +156,13 @@
 
       &.is_open {
         top: 0;
+      }
+    }
+
+    &_icon {
+      font-size: 2rem;
+      &:nth-child(odd) {
+        margin-right: 25px;
       }
     }
   }
