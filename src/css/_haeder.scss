@@ -10,7 +10,7 @@
   padding: 20px;
   color: #fff;
   background-color: transparent;
-  @include mediaQuery(desktop) {
+  @include mediaQuery(desktopFollow) {
     padding: 40px;
   }
 
@@ -36,6 +36,9 @@
       &:last-child {
         margin: 0 0 0 30px;
       }
+      @include mediaQuery(tablet){
+        font-size: 2.4rem;
+      }
       @include mediaQuery(desktop){
         font-size: 2.6rem;
         margin-right: 40px;
@@ -48,7 +51,7 @@
       }
 
       &:not(.bl_headerNav_item__both) {
-        @include mediaQuery(mobile) {
+        @include mediaQuery(mobileOnly) {
           display: none;
         }
       }
@@ -58,7 +61,7 @@
       position: relative;
       width: 25px;
       height: 15px;
-      @include mediaQuery(desktop) {
+      @include mediaQuery(desktopFollow) {
         width: 50px;
         height: 20px;
       }
@@ -126,6 +129,11 @@
       &:first-child {
         margin-top: 0;
       }
+      @include mediaQuery(tablet){
+        font-size: 7.4rem;
+        letter-spacing: .1em;
+        margin-top: 75px;
+      }
       @include mediaQuery(desktop){
         font-size: 13rem;
         letter-spacing: .1em;
@@ -137,6 +145,9 @@
       position: relative;
       top: 50px;
       transition: top .3s;
+      @include mediaQuery(tablet) {
+        top: 74px;
+      }
       @include mediaQuery(desktop) {
         top: 130px;
       }

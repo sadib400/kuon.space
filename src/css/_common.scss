@@ -1,4 +1,3 @@
-$bg: #061D3B;
 $red: #ff4d5a;
 
 @font-face {
@@ -27,13 +26,23 @@ $red: #ff4d5a;
 }
 
 @mixin mediaQuery($device: desktop) {
-  @if $device == mobile {
+  @if $device == mobileOnly {
     @media screen and (max-width:599px) {
+      @content;
+    }
+  }
+  @if $device == mobile {
+    @media screen and (max-width:959px) {
       @content;
     }
   }
   @if $device == tablet {
     @media screen and (min-width:600px) and (max-width:959px) {
+      @content;
+    }
+  }
+  @if $device == desktopFollow {
+    @media screen and (min-width:600px) {
       @content;
     }
   }
@@ -58,6 +67,10 @@ $red: #ff4d5a;
   @include mediaQuery($device: desktop) {
     display: none;
   }
+}
+
+html {
+  font-size: 62.5%;
 }
 
 body {
