@@ -43,7 +43,7 @@ gulp.task("bundle", function () {
     .pipe(gulp.dest("dist/asset/js"));
 });
 
-gulp.task("bild", function (done) {
+gulp.task("build", function (done) {
   gulp.watch('./src/css/*.scss', gulp.series('sass', 'mincss'));
   gulp.watch('./src/js/*.js', gulp.series('bundle'));
   done();
@@ -63,4 +63,4 @@ gulp.task("browserSync", function() {
 });
 
 // html, css, jsを生成
-gulp.task('default', gulp.series(gulp.parallel('bild', 'browserSync')));
+gulp.task('default', gulp.series(gulp.parallel('build', 'browserSync')));

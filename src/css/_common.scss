@@ -75,6 +75,7 @@ html {
 
 body {
   @include font_family();
+  // overflow: hidden;
 
   &.is_lock {
     overflow: hidden;
