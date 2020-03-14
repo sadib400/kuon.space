@@ -1,97 +1,111 @@
-import smoothscroll from 'smoothscroll-polyfill';
-smoothscroll.polyfill();
+import hamburgerMenu from './hamburgerMenu';
 import scrollEvent from './scrollEvent';
+hamburgerMenu();
+setTimeout(() => {
+  scrollEvent();
+}, 1000);
 
-window.addEventListener('load', () => {
-  document.getElementById('js_main').classList.add('is_loaded');
-});
 
-function sliceAll(ele) {
-  return [].slice.call(document.querySelectorAll(ele));
-}
-
-// ハンバーガーメニュー
-((d) => {
-  d.getElementById('js_hamburgerMenu').addEventListener('click', () => { //ハンバーガーボタンをクリックした時の処理
-    d.getElementById('js_hamburgerMenu').classList.toggle('is_close');
-    d.querySelector('.js_menuOpen').classList.toggle('is_open');
-    d.body.classList.toggle('is_lock');
-    sliceAll('.js_link').forEach((val) => {
-      setTimeout(() => {
-        val.classList.toggle('is_open');
-      },400);
-    });
-  });
-  sliceAll('.js_link').forEach((val,i,ary) => { //項目をクリックした時の処理
-    val.addEventListener('click', () => {
-      d.getElementById('js_hamburgerMenu').classList.toggle('is_close');
-      d.querySelector('.js_menuOpen').classList.toggle('is_open');
-      d.body.classList.toggle('is_lock');
-      sliceAll('.js_link').forEach((val) => {
-        val.classList.remove('is_open');
-      });
-    });
-  });
-})(document);
-
-// カレントナビ
 ((d,w) => {
-
-  //固定配置のページネーション
-  const dot = d.querySelectorAll('.js_dot');
-  const active = d.getElementsByClassName('is_active');
-  
-  //アクティブクラス付け替え
-  for (let i = 0; i < dot.length; i++) {
-    dot[i].addEventListener('click', (e) => {
-      active[0].classList.remove('is_active');
-      e.currentTarget.classList.add('is_active');
-    });
+  const sliceAll = (ele) => {
+    return [].slice.call(d.querySelectorAll(ele));
   }
 
-  
-  const targetNav = sliceAll('.js_dot');
-  const targetEle = d.querySelector('.js_targetElements');
-  const slide = sliceAll('.js_slide');
-  let slideTop = [];
+  w.addEventListener('load', () => {
+    d.getElementById('js_main').classList.add('is_loaded');
+    setTimeout(() => {
+      d.getElementById('top').classList.add('is_show');
+    }, 600);
 
-  slide.forEach(val => {
-    const rect = val.getBoundingClientRect();
-    const rectTop = rect.top;
-    const offSetTop = rectTop + w.pageYOffset;
-    slideTop.push(offSetTop);
-  });
+    // トップページ ページャー&アニメーション
+    const dot = sliceAll('.js_dot');
+    const active = d.getElementsByClassName('is_active');
+    const show = d.getElementsByClassName('is_show');
+    const slideIn = sliceAll('.js_slideIn');
+    
+    dot.forEach((val) => {
+      val.addEventListener('click',(e) => {
+        active[0].classList.remove('is_active'); //ナビアクティブクラス付け替え
+        e.currentTarget.classList.add('is_active');
 
-  targetNav.forEach((val,index) => {
-    val.addEventListener('click', () => {
-      if (index === 1) {
-        targetEle.style.top = -slideTop[index] + 'px';
-      } else if (index === 2) {
-        targetEle.style.top = -slideTop[index] + 'px';
-      } else if (index === 3) {
-        targetEle.style.top = -slideTop[index] + 'px';
-      } else {
-        targetEle.style.top = '0';
-      }
+        const pagerIndex = dot.indexOf(val); //ページャーに合わせてスライドにaddClass
+        show[0].classList.remove('is_show');
+        setTimeout(() => {
+          slide[pagerIndex].classList.add('is_show');
+        }, 1000);
+      });
     });
-  });
 
+    // is_showの付いているスライドにアニメーションクラス追加
+    const slideAnime = () => {
+      setTimeout(() => {
+        const isShow = d.querySelector('.is_show');
+        const isAnime = [].slice.call(isShow.querySelectorAll('.js_slideIn'));
+        
+        const windowH = w.innerHeight;
+        const posY = isShow.getBoundingClientRect().y;
+        const clientHeight = isShow.getBoundingClientRect().height;
 
-  w.addEventListener('resize', () => { //再び要素トップに配置
+        console.log(clientHeight)
+        
+          if (posY + clientHeight > 0 && posY < windowH) {
+            isAnime.forEach((val) => {
+              val.classList.add('is_active');
+            });
+          } else {
+            isAnime.forEach((val) => {
+              val.classList.remove('is_active');
+            });
+          }
+
+        w.addEventListener('scroll', () => {
+          isAnime.forEach((val) => {
+            val.classList.remove('is_active');
+          });
+        })
+      }, 1000);
+    };
+    slideAnime();
+
+    
+    const targetNav = sliceAll('.js_dot');
+    const targetEle = d.getElementById('js_content');
     const slide = sliceAll('.js_slide');
-    const slideTop = [];
-    slide.forEach(val => {
+    let slideTop = [];
+
+    slide.forEach((val) => {
       const rect = val.getBoundingClientRect();
       const rectTop = rect.top;
       const offSetTop = rectTop + w.pageYOffset;
       slideTop.push(offSetTop);
     });
-    w.scroll({
-      top: slideTop,
-      behavior: 'smooth'
+
+    targetNav.forEach((val, index) => {
+      val.addEventListener('click', () => {
+        if (index === 1) {
+          targetEle.style.top = -slideTop[index] + 'px';
+        } else if (index === 2) {
+          targetEle.style.top = -slideTop[index] + 'px';
+        } else if (index === 3) {
+          targetEle.style.top = -slideTop[index] + 'px';
+        } else {
+          targetEle.style.top = '0';
+        }
+      });
+    });
+
+
+    w.addEventListener('resize', () => { //再び要素トップに配置
+      const slide = sliceAll('.js_slide');
+      slideTop = [];
+      slide.forEach((val) => {
+        const rect = val.getBoundingClientRect();
+        const rectTop = rect.top;
+        const offSetTop = rectTop + w.pageYOffset;
+        slideTop.push(offSetTop);
+
+        console.log(slideTop);
+      });
     });
   });
-})(document,window);
-
-// フルスクリーンスクロール関連
-scrollEvent();
+})(document, window);

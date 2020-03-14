@@ -1,31 +1,35 @@
 export default function () {
-  function sliceAll(ele) {
-    return [].slice.call(document.querySelectorAll(ele));
-  }
-
-
 
   ((d,w) => {
     //スクロール関連の要素
-    const mainContainer = d.getElementById('js_main');
-    const slideContent = d.getElementById('js_content');
-    const slide = sliceAll('.js_slide');
-  
-    //フルスクリーンスクロール
+    const slideWrapper = d.getElementById('js_content');
+    const slide = document.querySelectorAll('.js_slide');
     let slideNum = 0; //スライド番号用
     let flag = false; //スライドのフラグ用
-    let defaultPos = w.pageYOffset; //最初のスクロール値 比較用
+    let defaultPos = w.pageYOffset; //最初のスクロール値
 
-    console.log(defaultPos,slide.length);
-    
+    let slideTop = [];
+    const slideAry = [].slice.call(slide);
+
+    slideAry.forEach((val) => {
+      const rect = val.getBoundingClientRect();
+      const rectTop = rect.top;
+      const offSetTop = rectTop + w.pageYOffset;
+      slideTop.push(offSetTop);
+    });
+
+    console.log(slideTop);
+  
     w.addEventListener('scroll', (e) => {
       e.preventDefault();
-      let scrollPos = w.pageYOffset;
-
-      console.log("scroll");
+      let scrollPos = w.pageYOffset || d.documentElement.scrollTop;
+      
 
 
       if (!flag) {
+
+        flag = true;
+        
         if (defaultPos < scrollPos) { //下方向
           console.log("DOWN")
 
@@ -46,24 +50,37 @@ export default function () {
         }
       
         if (slideNum === 1) {
-          slideContent.style.top = '-100vh';
+          slideWrapper.style.top = -slideTop[slideNum] + 'px';
+          d.body.style.overflow = 'hidden';
         } else if (slideNum === 2) {
-          slideContent.style.top = '-200vh';
+          slideWrapper.style.top = -slideTop[slideNum] + 'px';
+          d.body.style.overflow = 'hidden';
         } else if (slideNum === 3) {
-          slideContent.style.top = '-300vh';
+          slideWrapper.style.top = -slideTop[slideNum] + 'px';
+          d.body.style.overflow = 'hidden';
         } else {
-          slideContent.style.top = '0';
+          slideWrapper.style.top = '0';
+          d.body.style.overflow = 'hidden';
         }
 
-        flag = true;
+        if (slideNum === slide.length - 1) {
+          if (defaultPos < scrollPos) { //下方向
+            console.log("LAST SLIDE")
+            
+          }
+        }
       }
-      console.log(defaultPos, scrollPos);
       
       defaultPos = scrollPos; //比較用の値を上書き
 
-      setTimeout(() => {
-        flag = false;
-      }, 1000);
+      console.log("スクロール量:",defaultPos,"スライドNo: ",slideNum);
+
+      if (flag) {
+        setTimeout(() => {
+          flag = false;
+          d.body.style.overflow = '';
+        }, 2000);
+      }
     });
   })(document,window);
 };

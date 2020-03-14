@@ -1,9 +1,13 @@
 module.exports = {
   watch: true,
   mode: "production",
-  entry: "./src/js/index.js",
+  entry: {
+    about: "./src/js/about.js",
+    index: "./src/js/index.js"
+  },
   output: {
-    filename: "main.js"
+    filename: "[name].js",
+    path: __dirname + '/dist/asset/js'
   },
   module: {
     rules: [
