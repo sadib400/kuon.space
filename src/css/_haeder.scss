@@ -13,6 +13,11 @@
   @include mediaQuery(desktopFollow) {
     padding: 40px;
   }
+  &:not(.is_top) {
+    .bl_headerNav_item:nth-child(2) {
+      display: block;
+    }
+  }
 
   /* =====================
       bl_headerNav
@@ -48,6 +53,11 @@
         &:not(:last-child) {
           opacity: .6;
         }
+      }
+
+      
+      &:nth-child(2) {
+        display: none;
       }
 
       &:not(.bl_headerNav_item__both) {

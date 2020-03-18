@@ -25,5 +25,21 @@ export default function () {
         });
       });
     });
+
+
+    // ヘッダーのインスタグラムアイコン表示
+    const isTop = () => {
+      if (d.querySelector('main').classList.contains('ly_main')) {
+        d.getElementById('js_header').classList.add('is_top');
+      } else {
+        d.getElementById('js_header').classList.remove('is_top');
+      }
+    };
+    d.addEventListener('DOMContentLoaded', () => {
+      isTop();
+    })
+    d.addEventListener('click', () => {
+      isTop();
+    });
   })(document,window);
 };

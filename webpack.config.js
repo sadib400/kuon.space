@@ -2,6 +2,7 @@ module.exports = {
   watch: true,
   mode: "production",
   entry: {
+    top: "./src/js/top.js",
     about: "./src/js/about.js",
     index: "./src/js/index.js"
   },
