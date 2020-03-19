@@ -23,6 +23,103 @@
   &.is_loaded:before {
     height: 0;
   }
+
+
+  /* =====================
+      el_title
+  ===================== */
+  .el_title {
+    position: relative;
+    font-size: 2.8rem;
+    font-weight: normal;
+    letter-spacing: .2em;
+    @include font_family(medium);
+    @include mediaQuery(mobile) {
+      text-align: center;
+    }
+    @include mediaQuery(tablet) {
+      font-size: 4rem;
+    }
+    @include mediaQuery(desktop) {
+      font-size: 4rem;
+      padding-left: 15%;
+    }
+
+    .mod-titleNumber {
+      position: absolute;
+      top: 0;
+      left: 0;
+      color: $red;
+      letter-spacing: normal;
+      @include font_family(primary);
+      padding: 0 0 0 34px;
+      @include mediaQuery(tablet) {
+        padding: 0 0 0 70px;
+      }
+      @include mediaQuery(desktop) {
+        padding: 0 0 0 60px;
+      }
+      &:before {
+        content: '';
+        position: absolute;
+        top: 40%;
+        left: 0;
+        transform: translateY(-50%);
+        width: 25px;
+        border-top: 2px solid $black;
+        @include mediaQuery(tablet) {
+          width: 50px;
+        }
+        @include mediaQuery(desktop) {
+          width: 50px;
+        }
+      }
+    }
+  }
+  /* end el_title
+  ===================== */
+
+
+  /* =====================
+      el_btn
+  ===================== */
+  .el_btn_wrapper {
+    margin-top: 1rem;
+    @include mediaQuery(mobileOnly) {
+      text-align: center;
+    }
+    @include mediaQuery(tablet) {
+      margin-top: 1.5rem;
+    }
+    @include mediaQuery(desktop) {
+      margin-top: 4rem;
+    }
+  }
+
+  .el_btn {
+    display: inline-block;
+    font-size: 1.6rem;
+    letter-spacing: .1em;
+    border-radius: 50px;
+    padding: 12px 28px;
+    transition: transform .3s ease;
+    @include mediaQuery(tablet) {
+      font-size: 1.8rem;
+    }
+    @include mediaQuery(desktop) {
+      font-size: 2rem;
+      padding: 15px 40px;
+      &:hover {
+        transform: translateY(-5px);
+      }
+    }
+
+    &__color {
+      background-color: $red;
+    }
+  }
+  /* end el_btn
+  ===================== */
 }
 /* end ly_about
 ===================== */
@@ -767,101 +864,4 @@
   }
 }
 /* end bl_footer
-===================== */
-
-
-/* =====================
-    el_title
-===================== */
-.el_title {
-  position: relative;
-  font-size: 2.8rem;
-  font-weight: normal;
-  letter-spacing: .2em;
-  @include font_family(medium);
-  @include mediaQuery(mobile) {
-    text-align: center;
-  }
-  @include mediaQuery(tablet) {
-    font-size: 4rem;
-  }
-  @include mediaQuery(desktop) {
-    font-size: 4rem;
-    padding-left: 15%;
-  }
-
-  .mod-titleNumber {
-    position: absolute;
-    top: 0;
-    left: 0;
-    color: $red;
-    letter-spacing: normal;
-    @include font_family(primary);
-    padding: 0 0 0 34px;
-    @include mediaQuery(tablet) {
-      padding: 0 0 0 70px;
-    }
-    @include mediaQuery(desktop) {
-      padding: 0 0 0 60px;
-    }
-    &:before {
-      content: '';
-      position: absolute;
-      top: 40%;
-      left: 0;
-      transform: translateY(-50%);
-      width: 25px;
-      border-top: 2px solid $black;
-      @include mediaQuery(tablet) {
-        width: 50px;
-      }
-      @include mediaQuery(desktop) {
-        width: 50px;
-      }
-    }
-  }
-}
-/* end el_title
-===================== */
-
-
-/* =====================
-    el_btn
-===================== */
-.el_btn_wrapper {
-  margin-top: 1rem;
-  @include mediaQuery(mobileOnly) {
-    text-align: center;
-  }
-  @include mediaQuery(tablet) {
-    margin-top: 1.5rem;
-  }
-  @include mediaQuery(desktop) {
-    margin-top: 4rem;
-  }
-}
-
-.el_btn {
-  display: inline-block;
-  font-size: 1.6rem;
-  letter-spacing: .1em;
-  border-radius: 50px;
-  padding: 12px 28px;
-  transition: transform .3s ease;
-  @include mediaQuery(tablet) {
-    font-size: 1.8rem;
-  }
-  @include mediaQuery(desktop) {
-    font-size: 2rem;
-    padding: 15px 40px;
-    &:hover {
-      transform: translateY(-5px);
-    }
-  }
-
-  &__color {
-    background-color: $red;
-  }
-}
-/* end el_btn
 ===================== */

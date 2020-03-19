@@ -53,6 +53,9 @@ export default function () {
       // 実行
       w.addEventListener('load', () => {
         d.getElementById('js_about').classList.add('is_loaded');
+        setTimeout(() => {
+          d.body.classList.remove('is_lock'); // 黒い幕が終わったら
+        }, 600);
         d.getElementById('js_keyVisualSize').classList.add('is_sizeUp');
         headerTextColor();
 

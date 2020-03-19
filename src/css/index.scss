@@ -9,6 +9,7 @@
 ===================== */
 .ly_main {
   overflow: hidden;
+  background-color: $black;
   &:before {
     content: '';
     position: fixed;
@@ -23,6 +24,56 @@
   &.is_loaded:before {
     height: 0;
   }
+
+
+  /* =====================
+      el_btn
+  ===================== */
+  .el_btn_wrapper {
+    overflow: hidden;
+    margin-top: 10px;
+    transition: transform .3s ease;
+    &:hover {
+      transform: translateY(-5px);
+    }
+    @include mediaQuery(mobileOnly) {
+      text-align: center;
+    }
+    @include mediaQuery(tablet) {
+      margin-top: 15px;
+    }
+    @include mediaQuery(desktop) {
+      margin-top: 40px;
+    }
+  }
+  
+  .el_btn {
+    position: relative;
+    left: -100%;
+    display: inline-block;
+    font-size: 1.6rem;
+    letter-spacing: .1em;
+    border-radius: 50px;
+    padding: 12px 28px;
+    transition: left .6s .2s;
+    @include mediaQuery(tablet) {
+      font-size: 1.8rem;
+    }
+    @include mediaQuery(desktop) {
+      font-size: 2rem;
+      padding: 15px 40px;
+    }
+  
+    &__color {
+      background-color: $red;
+    }
+  
+    &.is_active {
+      left: 0;
+    }
+  }
+  /* end el_btn
+  ===================== */
 }
 /* end ly_main
 ===================== */
@@ -94,7 +145,6 @@
   @media screen and (min-width: 1251px) {
     top: 42%;
     left: 40px;
-    height: 58%;
   }
 
   &_dots {
@@ -158,16 +208,19 @@
 ===================== */
 .bl_slide_content {
   overflow: hidden;
+  touch-action: none;
   position: relative;
   top: 0;
-  right: 0;
-  bottom: 0;
   left: 0;
+  width: 100%;
+  height: 100%;
   z-index: 1;
-  transition: top .8s ease-in;
+  transform: translateY(0);
+  transition: transform .8s ease-in-out;
 }
 
 .bl_slide {
+  overflow: hidden;
   position: relative;
   top: 0;
   left: 0;
@@ -310,16 +363,47 @@
   }
 
   &_image {
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
     display: block;
     width: 100%;
     height: 100%;
-    cursor: pointer;
-
+    transform: scale(0.8);
+    transition: transform .6s ease-in-out;
     > img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       font-family: 'object-fit: cover;';
+    }
+
+    &:before,
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 1;
+      transform: translate(0,0);
+      transition: transform .5s ease-in-out;
+    }
+    &:before {
+      background-color: $red;
+      transition-delay: .1s;
+    }
+    &:after {
+      background-color: $black;
+    }
+
+    &.is_active {
+      transform: scale(1);
+      &:before,
+      &:after {
+        transform: translate(100%,0);
+      }
     }
   }
 
@@ -328,6 +412,9 @@
     position: absolute;
     right: -9%;
     bottom: 10%;
+    @include mediaQuery(mobile) {
+      display: none;
+    }
     @include mediaQuery(tablet) {
       right: -6%;
     }
@@ -336,7 +423,7 @@
   &_number {
     position: relative;
     top: 160px;
-    transition: top .3s;
+    transition: top .6s .3s;
     font-size: 16rem;
     text-shadow: 0 10px 10px rgba(0,0,0,.3);
     @include font_family(medium);
@@ -615,55 +702,29 @@
     }
 
     &_link {
+      overflow: hidden;
+      position: relative;
+      left: -100%;
       display: inline-block;
       margin-right: 20px;
-      transition: opacity .3s ease;
+      transition: opacity .3s ease,left .6s .1s;
       &:hover {
         opacity: .6;
+      }
+
+      &__delay {
+        transition: opacity .3s ease,left .6s .2s;
+      }
+
+      &__delay2 {
+        transition: opacity .3s ease,left .6s .3s;
+      }
+
+      &.is_active {
+        left: 0;
       }
     }
   }
 }
 /* end bl_slide
-===================== */
-
-/* =====================
-    el_btn
-===================== */
-.el_btn_wrapper {
-  margin-top: 10px;
-  @include mediaQuery(mobileOnly) {
-    text-align: center;
-  }
-  @include mediaQuery(tablet) {
-    margin-top: 15px;
-  }
-  @include mediaQuery(desktop) {
-    margin-top: 40px;
-  }
-}
-
-.el_btn {
-  display: inline-block;
-  font-size: 1.6rem;
-  letter-spacing: .1em;
-  border-radius: 50px;
-  padding: 12px 28px;
-  transition: transform .3s ease;
-  @include mediaQuery(tablet) {
-    font-size: 1.8rem;
-  }
-  @include mediaQuery(desktop) {
-    font-size: 2rem;
-    padding: 15px 40px;
-    &:hover {
-      transform: translateY(-5px);
-    }
-  }
-
-  &__color {
-    background-color: $red;
-  }
-}
-/* end el_btn
 ===================== */

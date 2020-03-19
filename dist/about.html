@@ -17,7 +17,7 @@
   <link href="./asset/css/about.css" rel="stylesheet">
   <script src="https://kit.fontawesome.com/44f81fa005.js" crossorigin="anonymous"></script>
 </head>
-<body data-barba='wrapper'>
+<body id="barba-wrapper">
   <!-- ヘッダー -->
   <header id="js_header" class="ly_header">
     <ul class="bl_headerNav">
@@ -78,7 +78,7 @@
   <!-- END ヘッダー -->
 
   <!-- メインコンテンツ -->
-  <main id="js_about" class="ly_about" data-barba='container' data-barba-namespace="about">
+  <main id="js_about" class="ly_about barba-container" data-namespace="about">
 
     <section id="about" class="bl_about js_slide">
       <div class="bl_about_textBox">
@@ -249,7 +249,6 @@
       </footer>
   </main>
   <!-- END コンテンツ -->
-  <script crossorigin="anonymous" src="https://polyfill.io/v3/polyfill.min.js?features=default%2CArray.prototype.find%2CIntersectionObserver"></script>
   <script src="./asset/js/index.js"></script>
 </body>
 </html>
