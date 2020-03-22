@@ -139,19 +139,19 @@
       overflow: hidden;
       font-size: 5rem;
       text-shadow: 0 10px 10px rgba(0,0,0,.3);
-      margin-top: 30px;
+      margin-top: 3rem;
       &:first-child {
         margin-top: 0;
       }
       @include mediaQuery(tablet){
         font-size: 7.4rem;
         letter-spacing: .1em;
-        margin-top: 75px;
+        margin-top: 7.5rem;
       }
       @include mediaQuery(desktop){
         font-size: 13rem;
         letter-spacing: .1em;
-        margin-top: 80px;
+        margin-top: 8rem;
       }
     }
 

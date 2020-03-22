@@ -26,21 +26,21 @@ gulp.task("sass", function () {
     .pipe(sass())
     .pipe(postcss(plugins))
     .pipe(autoprefixer())
-    .pipe(gulp.dest('./dist/asset/css'));
+    .pipe(gulp.dest('./asset/css'));
 });
 
 // .min.cssを生成する
 gulp.task("mincss", function () {
-  return gulp.src('./dist/asset/css/index.css')//上のタスクで出力したcssファイル
+  return gulp.src('./asset/css/index.css')//上のタスクで出力したcssファイル
           .pipe(cleanCSS()) // cssを圧縮
-          .pipe(gulp.dest('./dist/asset/css'));
+          .pipe(gulp.dest('./asset/css'));
 });
 
 
 // js
 gulp.task("bundle", function () {
   return webpackStream(webpackConfig, webpack)
-    .pipe(gulp.dest("dist/asset/js"));
+    .pipe(gulp.dest("asset/js"));
 });
 
 gulp.task("build", function (done) {
@@ -53,10 +53,10 @@ gulp.task("build", function (done) {
 gulp.task("browserSync", function() {
   browserSync({
     server: {
-      baseDir: "./dist/"
+      baseDir: "./"
     }
   });
-  gulp.watch("./dist/**", function(done) {
+  gulp.watch("./**", function(done) {
     browserSync.reload();
     done();
   });

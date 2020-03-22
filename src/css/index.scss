@@ -31,6 +31,7 @@
   ===================== */
   .el_btn_wrapper {
     overflow: hidden;
+    display: inline-block;
     margin-top: 10px;
     transition: transform .3s ease;
     &:hover {
@@ -438,25 +439,23 @@
   }
 
   &_scrollDown {
-    position: fixed;
-    bottom: 35px;
+    position: absolute;
+    bottom: -100%;
     z-index: 1;
     writing-mode: vertical-lr;
     font-size: 1.2rem;
     letter-spacing: 0.3em;
     padding-bottom: 10px;
-    transition: bottom .4s;
+    transition: bottom .6s ease-in-out;
     @include mediaQuery(mobileOnly) {
       right: 20px;
     }
     @include mediaQuery(tablet) {
-      bottom: 60px;
       left: 40px;
       font-size: 1.4em;
       padding-bottom: 20px;
     }
     @include mediaQuery(desktop) {
-      bottom: 70px;
       left: 40px;
       font-size: 1.6rem;
       padding-bottom: 20px;
@@ -477,9 +476,16 @@
         height: 70px;
       }
     }
-  }
-  &:not(.is_show) .bl_slide_scrollDown {
-    bottom: -100%;
+
+    &.is_active {
+      bottom: 35px;
+      @include mediaQuery(tablet) {
+        bottom: 60px;
+      }
+      @include mediaQuery(desktop) {
+        bottom: 70px;
+      }
+    }
   }
 
   &_moon {
