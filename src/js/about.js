@@ -1,6 +1,6 @@
 export default function () {
-  if (document.getElementById('js_about')) {
-    ((d, w) => {
+  ((d, w) => {
+    if (d.getElementById('js_about')) {
       const queryAll = (ele) => {
         return [].slice.call(d.querySelectorAll(ele));
       }
@@ -58,12 +58,12 @@ export default function () {
         }, 600);
         d.getElementById('js_keyVisualSize').classList.add('is_sizeUp');
         headerTextColor();
-
+  
         w.addEventListener('scroll', () => {
           headerTextColor();
           progress();
         });
       });
-    })(document, window);
-  }
+    }
+  })(document, window);
 }

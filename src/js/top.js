@@ -1,6 +1,6 @@
 export default function () {
-  if (document.getElementById('js_top')) {
-    ((d, w) => {
+  ((d, w) => {
+    if (d.getElementById('js_top')) {
         
       const queryAll = (ele) => {
         return [].slice.call(d.querySelectorAll(ele));
@@ -61,6 +61,7 @@ export default function () {
           
           if (!scrollFlag) {
             scrollFlag = true;
+
             if (currentPosition <= scrollPosition) {// 下方向スクロール
               if (slideNum >= slide.length - 1) {
                 slideNum = slide.length - 1; //スライド総数を超えないように代入
@@ -85,15 +86,14 @@ export default function () {
             }, 2000);
           }
           currentPosition = scrollPosition; //比較値を現在のoffsetTopに上書き
-
+          
           w.addEventListener('resize', () => {
             windowHeight = w.innerHeight;
             slideWrapper.style.transform = 'translateY(' + -windowHeight * slideNum + 'px)';
           });
         }
   
-
-        /** IntersectionObserver実行 */
+        /** フルスクリーンスクロール実行 */
         const intersectionItem = (entries) => {
           [].slice.call(entries).forEach(val => {
             if (val.isIntersecting) {
@@ -118,6 +118,7 @@ export default function () {
           observer.observe(val);
         });
       }
+
 
       /** 可視範囲のアクティブ処理 */
       const activeProcessing = () => {
@@ -157,9 +158,8 @@ export default function () {
           }
           d.querySelector(`a[href='#${ele.id}']`).parentNode.classList.add("is_active");//現在見えているセクションに合わせてナビをアクティブにする
         };
-  
 
-        /** IntersectionObserver実行 */
+        /** カレントナビとフェードイン実行 */
         const intersectionItem = (entries) => {
           [].slice.call(entries).forEach(val => {
             if (val.isIntersecting) {
@@ -191,6 +191,6 @@ export default function () {
         fullScreenScroll();
         activeProcessing();
       });
-    })(document, window);
-  }
+    }
+  })(document, window);
 }
