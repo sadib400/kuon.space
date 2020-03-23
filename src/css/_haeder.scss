@@ -138,7 +138,7 @@
     &_item {
       overflow: hidden;
       font-size: 5rem;
-      text-shadow: 0 10px 10px rgba(0,0,0,.3);
+      text-shadow: 0 10px 20px rgba(0,0,0,.3);
       margin-top: 3rem;
       &:first-child {
         margin-top: 0;
@@ -149,7 +149,7 @@
         margin-top: 7.5rem;
       }
       @include mediaQuery(desktop){
-        font-size: 13rem;
+        font-size: 12rem;
         letter-spacing: .1em;
         margin-top: 8rem;
       }
@@ -164,19 +164,19 @@
       }
       @include mediaQuery(desktop) {
         top: 130px;
-      }
-      &:hover:after {
-        width: 100%;
-      }
-      &:after {
-        content: '';
-        position: absolute;
-        top: 40%;
-        left: 0;
-        width: 0;
-        height: 10px;
-        background-color: #fff;
-        transition: width .3s linear;
+        &:hover:after {
+          width: 100%;
+        }
+        &:after {
+          content: '';
+          position: absolute;
+          top: 40%;
+          left: 0;
+          width: 0;
+          height: 10px;
+          background-color: #fff;
+          transition: width .3s linear;
+        }
       }
 
       &.is_open {

@@ -48,6 +48,25 @@ export default function () {
         let windowHeight = w.innerHeight;
         const slideWrapper = d.getElementById('js_content');
         const slide = document.querySelectorAll('.js_slide');
+        
+        queryAll('.js_slide').forEach((val,index) => { //スライドの高さと位置を設定
+          let windowHeight = w.innerHeight;
+          val.style.height = windowHeight + `px`;
+          val.style.top = windowHeight * index + `px`;
+          let allHeight = windowHeight * index + windowHeight;
+          d.body.style.height = allHeight + `px`;
+          slideWrapper.style.height = allHeight + `px`;
+        });
+        w.addEventListener('resize', () => {
+          windowHeight = w.innerHeight;
+          queryAll('.js_slide').forEach((val,index) => {
+            val.style.height = windowHeight + `px`;
+            val.style.top = windowHeight * index + `px`;
+            let allHeight = windowHeight * index + windowHeight;
+            d.body.style.height = allHeight + `px`;
+            slideWrapper.style.height = allHeight + `px`;
+          });
+        });
 
         /** スクロール処理 */
         const scrollProcessing = (event) => {
@@ -74,6 +93,9 @@ export default function () {
                 slideNum = 0;
                 currentPosition = 0;
                 scrollPosition = 0;
+              } else if (slideNum === slide.length - 1) {
+                slideNum--;
+                slideWrapper.style.transform = 'translateY(' + -windowHeight * slideNum + 'px)';
               } else {
                 slideNum--;
                 slideWrapper.style.transform = 'translateY(' + -windowHeight * slideNum + 'px)';

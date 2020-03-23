@@ -784,11 +784,24 @@
     margin-top: 10px;
     border-radius: 10px;
     box-shadow: 0 3px 12px 0px #ccc;
+    transition: width 1.5s ease;
     @include mediaQuery(tablet) {
       height: 14px;
     }
     @include mediaQuery(desktop) {
       height: 14px;
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 10%;
+      height: 100%;
+      border-radius: 10px;
+      background-image: linear-gradient(to right, #072142, #8c2b7a 42%, #ff4d5a);
+      transition: width 1.5s ease;
     }
   
     &.is_active {
@@ -808,17 +821,6 @@
         width: 90%;
       }
     }
-  }
-  .bl_skill_progressBar:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 10%;
-    height: 100%;
-    border-radius: 10px;
-    background-image: linear-gradient(to right, #072142, #8c2b7a 42%, #ff4d5a);
-    transition: width 1.5s ease;
   }
 }
 /* end bl_skill
