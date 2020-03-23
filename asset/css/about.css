@@ -297,7 +297,7 @@ body.is_lock {
 .ly_header .bl_hamburgerMenu_item {
       overflow: hidden;
       font-size: 5rem;
-      text-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
+      text-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
       margin-top: 3rem; }
 
 .ly_header .bl_hamburgerMenu_item:first-child {
@@ -311,7 +311,7 @@ body.is_lock {
 
 @media screen and (min-width: 801px) {
         .ly_header .bl_hamburgerMenu_item {
-          font-size: 13rem;
+          font-size: 12rem;
           letter-spacing: .1em;
           margin-top: 8rem; } }
 
@@ -327,21 +327,19 @@ body.is_lock {
 
 @media screen and (min-width: 801px) {
         .ly_header .bl_hamburgerMenu_link {
-          top: 130px; } }
-
-.ly_header .bl_hamburgerMenu_link:hover:after {
-        width: 100%; }
-
-.ly_header .bl_hamburgerMenu_link:after {
-        content: '';
-        position: absolute;
-        top: 40%;
-        left: 0;
-        width: 0;
-        height: 10px;
-        background-color: #fff;
-        -webkit-transition: width .3s linear;
-        transition: width .3s linear; }
+          top: 130px; }
+          .ly_header .bl_hamburgerMenu_link:hover:after {
+            width: 100%; }
+          .ly_header .bl_hamburgerMenu_link:after {
+            content: '';
+            position: absolute;
+            top: 40%;
+            left: 0;
+            width: 0;
+            height: 10px;
+            background-color: #fff;
+            -webkit-transition: width .3s linear;
+            transition: width .3s linear; } }
 
 .ly_header .bl_hamburgerMenu_link.is_open {
         top: 0; }
@@ -1225,7 +1223,9 @@ body.is_lock {
   margin-top: 10px;
   border-radius: 10px;
   -webkit-box-shadow: 0 3px 12px 0px #ccc;
-          box-shadow: 0 3px 12px 0px #ccc; }
+          box-shadow: 0 3px 12px 0px #ccc;
+  -webkit-transition: width 1.5s ease;
+  transition: width 1.5s ease; }
 
 @media screen and (min-width: 421px) and (max-width: 800px) {
     .bl_skill .bl_skill_progressBar {
@@ -1234,6 +1234,19 @@ body.is_lock {
 @media screen and (min-width: 801px) {
     .bl_skill .bl_skill_progressBar {
       height: 14px; } }
+
+.bl_skill .bl_skill_progressBar:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 10%;
+    height: 100%;
+    border-radius: 10px;
+    background-image: -webkit-gradient(linear, left top, right top, from(#072142), color-stop(42%, #8c2b7a), to(#ff4d5a));
+    background-image: linear-gradient(to right, #072142, #8c2b7a 42%, #ff4d5a);
+    -webkit-transition: width 1.5s ease;
+    transition: width 1.5s ease; }
 
 .bl_skill .bl_skill_progressBar.is_active.is_50:after {
     width: 50%; }
@@ -1249,19 +1262,6 @@ body.is_lock {
 
 .bl_skill .bl_skill_progressBar.is_active.is_90:after {
     width: 90%; }
-
-.bl_skill .bl_skill_progressBar:after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 10%;
-  height: 100%;
-  border-radius: 10px;
-  background-image: -webkit-gradient(linear, left top, right top, from(#072142), color-stop(42%, #8c2b7a), to(#ff4d5a));
-  background-image: linear-gradient(to right, #072142, #8c2b7a 42%, #ff4d5a);
-  -webkit-transition: width 1.5s ease;
-  transition: width 1.5s ease; }
 
 /* end bl_skill
 ===================== */
