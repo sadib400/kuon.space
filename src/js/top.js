@@ -1,4 +1,5 @@
 export default function () {
+
   ((d, w) => {
     if (d.getElementById('js_top')) {
         
@@ -41,21 +42,23 @@ export default function () {
       
       /** フルスクリーンスクロール */
       const fullScreenScroll = () => {
-        let slideNum = 0 //スライド番号
-        let scrollFlag = false; //スクロールフラグ
-        let currentPosition = 0; //現在位置
-        let scrollPosition = 0; //スクロール量
+        let slideNum = 0; //スライド番号
+        let scrollFlag = false; //スライドのスクロールフラグ
+        let currentPosition = 0; //スライドの現在位置
+        let scrollPosition = 0; //スライドのスクロール量
         let windowHeight = w.innerHeight;
-        const slideWrapper = d.getElementById('js_content');
-        const slide = document.querySelectorAll('.js_slide');
-        
-        queryAll('.js_slide').forEach((val,index) => { //スライドの高さと位置を設定
+        const slideWrapper = d.getElementById('js_content'); //各スライドを囲む要素
+        const slide = document.querySelectorAll('.js_slide'); //スライド要素
+
+        //スライドの高さと位置を設定
+        queryAll('.js_slide').forEach((val,index) => {
           let windowHeight = w.innerHeight;
           val.style.height = windowHeight + `px`;
           val.style.top = windowHeight * index + `px`;
           let allHeight = windowHeight * index + windowHeight;
           d.body.style.height = allHeight + `px`;
           slideWrapper.style.height = allHeight + `px`;
+          slideWrapper.style.top = -windowHeight * slideNum + 'px';
         });
         w.addEventListener('resize', () => {
           windowHeight = w.innerHeight;
@@ -65,60 +68,56 @@ export default function () {
             let allHeight = windowHeight * index + windowHeight;
             d.body.style.height = allHeight + `px`;
             slideWrapper.style.height = allHeight + `px`;
+            slideWrapper.style.top = -windowHeight * slideNum + 'px';
           });
         });
 
-        /** スクロール処理 */
-        const scrollProcessing = (event) => {
-          d.body.classList.add('is_lock'); //スクロール制限
-          event.preventDefault();
-          if (navigator.userAgent.match(/iPhone|Android.+Mobile/)) { //モバイルとデスクトップでスクロール値取得を分ける
-            scrollPosition = event.changedTouches[0].pageY;
-          } else {
-            scrollPosition = w.pageYOffset || d.documentElement.scrollTop;
-          }
-          
-          if (!scrollFlag) {
-            scrollFlag = true;
-
-            if (currentPosition <= scrollPosition) {// 下方向スクロール
-              if (slideNum >= slide.length - 1) {
-                slideNum = slide.length - 1; //スライド総数を超えないように代入
-              } else {
-                slideNum++;
-                slideWrapper.style.transform = 'translateY(' + -windowHeight * slideNum + 'px)';
-              }
-            } else { //上方向スクロール
-              if (slideNum <= 0) { //スライドを0より小さくさせない
-                slideNum = 0;
-                currentPosition = 0;
-                scrollPosition = 0;
-              } else if (slideNum === slide.length - 1) {
-                slideNum--;
-                slideWrapper.style.transform = 'translateY(' + -windowHeight * slideNum + 'px)';
-              } else {
-                slideNum--;
-                slideWrapper.style.transform = 'translateY(' + -windowHeight * slideNum + 'px)';
-              }
-            }
-            
-            setTimeout(() => { //スクロール禁止解除
-              scrollFlag = false;
-              d.body.classList.remove('is_lock');
-            }, 2000);
-          }
-          currentPosition = scrollPosition; //比較値を現在のoffsetTopに上書き
-          
-          w.addEventListener('resize', () => {
-            windowHeight = w.innerHeight;
-            slideWrapper.style.transform = 'translateY(' + -windowHeight * slideNum + 'px)';
-          });
-        }
-  
         /** フルスクリーンスクロール実行 */
-        const intersectionItem = (entries) => {
-          [].slice.call(entries).forEach(val => {
+        const scrollEvent = (entries) => {
+          [].slice.call(entries).forEach((val, index) => {
             if (val.isIntersecting) {
+              //URLハッシュのみ更新
+              history.pushState(null, null, '#' + val.target.id);
+              // location.hash = val.target.id;
+              
+              /** スクロール処理 */
+              const scrollProcessing = (event) => {
+                d.body.classList.add('is_lock');
+                event.preventDefault();
+                //モバイルとデスクトップでスクロール値取得を分ける
+                if (navigator.userAgent.match(/iPhone|Android.+Mobile/)) {
+                  scrollPosition = event.changedTouches[0].pageY;
+                } else {
+                  scrollPosition = w.pageYOffset || d.documentElement.scrollTop;
+                }
+                if (!scrollFlag) {
+                  scrollFlag = true;
+                  if (scrollPosition >= currentPosition) {// 下方向スクロール
+                    if (slideNum >= slide.length - 1) {
+                      slideNum = slide.length - 1; //スライド総数を超えないように代入
+                    } else {
+                      slideNum++;
+                      slideWrapper.style.top = -windowHeight * slideNum + 'px';
+                    }
+                  } else { //上方向スクロール
+                    if (slideNum <= 0) { //スライドを0より小さくさせない
+                      slideNum = 0;
+                      scrollPosition = 0;
+                      currentPosition = 0;
+                    } else {
+                      slideNum--;
+                      slideWrapper.style.top = -windowHeight * slideNum + 'px';
+                    }
+                  }
+                  setTimeout(() => { //スクロール禁止解除
+                    scrollFlag = false;
+                    d.body.classList.remove('is_lock');
+                  }, 2000);
+                }
+                currentPosition = scrollPosition; //比較値を上書き
+              }
+
+              //モバイルとデスクトップでイベント分岐
               if (navigator.userAgent.match(/iPhone|Android.+Mobile/)) {
                 w.addEventListener('touchmove', (event) => {
                   scrollProcessing(event);
@@ -126,48 +125,45 @@ export default function () {
               } else {  
                 w.addEventListener('scroll', (event) => {
                   scrollProcessing(event);
-                }, { passive: false });
-              }  
+                });
+              }
             }
           });
         }
-        const options = {
+        const scrollOptions = {
           root: null,
-          rootMargin: "0px 0px -100% 0px"
+          rootMargin: "-50% 0px"
         };
-        const observer = new IntersectionObserver(intersectionItem, options);
-        queryAll(".js_slide").forEach(val => {
-          observer.observe(val);
+        const scrollObserver = new IntersectionObserver(scrollEvent, scrollOptions);
+        queryAll(".js_slide").forEach((val) => {
+          scrollObserver.observe(val);
         });
-      }
+      
 
-
-      /** 可視範囲のアクティブ処理 */
-      const activeProcessing = () => {
-        /** スライドアニメーション */
+        /** スライドイン */
         const slideFadeIn = (ele) => {
-          const currentSlide = d.querySelector("#js_content .is_show");
+          const currentSlide = d.getElementById("js_content").querySelector('.is_show');
           if (currentSlide !== null) {
             currentSlide.classList.remove("is_show");
           }
-          d.querySelector('#' + ele.id).classList.add("is_show");
+          d.getElementById(ele.id).classList.add("is_show");
           
           const isShow = d.querySelector('.is_show');
-          const isAnime = [].slice.call(isShow.querySelectorAll('.js_slideIn'));
-          isAnime.forEach((val) => {
+          [].slice.call(isShow.querySelectorAll('.js_slideIn')).forEach((val) => {
             val.classList.add('is_active');
           });
         };
+
+        /** スライドアウト */
         const slideFadeOut = (ele) => {
-          const currentSlide = d.querySelector("#js_content .is_show");
+          const currentSlide = d.getElementById("js_content").querySelector('.is_show');
           if (currentSlide !== null) {
             currentSlide.classList.remove("is_show");
           }
-          d.querySelector('#' + ele.id).classList.add("is_show");
+          d.getElementById(ele.id).classList.add("is_show");
 
           const isShow = d.querySelector('.is_show');
-          const isAnime = [].slice.call(isShow.querySelectorAll('.js_slideIn'));
-          isAnime.forEach((val) => {
+          [].slice.call(isShow.querySelectorAll('.js_slideIn')).forEach((val) => {
             val.classList.remove('is_active');
           });
         };
@@ -178,12 +174,31 @@ export default function () {
           if (currentActive !== null) {
             currentActive.classList.remove("is_active");
           }
-          d.querySelector(`a[href='#${ele.id}']`).parentNode.classList.add("is_active");//現在見えているセクションに合わせてナビをアクティブにする
+
+          //現在見えているセクションに合わせてナビをアクティブにする
+          d.querySelector(`a[href='#${ele.id}']`).parentNode.classList.add("is_active");
+
+          //ハッシュ先に移動
+          queryAll('.js_dot').forEach((val,index) => {
+            val.addEventListener('click', (event) => {
+              event.preventDefault();
+              let targetHash = event.target.hash;
+              let target = d.querySelector(targetHash).style.top;
+              d.getElementById('js_content').style.top = '-' + target;
+              slideNum = index;
+              if (navigator.userAgent.match(/iPhone|Android.+Mobile/)) {
+                scrollPosition = event.changedTouches[0].pageY;
+              } else {
+                scrollPosition = w.pageYOffset || d.documentElement.scrollTop;
+              }
+              currentPosition = scrollPosition;
+            });
+          });
         };
 
         /** カレントナビとフェードイン実行 */
-        const intersectionItem = (entries) => {
-          [].slice.call(entries).forEach(val => {
+        const slideInEvent = (entries) => {
+          [].slice.call(entries).forEach((val) => {
             if (val.isIntersecting) {
               currentNav(val.target);
               slideFadeIn(val.target);
@@ -192,13 +207,13 @@ export default function () {
             }
           });
         };
-        const options = {
+        const slideInOptions = {
           root: null,
           rootMargin: "-50% 0px"
         };
-        const observer = new IntersectionObserver(intersectionItem, options);
-        queryAll(".js_slide").forEach(section => {
-          observer.observe(section);
+        const slideInObserver = new IntersectionObserver(slideInEvent, slideInOptions);
+        queryAll(".js_slide").forEach((val) => {
+          slideInObserver.observe(val);
         });
       }
 
@@ -206,12 +221,8 @@ export default function () {
       // 実行
       w.addEventListener('load', () => {
         d.getElementById('js_top').classList.add('is_loaded');
-        setTimeout(() => {
-          d.body.classList.remove('is_lock'); // 黒い幕が終わったタイミング
-        }, 600);
         backgroundPosition();
         fullScreenScroll();
-        activeProcessing();
       });
     }
   })(document, window);
