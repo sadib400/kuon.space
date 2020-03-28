@@ -52,7 +52,6 @@ export default function () {
 
       // 実行
       w.addEventListener('load', () => {
-        d.getElementById('js_about').classList.add('is_loaded');
         d.getElementById('js_keyVisualSize').classList.add('is_sizeUp');
         headerTextColor();
   

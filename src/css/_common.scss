@@ -15,6 +15,10 @@ $gray: #c0c5ca;
   font-family: "futura_m";
   src: url("/font/Futura-Med.woff") format("woff");
 }
+@font-face {
+  font-family: "Abril-Fatface";
+  src: url("/font/AbrilFatface-Regular.ttf") format('truetype');
+}
 
 @mixin font_family($type: default) {
   @if $type == default {
@@ -25,6 +29,9 @@ $gray: #c0c5ca;
   }
   @if $type == medium {
     font-family: "futura_m";
+  }
+  @if $type == Abril {
+    font-family: "Abril-Fatface";
   }
 }
 

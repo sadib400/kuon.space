@@ -8,7 +8,7 @@ export default function () {
       }
 
       /** マウス座標を基に背景移動 */
-      const backgroundPosition = () => {
+      const backgroundMove = () => {
         document.body.addEventListener('mousemove', (ele) => {
           let bgX = ele.pageX * .02;
           let bgY = ele.pageY * .04;
@@ -220,8 +220,7 @@ export default function () {
 
       // 実行
       w.addEventListener('load', () => {
-        d.getElementById('js_top').classList.add('is_loaded');
-        backgroundPosition();
+        backgroundMove();
         fullScreenScroll();
       });
     }
