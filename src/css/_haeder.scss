@@ -14,8 +14,10 @@
     padding: 40px;
   }
   &:not(.is_top) {
-    .bl_headerNav_item:nth-child(2) {
-      display: block;
+    @include mediaQuery(desktop) {
+      .bl_headerNav_item:nth-child(2) {
+        display: block;
+      }
     }
   }
 
@@ -34,7 +36,7 @@
       display: inline-block;
       font-size: 1.8rem;
       letter-spacing: .1em;
-      margin-right: 30px;
+      margin-right: 3rem;
       &:first-child {
         margin-right: auto;
       }
@@ -46,7 +48,6 @@
       }
       @include mediaQuery(desktop){
         font-size: 2.6rem;
-        margin-right: 40px;
       }
 
       &:hover {

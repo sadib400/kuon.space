@@ -8,7 +8,7 @@ module.exports = {
   },
   output: {
     filename: "[name].js",
-    path: __dirname + '/dist/asset/js'
+    path: __dirname + '/asset/js'
   },
   module: {
     rules: [
@@ -19,7 +19,9 @@ module.exports = {
           {
             loader: 'babel-loader',
             options: {
-              presets: [['@babel/preset-env', { modules: false }]]
+              presets: [
+                ['@babel/preset-env', { modules: false }]
+              ]
             }
           }
         ]

@@ -46,6 +46,7 @@
   },
   "dependencies": {
     "browser-sync": "^2.26.7",
+    "intersection-observer-polyfill": "^0.1.0",
     "object-fit-images": "^3.2.4",
     "smoothscroll-polyfill": "^0.4.4"
   },
