@@ -1,56 +1,87 @@
 require('intersection-observer');
 import objectFitImages from 'object-fit-images';
-objectFitImages();
-import topPage from './top';
-topPage();
-import aboutPage from './about';
-aboutPage();
 import hamburgerMenu from './hamburgerMenu';
-hamburgerMenu();
-
-// 読み込み時の共通イベント
-((d, w) => {
-  w.addEventListener('load', () => {
-    const targetElement = d.getElementById('js_top') || d.getElementById('js_about');
-    targetElement.classList.add('is_loaded');
-    if (targetElement.classList.contains('is_loaded')) {
-      d.body.classList.remove('is_lock');
-    }
-  });
-})(document, window);
+import backgroundMouseMove from './backgroundMouseMove';
+import fullScreenScroll from './fullScreenScroll';
+import headerTextColor from './headerTextColor';
+import progressBar from './progressBar';
+import Barba from "barba.js"
 
 
-import Barba from './barba.min';
-Barba.Dispatcher.on( 'newPageReady', function( currentStatus, oldStatus, container, newPageRawHTML ) {
-  if ( Barba.HistoryManager.history.length === 1 ) {
-      return;
+//ロード後の黒幕
+const blackCurtain = () => {
+  const targetElement = document.getElementById('js_top') || document.getElementById('js_about');
+  targetElement.classList.add('is_loaded');
+  if (targetElement.classList.contains('is_loaded')) document.body.classList.remove('is_lock');
+};
+//ヒーローイメージ拡大 => about.html
+const keyVisualScale = () => {
+  const keyVisual = document.getElementById('js_keyVisualSize');
+  if (keyVisual) keyVisual.classList.add('is_sizeUp');
+};
+
+// 共通
+window.addEventListener('DOMContentLoaded', objectFitImages);
+window.addEventListener('DOMContentLoaded', hamburgerMenu);
+window.addEventListener('load', blackCurtain);
+
+// index.html用
+if (document.getElementById('js_top')) {
+  window.addEventListener('DOMContentLoaded', fullScreenScroll);
+  window.addEventListener('DOMContentLoaded', backgroundMouseMove);
+}
+// about.html用
+if (document.getElementById('js_about')) {
+  window.addEventListener('load', keyVisualScale);
+  window.addEventListener('scroll', headerTextColor);
+  window.addEventListener('scroll', progressBar);
+}
+
+
+Barba.Dispatcher.on('newPageReady', function (currentStatus, oldStatus, container, newPageRawHTML) {
+  if (Barba.HistoryManager.history.length === 1) {
+    return;
   }
   const head = document.head,
-      newPageRawHead = newPageRawHTML.match( /<head[^>]*>([\s\S.]*)<\/head>/i )[ 0 ],
-      newPageHead = document.createElement( 'head' );
+    newPageRawHead = newPageRawHTML.match(/<head[^>]*>([\s\S.]*)<\/head>/i)[0],
+    newPageHead = document.createElement('head');
   newPageHead.innerHTML = newPageRawHead;
-  const headTags = [ 
-      "meta[name='description']",
-      "meta[property^='og']"
-  ].join( ',' );
-  const oldHeadTags = head.querySelectorAll( headTags );
-  for ( let i = 0; i < oldHeadTags.length; i++ ) {
-      head.removeChild( oldHeadTags[ i ] );
+  const headTags = [
+    "meta[name='description']",
+    "meta[property^='og']"
+  ].join(',');
+  const oldHeadTags = head.querySelectorAll(headTags);
+  for (let i = 0; i < oldHeadTags.length; i++) {
+    head.removeChild(oldHeadTags[i]);
   }
-  let newHeadTags = newPageHead.querySelectorAll( headTags );
-  for ( let i = 0; i < newHeadTags.length; i++ ) {
-      head.appendChild( newHeadTags[ i ] );
+  let newHeadTags = newPageHead.querySelectorAll(headTags);
+  for (let i = 0; i < newHeadTags.length; i++) {
+    head.appendChild(newHeadTags[i]);
   }
 
   switch (currentStatus.namespace) {
     case 'top':
-      topPage();
-      console.log('index.html');
+      //イベント削除
+      window.removeEventListener('load', blackCurtain);
+      window.removeEventListener('load', keyVisualScale);
+      window.removeEventListener('scroll', headerTextColor);
+      window.removeEventListener('scroll', progressBar);
+      //イベント登録
+      window.addEventListener('load', blackCurtain);
+      window.addEventListener('DOMContentLoaded', backgroundMouseMove);
+      window.addEventListener('DOMContentLoaded', fullScreenScroll);
       break;
     case 'about':
-      aboutPage();
-      console.log('about.html');
+      //イベント削除
+      window.removeEventListener('load', blackCurtain);
+      window.removeEventListener('DOMContentLoaded', backgroundMouseMove);
+      window.removeEventListener('DOMContentLoaded', fullScreenScroll);
+      //イベント登録
+      window.addEventListener('load', blackCurtain);
+      window.addEventListener('load', keyVisualScale);
+      window.addEventListener('scroll', headerTextColor);
+      window.addEventListener('scroll', progressBar);
       break;
   }
 });
-// Barba.Pjax.init();
+// Barba.Pjax.start();

@@ -13,7 +13,7 @@
   @include mediaQuery(desktopFollow) {
     padding: 40px;
   }
-  &:not(.is_top) {
+  &.is_instagram {
     @include mediaQuery(desktop) {
       .bl_headerNav_item:nth-child(2) {
         display: block;
@@ -49,18 +49,14 @@
       @include mediaQuery(desktop){
         font-size: 2.6rem;
       }
-
       &:hover {
         &:not(:last-child) {
           opacity: .6;
         }
       }
-
-      
       &:nth-child(2) {
         display: none;
       }
-
       &:not(.bl_headerNav_item__both) {
         @include mediaQuery(mobileOnly) {
           display: none;

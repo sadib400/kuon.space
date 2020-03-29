@@ -107,8 +107,7 @@ input, select {
 }
 
 * {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 @font-face {
@@ -177,21 +176,15 @@ body.is_lock {
       padding: 40px; } }
 
 @media screen and (min-width: 801px) {
-    .ly_header:not(.is_top) .bl_headerNav_item:nth-child(2) {
+    .ly_header.is_instagram .bl_headerNav_item:nth-child(2) {
       display: block; } }
 
 .ly_header .bl_headerNav {
     position: relative;
     z-index: 1;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between; }
+    align-items: center;
+    justify-content: space-between; }
 
 .ly_header .bl_headerNav_item {
       cursor: pointer;
@@ -225,7 +218,6 @@ body.is_lock {
           display: none; } }
 
 .ly_header .bl_headerNav_item > a {
-        -webkit-transition: color .3s;
         transition: color .3s; }
 
 .ly_header .bl_headerNav_btn {
@@ -245,10 +237,7 @@ body.is_lock {
         width: 100%;
         height: 3px;
         background-color: #fff;
-        -webkit-transition: background-color .3s,-webkit-transform .3s;
-        transition: background-color .3s,-webkit-transform .3s;
-        transition: transform .3s,background-color .3s;
-        transition: transform .3s,background-color .3s,-webkit-transform .3s; }
+        transition: transform .3s,background-color .3s; }
 
 .ly_header .bl_headerNav_btn:before {
         top: 0; }
@@ -258,13 +247,11 @@ body.is_lock {
 
 .ly_header .bl_headerNav_btn.is_close:before {
         top: 50%;
-        -webkit-transform: rotate(45deg) translateY(-50%);
-                transform: rotate(45deg) translateY(-50%); }
+        transform: rotate(45deg) translateY(-50%); }
 
 .ly_header .bl_headerNav_btn.is_close:after {
         bottom: 50%;
-        -webkit-transform: rotate(-45deg) translateY(50%);
-                transform: rotate(-45deg) translateY(50%); }
+        transform: rotate(-45deg) translateY(50%); }
 
 .ly_header .bl_hamburgerMenu {
     overflow: hidden;
@@ -273,22 +260,11 @@ body.is_lock {
     left: 0;
     right: 0;
     bottom: 100%;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    background-image: -webkit-gradient(linear, left top, right top, from(#072142), color-stop(42%, #8c2b7a), to(#ff4d5a));
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     background-image: linear-gradient(to right, #072142, #8c2b7a 42%, #ff4d5a);
-    -webkit-transition: bottom .3s;
     transition: bottom .3s; }
 
 .ly_header .bl_hamburgerMenu.is_open {
@@ -322,7 +298,6 @@ body.is_lock {
 .ly_header .bl_hamburgerMenu_link {
       position: relative;
       top: 50px;
-      -webkit-transition: top .3s;
       transition: top .3s; }
 
 @media screen and (min-width: 421px) and (max-width: 800px) {
@@ -342,7 +317,6 @@ body.is_lock {
             width: 0;
             height: 10px;
             background-color: #fff;
-            -webkit-transition: width .3s linear;
             transition: width .3s linear; } }
 
 .ly_header .bl_hamburgerMenu_link.is_open {
@@ -372,14 +346,10 @@ body.is_lock {
   overflow: hidden;
   display: inline-block;
   margin-top: 1rem;
-  -webkit-transition: -webkit-transform .3s ease;
-  transition: -webkit-transform .3s ease;
-  transition: transform .3s ease;
-  transition: transform .3s ease, -webkit-transform .3s ease; }
+  transition: transform .3s ease; }
 
 .el_btn_wrapper:hover {
-    -webkit-transform: translateY(-5px);
-            transform: translateY(-5px); }
+    transform: translateY(-5px); }
 
 @media screen and (max-width: 420px) {
     .el_btn_wrapper {
@@ -402,7 +372,6 @@ body.is_lock {
   letter-spacing: .1em;
   border-radius: 50px;
   padding: 12px 28px;
-  -webkit-transition: left .6s .3s;
   transition: left .6s .3s; }
 
 @media screen and (min-width: 421px) {
@@ -478,7 +447,6 @@ body.is_lock {
     width: 100%;
     height: 100vh;
     background-color: #000;
-    -webkit-transition: height .6s;
     transition: height .6s; }
 
 .ly_about.is_loaded:before {
@@ -526,8 +494,7 @@ body.is_lock {
         position: absolute;
         top: 40%;
         left: 0;
-        -webkit-transform: translateY(-50%);
-                transform: translateY(-50%);
+        transform: translateY(-50%);
         width: 25px;
         border-top: 2px solid #072142; }
 
@@ -541,10 +508,7 @@ body.is_lock {
 
 .ly_about .el_btn_wrapper .el_btn {
     left: 0;
-    -webkit-transition: -webkit-transform .3s ease;
-    transition: -webkit-transform .3s ease;
-    transition: transform .3s ease;
-    transition: transform .3s ease, -webkit-transform .3s ease; }
+    transition: transform .3s ease; }
 
 .ly_about .bl_about {
     position: relative;
@@ -565,16 +529,9 @@ body.is_lock {
           right: 0;
           bottom: 15%;
           left: 0;
-          display: -webkit-box;
-          display: -ms-flexbox;
           display: flex;
-          -webkit-box-orient: vertical;
-          -webkit-box-direction: normal;
-              -ms-flex-direction: column;
-                  flex-direction: column;
-          -webkit-box-pack: end;
-              -ms-flex-pack: end;
-                  justify-content: flex-end;
+          flex-direction: column;
+          justify-content: flex-end;
           padding: 0 25px;
           min-height: 188px; } }
 
@@ -582,15 +539,13 @@ body.is_lock {
         .ly_about .bl_about_textBox {
           top: 50%;
           left: 40px;
-          -webkit-transform: translate(0, -50%);
-                  transform: translate(0, -50%); } }
+          transform: translate(0, -50%); } }
 
 @media screen and (min-width: 801px) {
         .ly_about .bl_about_textBox {
           top: 50%;
           left: 11%;
-          -webkit-transform: translate(0, -50%);
-                  transform: translate(0, -50%); } }
+          transform: translate(0, -50%); } }
 
 @media screen and (max-width: 420px) {
         .ly_about .bl_about_textBox__first {
@@ -605,7 +560,6 @@ body.is_lock {
       letter-spacing: 0.15em;
       text-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
       margin-bottom: 30px;
-      -webkit-transition: left .6s;
       transition: left .6s;
       font-family: "futura_m"; }
 
@@ -661,7 +615,6 @@ body.is_lock {
       font-size: 1.6rem;
       letter-spacing: .1em;
       line-height: 1.5;
-      -webkit-transition: left .6s .1s;
       transition: left .6s .1s; }
 
 @media screen and (min-width: 421px) and (max-width: 800px) {
@@ -678,14 +631,12 @@ body.is_lock {
       z-index: 2;
       width: 80%;
       height: 55%;
-      -webkit-transition: width .6s .6s ease,height .6s .6s ease,top .6s .6s ease,right .6s .6s ease;
       transition: width .6s .6s ease,height .6s .6s ease,top .6s .6s ease,right .6s .6s ease; }
 
 @media screen and (max-width: 420px) {
         .ly_about .bl_about_imageBox {
           left: 50%;
-          -webkit-transform: translate(-50%, 0);
-                  transform: translate(-50%, 0); } }
+          transform: translate(-50%, 0); } }
 
 @media screen and (min-width: 421px) and (max-width: 800px) {
         .ly_about .bl_about_imageBox {
@@ -698,8 +649,7 @@ body.is_lock {
         .ly_about .bl_about_imageBox {
           top: 50%;
           left: 37%;
-          -webkit-transform: translate(0, -50%);
-                  transform: translate(0, -50%);
+          transform: translate(0, -50%);
           width: 55%;
           height: 100vh;
           font-size: 3rem; } }
@@ -747,7 +697,6 @@ body.is_lock {
 .ly_about .bl_about_number {
       position: relative;
       top: 160px;
-      -webkit-transition: top .3s;
       transition: top .3s;
       font-size: 16rem;
       text-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
@@ -771,7 +720,6 @@ body.is_lock {
       font-size: 1.2rem;
       letter-spacing: 0.3em;
       padding-bottom: 10px;
-      -webkit-transition: bottom .4s;
       transition: bottom .4s; }
 
 @media screen and (max-width: 420px) {
@@ -797,8 +745,7 @@ body.is_lock {
         position: absolute;
         top: 100%;
         left: 50%;
-        -webkit-transform: translateX(-50%);
-                transform: translateX(-50%);
+        transform: translateX(-50%);
         width: 2px;
         height: 35px;
         background-color: #fff; }
@@ -819,10 +766,7 @@ body.is_lock {
       display: block;
       width: 36px;
       height: 36px;
-      -webkit-transition: -webkit-transform .3s ease;
-      transition: -webkit-transform .3s ease;
-      transition: transform .3s ease;
-      transition: transform .3s ease, -webkit-transform .3s ease; }
+      transition: transform .3s ease; }
 
 @media screen and (min-width: 801px) {
         .ly_about .bl_about .bl_about_arrowBox {
@@ -831,8 +775,7 @@ body.is_lock {
           width: 64px; } }
 
 .ly_about .bl_about .bl_about_arrowBox:hover {
-        -webkit-transform: translateX(-14%);
-                transform: translateX(-14%); }
+        transform: translateX(-14%); }
 
 .ly_about .bl_about_arrow {
       cursor: pointer;
@@ -841,7 +784,6 @@ body.is_lock {
       height: 1px;
       margin-top: 18px;
       background-color: #fff;
-      -webkit-transition: background-color .3s ease;
       transition: background-color .3s ease; }
 
 @media screen and (min-width: 801px) {
@@ -854,7 +796,6 @@ body.is_lock {
         width: 12px;
         height: 1px;
         background-color: #fff;
-        -webkit-transition: background-color .3s ease;
         transition: background-color .3s ease; }
 
 @media screen and (min-width: 801px) {
@@ -865,8 +806,7 @@ body.is_lock {
 .ly_about .bl_about_arrow:before {
         top: 14px;
         left: -2px;
-        -webkit-transform: rotate(-45deg);
-                transform: rotate(-45deg); }
+        transform: rotate(-45deg); }
 
 @media screen and (min-width: 801px) {
           .ly_about .bl_about_arrow:before {
@@ -876,8 +816,7 @@ body.is_lock {
 .ly_about .bl_about_arrow:after {
         top: 22px;
         left: -2px;
-        -webkit-transform: rotate(45deg);
-                transform: rotate(45deg); }
+        transform: rotate(45deg); }
 
 @media screen and (min-width: 801px) {
           .ly_about .bl_about_arrow:after {
@@ -987,20 +926,17 @@ body.is_lock {
 
 .ly_about .bl_who .bl_who_profile .bl_who_image {
       margin-top: 40px;
-      -webkit-box-shadow: 0 20px 50px #828c96;
-              box-shadow: 0 20px 50px #828c96; }
+      box-shadow: 0 20px 50px #828c96; }
 
 @media screen and (min-width: 421px) and (max-width: 800px) {
         .ly_about .bl_who .bl_who_profile .bl_who_image {
           margin-top: 60px;
-          -webkit-box-shadow: 0 50px 80px #828c96;
-                  box-shadow: 0 50px 80px #828c96; } }
+          box-shadow: 0 50px 80px #828c96; } }
 
 @media screen and (min-width: 801px) {
         .ly_about .bl_who .bl_who_profile .bl_who_image {
           margin-top: 60px;
-          -webkit-box-shadow: 0 50px 80px #828c96;
-                  box-shadow: 0 50px 80px #828c96; } }
+          box-shadow: 0 50px 80px #828c96; } }
 
 @media screen and (max-width: 800px) {
     .ly_about .bl_passion .bl_passion_wrapper {
@@ -1018,12 +954,8 @@ body.is_lock {
 
 @media screen and (min-width: 801px) {
     .ly_about .bl_passion .bl_passion_list {
-      display: -webkit-box;
-      display: -ms-flexbox;
       display: flex;
-      -webkit-box-pack: justify;
-          -ms-flex-pack: justify;
-              justify-content: space-between;
+      justify-content: space-between;
       margin-top: 14rem; } }
 
 .ly_about .bl_passion .bl_passion_item {
@@ -1082,13 +1014,8 @@ body.is_lock {
         width: 42%; } }
 
 .ly_about .bl_skill .bl_skill_list {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    flex-direction: column;
     width: 100%;
     max-width: 1200px;
     margin: 5rem auto 0; }
@@ -1103,18 +1030,10 @@ body.is_lock {
 
 @media screen and (min-width: 801px) {
       .ly_about .bl_skill .bl_skill_list {
-        display: -webkit-box;
-        display: -ms-flexbox;
         display: flex;
-        -webkit-box-orient: horizontal;
-        -webkit-box-direction: normal;
-            -ms-flex-direction: row;
-                flex-direction: row;
-        -webkit-box-pack: justify;
-            -ms-flex-pack: justify;
-                justify-content: space-between;
-        -ms-flex-wrap: wrap;
-            flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
         margin: 10rem auto 0; } }
 
 @media screen and (min-width: 801px) and (max-width: 1250px) {
@@ -1122,12 +1041,8 @@ body.is_lock {
         padding: 0 10%; } }
 
 .ly_about .bl_skill .bl_skill_item {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between; }
+    justify-content: space-between; }
 
 .ly_about .bl_skill .bl_skill_item:not(:first-child) {
       margin-top: 4rem; }
@@ -1144,33 +1059,23 @@ body.is_lock {
 
 @media screen and (max-width: 800px) {
       .ly_about .bl_skill .bl_skill_item__1st {
-        -webkit-box-ordinal-group: 2;
-            -ms-flex-order: 1;
-                order: 1; } }
+        order: 1; } }
 
 @media screen and (max-width: 800px) {
       .ly_about .bl_skill .bl_skill_item__2nd {
-        -webkit-box-ordinal-group: 3;
-            -ms-flex-order: 2;
-                order: 2; } }
+        order: 2; } }
 
 @media screen and (max-width: 800px) {
       .ly_about .bl_skill .bl_skill_item__3rd {
-        -webkit-box-ordinal-group: 4;
-            -ms-flex-order: 3;
-                order: 3; } }
+        order: 3; } }
 
 @media screen and (max-width: 800px) {
       .ly_about .bl_skill .bl_skill_item__4th {
-        -webkit-box-ordinal-group: 5;
-            -ms-flex-order: 4;
-                order: 4; } }
+        order: 4; } }
 
 @media screen and (max-width: 800px) {
       .ly_about .bl_skill .bl_skill_item__5th {
-        -webkit-box-ordinal-group: 6;
-            -ms-flex-order: 5;
-                order: 5; } }
+        order: 5; } }
 
 @media screen and (max-width: 420px) {
       .ly_about .bl_skill .bl_skill_item__6th {
@@ -1178,33 +1083,23 @@ body.is_lock {
 
 @media screen and (max-width: 800px) {
       .ly_about .bl_skill .bl_skill_item__6th {
-        -webkit-box-ordinal-group: 7;
-            -ms-flex-order: 6;
-                order: 6; } }
+        order: 6; } }
 
 @media screen and (max-width: 800px) {
       .ly_about .bl_skill .bl_skill_item__7th {
-        -webkit-box-ordinal-group: 8;
-            -ms-flex-order: 7;
-                order: 7; } }
+        order: 7; } }
 
 @media screen and (max-width: 800px) {
       .ly_about .bl_skill .bl_skill_item__8th {
-        -webkit-box-ordinal-group: 9;
-            -ms-flex-order: 8;
-                order: 8; } }
+        order: 8; } }
 
 @media screen and (max-width: 800px) {
       .ly_about .bl_skill .bl_skill_item__9th {
-        -webkit-box-ordinal-group: 10;
-            -ms-flex-order: 9;
-                order: 9; } }
+        order: 9; } }
 
 @media screen and (max-width: 800px) {
       .ly_about .bl_skill .bl_skill_item__10th {
-        -webkit-box-ordinal-group: 11;
-            -ms-flex-order: 10;
-                order: 10; } }
+        order: 10; } }
 
 .ly_about .bl_skill .bl_skill_icon {
     width: 10%; }
@@ -1213,12 +1108,8 @@ body.is_lock {
     width: 86%; }
 
 .ly_about .bl_skill .bl_skill_name {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: baseline;
-        -ms-flex-align: baseline;
-            align-items: baseline;
+    align-items: baseline;
     color: #072142;
     font-size: 1.4rem;
     letter-spacing: .2em;
@@ -1279,9 +1170,7 @@ body.is_lock {
     height: 8px;
     margin-top: 10px;
     border-radius: 10px;
-    -webkit-box-shadow: 0 3px 12px 0px #ccc;
-            box-shadow: 0 3px 12px 0px #ccc;
-    -webkit-transition: width 1.5s ease;
+    box-shadow: 0 3px 12px 0px #ccc;
     transition: width 1.5s ease; }
 
 @media screen and (min-width: 421px) and (max-width: 800px) {
@@ -1300,9 +1189,7 @@ body.is_lock {
       width: 10%;
       height: 100%;
       border-radius: 10px;
-      background-image: -webkit-gradient(linear, left top, right top, from(#072142), color-stop(42%, #8c2b7a), to(#ff4d5a));
       background-image: linear-gradient(to right, #072142, #8c2b7a 42%, #ff4d5a);
-      -webkit-transition: width 1.5s ease;
       transition: width 1.5s ease; }
 
 .ly_about .bl_skill .bl_skill_progressBar.is_active.is_50:after {
@@ -1321,19 +1208,10 @@ body.is_lock {
       width: 90%; }
 
 .ly_about .bl_footer {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     padding: 9rem 0;
     background-image: linear-gradient(101deg, #072142, #8c2b7a 52%, #ff4d5a); }
 
@@ -1362,7 +1240,6 @@ body.is_lock {
 @media screen and (min-width: 801px) {
         .ly_about .bl_footer .bl_footer_item {
           font-size: 2.8rem;
-          -webkit-transition: opacity .3s ease;
           transition: opacity .3s ease; }
           .ly_about .bl_footer .bl_footer_item:not(:first-child) {
             margin-top: 30px; }
