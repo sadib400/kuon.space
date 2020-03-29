@@ -84,6 +84,8 @@ html {
 }
 
 body {
+  overflow-y: scroll;
+  overflow-x: hidden;
   @include font_family();
 
   &.is_lock {
