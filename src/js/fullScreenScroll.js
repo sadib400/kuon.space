@@ -13,12 +13,10 @@ export default function () {
       let windowHeight = w.innerHeight;
       const slideWrapper = d.getElementById('js_content'); //各スライドを囲む要素
       const slide = document.querySelectorAll('.js_slide'); //スライド要素
-
+      
       //スライドの高さと位置を設定
       querySliceAll('.js_slide').forEach((val, index) => {
-        let windowHeight = w.innerHeight;
         val.style.height = windowHeight + `px`;
-        val.style.top = windowHeight * index + `px`;
         let allHeight = windowHeight * index + windowHeight;
         d.body.style.height = allHeight + `px`;
         slideWrapper.style.height = allHeight + `px`;
@@ -28,7 +26,6 @@ export default function () {
         windowHeight = w.innerHeight;
         querySliceAll('.js_slide').forEach((val, index) => {
           val.style.height = windowHeight + `px`;
-          val.style.top = windowHeight * index + `px`;
           let allHeight = windowHeight * index + windowHeight;
           d.body.style.height = allHeight + `px`;
           slideWrapper.style.height = allHeight + `px`;
@@ -38,13 +35,10 @@ export default function () {
 
       /** フルスクリーンスクロール実行 */
       const scrollEvent = (entries) => {
-        [].slice.call(entries).forEach((val, index) => {
+        [].slice.call(entries).forEach((val) => {
           if (val.isIntersecting) {
-            //URLハッシュのみ更新
-            history.pushState(null, null, '#' + val.target.id);
-            // location.hash = val.target.id;
-            
             /** スクロール処理 */
+            history.pushState(null, null, '#' + val.target.id);
             const scrollProcessing = (event) => {
               d.body.classList.add('is_lock');
               event.preventDefault();
@@ -54,6 +48,7 @@ export default function () {
               } else {
                 scrollPosition = w.pageYOffset || d.documentElement.scrollTop;
               }
+
               if (!scrollFlag) {
                 scrollFlag = true;
                 if (scrollPosition >= currentPosition) {// 下方向スクロール
@@ -104,57 +99,38 @@ export default function () {
       });
     
 
-      /** スライドイン */
+      /** スライドインでアニメーションクラス追加 */
       const slideFadeIn = (ele) => {
-        const currentSlide = d.getElementById("js_content").querySelector('.is_show');
-        if (currentSlide !== null) {
-          currentSlide.classList.remove("is_show");
-        }
-        d.getElementById(ele.id).classList.add("is_show");
-        
-        const isShow = d.querySelector('.is_show');
-        [].slice.call(isShow.querySelectorAll('.js_slideIn')).forEach((val) => {
+        d.getElementById(ele.id).classList.add('is_view');
+        querySliceAll('#' + ele.id + ' .js_slideIn').forEach((val) => {
           val.classList.add('is_active');
         });
       };
 
-      /** スライドアウト */
+      /** スライドアウトでアニメーションクラス削除 */
       const slideFadeOut = (ele) => {
-        const currentSlide = d.getElementById("js_content").querySelector('.is_show');
-        if (currentSlide !== null) {
-          currentSlide.classList.remove("is_show");
-        }
-        d.getElementById(ele.id).classList.add("is_show");
-
-        const isShow = d.querySelector('.is_show');
-        [].slice.call(isShow.querySelectorAll('.js_slideIn')).forEach((val) => {
+        d.getElementById(ele.id).classList.remove('is_view');
+        querySliceAll('#' + ele.id + ' .js_slideIn').forEach((val) => {
           val.classList.remove('is_active');
         });
       };
         
       /** カレントナビ */
       const currentNav = (ele) => {
+        //現在見えているセクションidに合わせてナビをアクティブにする
         const currentActive = d.querySelector(".js_dots .is_active");
         if (currentActive !== null) {
           currentActive.classList.remove("is_active");
         }
-
-        //現在見えているセクションに合わせてナビをアクティブにする
         d.querySelector(`a[href='#${ele.id}']`).parentNode.classList.add("is_active");
 
         //ハッシュ先に移動
         querySliceAll('.js_dot').forEach((val, index) => {
           val.addEventListener('click', (event) => {
             event.preventDefault();
-            let targetHash = event.target.hash;
-            let target = d.querySelector(targetHash).style.top;
-            d.getElementById('js_content').style.top = '-' + target;
+            slideWrapper.style.top = '-' + windowHeight * index + 'px';
             slideNum = index;
-            if (navigator.userAgent.match(/iPhone|Android.+Mobile/)) {
-              scrollPosition = event.changedTouches[0].pageY;
-            } else {
-              scrollPosition = w.pageYOffset || d.documentElement.scrollTop;
-            }
+            scrollPosition = '-' + windowHeight * index + 'px';
             currentPosition = scrollPosition;
           });
         });

@@ -1,14 +1,10 @@
 export default function () {
-  ((d, w) => {
-    const querySliceAll = (ele) => {
-      return [].slice.call(d.querySelectorAll(ele));
-    }
-
+  ((d) => {
     // ヘッダー&矢印ボタンのカラー
     const headerTextColor = (() => {
       const contents = d.getElementById('js_about');
       const keyVisual = d.getElementById('about');
-      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      const scrollTop = d.documentElement.scrollTop || d.body.scrollTop;
       const posY = contents.getBoundingClientRect().top;
       const offSetTop = scrollTop + posY;
       const keyVisualHeight = keyVisual.getBoundingClientRect().height;
@@ -36,5 +32,5 @@ export default function () {
         }
       });
     })();
-  })(document, window);
+  })(document);
 };

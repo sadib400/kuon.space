@@ -1,11 +1,12 @@
 require('intersection-observer');
 import objectFitImages from 'object-fit-images';
+import Barba from "barba.js";
+
 import hamburgerMenu from './hamburgerMenu';
 import backgroundMouseMove from './backgroundMouseMove';
 import fullScreenScroll from './fullScreenScroll';
 import headerTextColor from './headerTextColor';
 import progressBar from './progressBar';
-import Barba from "barba.js"
 
 
 //ロード後の黒幕
@@ -27,8 +28,8 @@ window.addEventListener('load', blackCurtain);
 
 // index.html用
 if (document.getElementById('js_top')) {
-  window.addEventListener('DOMContentLoaded', fullScreenScroll);
-  window.addEventListener('DOMContentLoaded', backgroundMouseMove);
+  window.addEventListener('load', fullScreenScroll);
+  window.addEventListener('load', backgroundMouseMove);
 }
 // about.html用
 if (document.getElementById('js_about')) {
@@ -68,14 +69,14 @@ Barba.Dispatcher.on('newPageReady', function (currentStatus, oldStatus, containe
       window.removeEventListener('scroll', progressBar);
       //イベント登録
       window.addEventListener('load', blackCurtain);
-      window.addEventListener('DOMContentLoaded', backgroundMouseMove);
-      window.addEventListener('DOMContentLoaded', fullScreenScroll);
+      window.addEventListener('load', backgroundMouseMove);
+      window.addEventListener('load', fullScreenScroll);
       break;
     case 'about':
       //イベント削除
       window.removeEventListener('load', blackCurtain);
-      window.removeEventListener('DOMContentLoaded', backgroundMouseMove);
-      window.removeEventListener('DOMContentLoaded', fullScreenScroll);
+      window.removeEventListener('load', backgroundMouseMove);
+      window.removeEventListener('load', fullScreenScroll);
       //イベント登録
       window.addEventListener('load', blackCurtain);
       window.addEventListener('load', keyVisualScale);
