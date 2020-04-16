@@ -4,10 +4,13 @@ export default function () {
       return [].slice.call(d.querySelectorAll(ele));
     }
     //ハンバーガーメニュー
-    d.getElementById('js_hamburgerMenu').addEventListener('click', () => {
+    const toggleOpen = () => {
       d.getElementById('js_hamburgerMenu').classList.toggle('is_close');
       d.querySelector('.js_menuOpen').classList.toggle('is_open');
       d.body.classList.toggle('is_lock');
+    }
+    d.getElementById('js_hamburgerMenu').addEventListener('click', () => {
+      toggleOpen();
       querySliceAll('.js_link').forEach((val) => {
         setTimeout(() => {
           val.classList.toggle('is_open');
@@ -16,9 +19,7 @@ export default function () {
     });
     querySliceAll('.js_link').forEach((val) => { //メニュー項目をクリックした時の処理
       val.addEventListener('click', () => {
-        d.getElementById('js_hamburgerMenu').classList.toggle('is_close');
-        d.querySelector('.js_menuOpen').classList.toggle('is_open');
-        d.body.classList.toggle('is_lock');
+        toggleOpen();
         querySliceAll('.js_link').forEach((val) => {
           val.classList.remove('is_open');
         });
