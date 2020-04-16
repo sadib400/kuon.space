@@ -21,6 +21,7 @@
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
+    "@barba/core": "^2.9.7",
     "babel-loader": "^8.1.0",
     "barba.js": "^1.0.0",
     "browser-sync": "^2.26.7",
