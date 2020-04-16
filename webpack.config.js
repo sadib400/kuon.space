@@ -11,23 +11,22 @@ module.exports = {
   module: {
     rules: [
       {
+        // 拡張子 .js の場合
         test: /\.js$/,
-        exclude: /node_modules/,// ローダーの処理対象から外すディレクトリ
         use: [
           {
+            // Babel を利用する
             loader: 'babel-loader',
+            // Babel のオプションを指定する
             options: {
               presets: [
-                ['@babel/preset-env', { modules: false }]
+                // プリセットを指定することで、ES2020 を ES5 に変換
+                '@babel/preset-env',
               ]
             }
           }
         ]
       }
     ]
-  },
-  devServer: {
-    contentBase: "./",
-    open: true
   }
 }
