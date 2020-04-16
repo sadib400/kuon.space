@@ -144,10 +144,15 @@ html {
 body {
   overflow-y: scroll;
   overflow-x: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
   font-family: "futura_r"; }
 
 body.is_lock {
     overflow: hidden; }
+
+body::-webkit-scrollbar {
+  display: none; }
 
 /* =====================
     ly_header
@@ -295,7 +300,8 @@ body.is_lock {
         .ly_header .bl_hamburgerMenu_item {
           font-size: 12rem;
           letter-spacing: .1em;
-          margin-top: 8rem; } }
+          margin-top: 8rem;
+          padding-top: 1rem; } }
 
 .ly_header .bl_hamburgerMenu_link {
       position: relative;

@@ -1,12 +1,11 @@
 require('intersection-observer');
 import objectFitImages from 'object-fit-images';
-import Barba from "barba.js";
-
 import hamburgerMenu from './hamburgerMenu';
 import backgroundMouseMove from './backgroundMouseMove';
 import fullScreenScroll from './fullScreenScroll';
 import headerTextColor from './headerTextColor';
 import progressBar from './progressBar';
+import Barba from "barba.js";
 
 
 //ロード後の黒幕
@@ -20,29 +19,19 @@ const keyVisualScale = () => {
   const keyVisual = document.getElementById('js_keyVisualSize');
   if (keyVisual) keyVisual.classList.add('is_sizeUp');
 };
-
-// 共通
-window.addEventListener('DOMContentLoaded', objectFitImages);
+// 実行
+objectFitImages();
 window.addEventListener('DOMContentLoaded', hamburgerMenu);
 window.addEventListener('load', blackCurtain);
 
-// index.html用
-if (document.getElementById('js_top')) {
-  window.addEventListener('load', fullScreenScroll);
-  window.addEventListener('load', backgroundMouseMove);
-}
-// about.html用
-if (document.getElementById('js_about')) {
-  window.addEventListener('load', keyVisualScale);
-  window.addEventListener('scroll', headerTextColor);
-  window.addEventListener('scroll', progressBar);
-}
 
 
+// barba.js 参考：https://qiita.com/kokushin/items/a9cca2ef52e6e927115d
 Barba.Dispatcher.on('newPageReady', function (currentStatus, oldStatus, container, newPageRawHTML) {
   if (Barba.HistoryManager.history.length === 1) {
     return;
   }
+  // headタグ差し替え
   const head = document.head,
     newPageRawHead = newPageRawHTML.match(/<head[^>]*>([\s\S.]*)<\/head>/i)[0],
     newPageHead = document.createElement('head');
@@ -59,30 +48,52 @@ Barba.Dispatcher.on('newPageReady', function (currentStatus, oldStatus, containe
   for (let i = 0; i < newHeadTags.length; i++) {
     head.appendChild(newHeadTags[i]);
   }
+});
 
-  switch (currentStatus.namespace) {
-    case 'top':
-      //イベント削除
-      window.removeEventListener('load', blackCurtain);
-      window.removeEventListener('load', keyVisualScale);
-      window.removeEventListener('scroll', headerTextColor);
-      window.removeEventListener('scroll', progressBar);
-      //イベント登録
-      window.addEventListener('load', blackCurtain);
-      window.addEventListener('load', backgroundMouseMove);
-      window.addEventListener('load', fullScreenScroll);
-      break;
-    case 'about':
-      //イベント削除
-      window.removeEventListener('load', blackCurtain);
-      window.removeEventListener('load', backgroundMouseMove);
-      window.removeEventListener('load', fullScreenScroll);
-      //イベント登録
-      window.addEventListener('load', blackCurtain);
-      window.addEventListener('load', keyVisualScale);
-      window.addEventListener('scroll', headerTextColor);
-      window.addEventListener('scroll', progressBar);
-      break;
+//index.htmlに遷移する時
+const top = Barba.BaseView.extend({
+  namespace: 'top',
+  onEnter: function () {
+    window.addEventListener('load', fullScreenScroll, false);
+    window.addEventListener('load', backgroundMouseMove, false);
+  },
+  onEnterCompleted: () => {
+    blackCurtain();
+    backgroundMouseMove();
+    fullScreenScroll();
+  },
+  onLeave: function () {
+  },
+  onLeaveCompleted: function() {
+    window.removeEventListener('load', fullScreenScroll, false);
+    window.removeEventListener('load', backgroundMouseMove, false);
   }
 });
-// Barba.Pjax.start();
+top.init();
+
+//about.htmlに遷移する時
+const about = Barba.BaseView.extend({
+  namespace: 'about',
+  onEnter: function() {
+    window.addEventListener('load', keyVisualScale, false);
+    window.addEventListener('scroll', headerTextColor, false);
+    window.addEventListener('scroll', progressBar, false);
+  },
+  onEnterCompleted: () => {
+    document.body.style.height = '';
+    blackCurtain();
+    keyVisualScale();
+    headerTextColor();
+    progressBar();
+  },
+  onLeave: function() {
+  },
+  onLeaveCompleted: function() {
+    window.removeEventListener('load', keyVisualScale, false);
+    window.removeEventListener('scroll', headerTextColor, false);
+    window.removeEventListener('scroll', progressBar, false);
+  }
+});
+about.init();
+
+Barba.Pjax.start();

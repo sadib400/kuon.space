@@ -86,9 +86,14 @@ html {
 body {
   overflow-y: scroll;
   overflow-x: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
   @include font_family();
 
   &.is_lock {
     overflow: hidden;
   }
+}
+body::-webkit-scrollbar {
+  display:none;
 }
