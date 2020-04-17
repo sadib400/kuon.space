@@ -21,7 +21,7 @@ export default function () {
           /** スクロール処理 */
           history.pushState(null, null, '#' + val.target.id);
           const scrollProcessing = (event) => {
-            d.body.classList.add('is_lock');
+            // d.body.classList.add('is_lock');
             event.preventDefault();
             //モバイルとデスクトップでスクロール値取得を分ける
             if (navigator.userAgent.match(/iPhone|Android.+Mobile/)) {
@@ -51,7 +51,7 @@ export default function () {
               }
               setTimeout(() => { //スクロール禁止解除
                 scrollFlag = false;
-                d.body.classList.remove('is_lock');
+                // d.body.classList.remove('is_lock');
               }, 1600);
             }
             currentPosition = scrollPosition; //比較値を上書き
@@ -72,9 +72,10 @@ export default function () {
     }
     const scrollOptions = {
       root: null,
-      rootMargin: "-50% 0px"
+      rootMargin: "-50% 0px",
+      threshold: 0
     };
-    let scrollObserver = new IntersectionObserver(scrollEvent, scrollOptions);
+    const scrollObserver = new IntersectionObserver(scrollEvent, scrollOptions);
     querySliceAll(".js_slide").forEach((val) => {
       scrollObserver.observe(val);
     });
@@ -82,7 +83,6 @@ export default function () {
 
     /** スライドインでアニメーションクラス追加 */
     const slideFadeIn = (ele) => {
-      // d.getElementById(ele.id).classList.add('is_view');
       querySliceAll('#' + ele.id + ' .js_slideIn').forEach((val) => {
         val.classList.add('is_active');
       });
@@ -90,7 +90,6 @@ export default function () {
 
     /** スライドアウトでアニメーションクラス削除 */
     const slideFadeOut = (ele) => {
-      // d.getElementById(ele.id).classList.remove('is_view');
       querySliceAll('#' + ele.id + ' .js_slideIn').forEach((val) => {
         val.classList.remove('is_active');
       });
@@ -104,17 +103,20 @@ export default function () {
         currentActive.classList.remove("is_active");
       }
       d.querySelector(`a[href='#${ele.id}']`).parentNode.classList.add("is_active");
-
       //ハッシュ先に移動
-      querySliceAll('.js_dot').forEach((val, index) => {
-        val.addEventListener('click', (event) => {
-          event.preventDefault();
-          slideWrapper.style.top = '-' + windowHeight * index + 'px';
-          slideNum = index;
-          scrollPosition = '-' + windowHeight * index + 'px';
-          currentPosition = scrollPosition;
+      const clickEvent = (targetClass) => {
+        querySliceAll(targetClass).forEach((val, index) => {
+          val.addEventListener('click', (event) => {
+            event.preventDefault();
+            slideWrapper.style.top = '-' + windowHeight * index + 'px';
+            slideNum = index;
+            scrollPosition = '-' + windowHeight * index + 'px';
+            currentPosition = scrollPosition;
+          });
         });
-      });
+      }
+      clickEvent('.js_dot');
+      clickEvent('.js_link');
     };
 
     /** カレントナビとフェードイン実行 */
@@ -130,23 +132,16 @@ export default function () {
     };
     const slideInOptions = {
       root: null,
-      rootMargin: "-50% 0px"
+      rootMargin: "-50% 0px",
+      threshold: 0
     };
-    let slideInObserver = new IntersectionObserver(slideInEvent, slideInOptions);
+    const slideInObserver = new IntersectionObserver(slideInEvent, slideInOptions);
     querySliceAll(".js_slide").forEach((val) => {
       slideInObserver.observe(val);
     });
 
     //スライドの高さと位置を設定
-    querySliceAll('.js_slide').forEach((val) => {
-      val.style.height = windowHeight + `px`;
-      wrapperHeight = windowHeight * slide.length;
-      d.body.style.height = wrapperHeight + `px`;
-      slideWrapper.style.height = wrapperHeight + `px`;
-      slideWrapper.style.top = -windowHeight * slideNum + 'px';
-    });
-    w.addEventListener('resize', () => {
-      windowHeight = w.innerHeight;
+    const setHeightStyle = () => {
       querySliceAll('.js_slide').forEach((val) => {
         val.style.height = windowHeight + `px`;
         wrapperHeight = windowHeight * slide.length;
@@ -154,6 +149,11 @@ export default function () {
         slideWrapper.style.height = wrapperHeight + `px`;
         slideWrapper.style.top = -windowHeight * slideNum + 'px';
       });
+    }
+    setHeightStyle();
+    w.addEventListener('resize', () => {
+      windowHeight = w.innerHeight;
+      setHeightStyle();
     });
   })(document, window);
 }

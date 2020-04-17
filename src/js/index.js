@@ -12,9 +12,9 @@ import Barba from "barba.js";
   // ページごとの処理を分別
   const pageEvents = {
     allPage: () => {
-      const load = d.querySelector('.js_curtain');
-      load.classList.add('is_loaded');
-      if (load.classList.contains('is_loaded')) d.body.classList.remove('is_lock');
+      hamburgerMenu();
+      d.querySelector('.js_curtain').classList.add('is_loaded');
+      if (d.querySelector('.js_curtain').classList.contains('is_loaded')) d.body.classList.remove('is_lock');
     },
     topPage: () => {
       d.body.style.overflow = '';
@@ -39,7 +39,7 @@ import Barba from "barba.js";
   }
 
   // idで存在判定 > pageEvents()
-  const checkEvents = () => {
+  const checkId = () => {
     if (d.getElementById('js_top')) {
       pageEvents.topPage();
     } else if (d.getElementById('js_about')) {
@@ -47,23 +47,16 @@ import Barba from "barba.js";
     }
     pageEvents.allPage();
   }
-
-  //初回実行用
-  const init = () => {
-    hamburgerMenu();
-    checkEvents();
-  }
-  w.addEventListener('load', init);
+  w.addEventListener('load', checkId);
 
 
 
-  // barba.js
-  // 参考：https://qiita.com/kokushin/items/a9cca2ef52e6e927115d
+  // barba.js  参考：https://qiita.com/kokushin/items/a9cca2ef52e6e927115d
   Barba.Pjax.start();
 
   // 遷移処理が完了し、以前の要素が削除されたとき
   Barba.Dispatcher.on('transitionCompleted', function(){
-    checkEvents();
+    checkId();
   });
 
   // 新しい要素が読み込まれ、コンテナ要素に挿入されたとき
