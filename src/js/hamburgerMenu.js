@@ -27,12 +27,10 @@ export default function () {
     });
 
     // ヘッダーのインスタグラムアイコン表示
-    const InstagramIcon = (() => {
-      if (d.getElementById('js_about')) {
-        d.getElementById('js_header').classList.add('is_instagram');
-      } else {
-        d.getElementById('js_header').classList.remove('is_instagram');
-      }
-    })();
+    if (d.getElementById('js_about')) {
+      d.getElementById('js_header').classList.add('is_instagram');
+    } else {
+      d.getElementById('js_header').classList.remove('is_instagram');
+    }
   })(document,window);
 };

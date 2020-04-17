@@ -6,7 +6,7 @@
   <meta http-equiv='X-UA-Compatible' content='ie=edge'>
   <title>About Me | KUON YAGI PORTFOLIO</title>
   <meta name="description" content="KUON YAGI PORTFOLIO / Web designer / Markup engineer" />
-  <meta property="og:image" content="/dist/images/ogp.png" />
+  <meta property="og:image" content="https://j0811s.github.io/kuon.space/images/ogp.png" />
   <meta property="og:title" content="About Me | KUON YAGI PORTFOLIO" />
   <meta property="og:url" content="kuon.space" />
   <meta property="og:site_name" content="KUON YAGI PORTFOLIO" />
@@ -20,67 +20,64 @@
   <script crossorigin="anonymous" src="https://polyfill.io/v3/polyfill.min.js?features=default%2CArray.prototype.find%2CIntersectionObserver"></script>
 </head>
 <body id="barba-wrapper" class="is_lock">
-  <!-- ヘッダー -->
-  <header id="js_header" class="ly_header">
-    <ul class="bl_headerNav">
-      <li class="bl_headerNav_item bl_headerNav_item__both">
-        <a href="./">
-          <h1>Kuon Yagi</h1>
-        </a>
-      </li>
-      <li class="bl_headerNav_item">
-        <a href="https://www.instagram.com/kuon_y/" target="_blank">
-          <i class="fab fa-instagram"></i>
-        </a>
-      </li>
-      <li class="bl_headerNav_item">
-        <a href="https://twitter.com/Goldi69s" target="_blank">
-          <i class="fab fa-twitter"></i>
-        </a>
-      </li>
-      <li class="bl_headerNav_item">
-        <a href="https://dribbble.com/kuon_yagi" target="_blank">
-          <i class="fab fa-dribbble"></i>
-        </a>
-      </li>
-      <li class="bl_headerNav_item">
-        <a href="https://www.wantedly.com/users/48483598" target="_blank">
-          <span>Wantedly</span>
-        </a>
-      </li>
-      <li class="bl_headerNav_item bl_headerNav_item__both">
-        <div id="js_hamburgerMenu" class="bl_headerNav_btn"></div>
-      </li>
-    </ul>
-    <nav class="bl_hamburgerMenu js_menuOpen">
-      <ul class="bl_hamburgerMenu_list">
-        <li class="bl_hamburgerMenu_item">
-          <a class="bl_hamburgerMenu_link js_link" href="./">HOME</a>
+  <!-- メインコンテンツ -->
+  <main id="js_about" class="ly_about js_curtain barba-container" data-namespace="about">
+    <header id="js_header" class="ly_header">
+      <ul class="bl_headerNav">
+        <li class="bl_headerNav_item bl_headerNav_item__both">
+          <a href="./">
+            <h1>Kuon Yagi</h1>
+          </a>
         </li>
-        <li class="bl_hamburgerMenu_item">
-          <a class="bl_hamburgerMenu_link js_link" href="./">WORKS</a>
+        <li class="bl_headerNav_item">
+          <a href="https://www.instagram.com/kuon_y/" target="_blank">
+            <i class="fab fa-instagram"></i>
+          </a>
         </li>
-        <li class="bl_hamburgerMenu_item">
-          <a class="bl_hamburgerMenu_link js_link" href="./about.html">ABOUT ME</a>
-        </li>
-        <li class="bl_hamburgerMenu_item">
-          <a class="bl_hamburgerMenu_link js_link" href="#contact">CONTACT</a>
-        </li>
-        <li class="bl_hamburgerMenu_item mod-disyplayNone_tablet mod-disyplayNone_desktop">
-          <a class="bl_hamburgerMenu_link bl_hamburgerMenu_icon js_link" href="https://twitter.com/Goldi69s" target="_blank">
+        <li class="bl_headerNav_item">
+          <a href="https://twitter.com/Goldi69s" target="_blank">
             <i class="fab fa-twitter"></i>
           </a>
-          <a class="bl_hamburgerMenu_link bl_hamburgerMenu_icon js_link" href="https://dribbble.com/kuon_yagi" target="_blank">
+        </li>
+        <li class="bl_headerNav_item">
+          <a href="https://dribbble.com/kuon_yagi" target="_blank">
             <i class="fab fa-dribbble"></i>
           </a>
         </li>
+        <li class="bl_headerNav_item">
+          <a href="https://www.wantedly.com/users/48483598" target="_blank">
+            <span>Wantedly</span>
+          </a>
+        </li>
+        <li class="bl_headerNav_item bl_headerNav_item__both">
+          <div id="js_hamburgerMenu" class="bl_headerNav_btn"></div>
+        </li>
       </ul>
-    </nav>
-  </header>
-  <!-- END ヘッダー -->
-
-  <!-- メインコンテンツ -->
-  <main id="js_about" class="ly_about js_curtain barba-container" data-namespace="about">
+      <nav class="bl_hamburgerMenu js_menuOpen">
+        <ul class="bl_hamburgerMenu_list">
+          <li class="bl_hamburgerMenu_item">
+            <a class="bl_hamburgerMenu_link js_link" href="./">HOME</a>
+          </li>
+          <li class="bl_hamburgerMenu_item">
+            <a class="bl_hamburgerMenu_link js_link" href="./">WORKS</a>
+          </li>
+          <li class="bl_hamburgerMenu_item">
+            <a class="bl_hamburgerMenu_link js_link" href="./about.html">ABOUT ME</a>
+          </li>
+          <li class="bl_hamburgerMenu_item">
+            <a class="bl_hamburgerMenu_link js_link" href="./index.html#contact">CONTACT</a>
+          </li>
+          <li class="bl_hamburgerMenu_item mod-disyplayNone_tablet mod-disyplayNone_desktop">
+            <a class="bl_hamburgerMenu_link bl_hamburgerMenu_icon js_link" href="https://twitter.com/Goldi69s" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a class="bl_hamburgerMenu_link bl_hamburgerMenu_icon js_link" href="https://dribbble.com/kuon_yagi" target="_blank">
+              <i class="fab fa-dribbble"></i>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </header>
 
     <section id="about" class="bl_about js_slide">
       <div class="bl_about_textBox">
@@ -96,7 +93,7 @@
         </span>
       </div>
       <p id="js-scrollDown" class="bl_about_scrollDown">SCROLLDOWN</p>
-      <a class="bl_about_arrowBox" href="index.html#about">
+      <a class="bl_about_arrowBox" href="./index.html">
         <span id="js_arrowButton" class="bl_about_arrow"></span>
       </a>
     </section>
