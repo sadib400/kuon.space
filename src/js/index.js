@@ -20,16 +20,8 @@ import Barba from "barba.js";
     },
     topPage: () => {
       d.body.style.overflow = '';
-      fullScreenScroll(); //スクリーンスクロール
-      backgroundMouseMove(); //背景画像座標
-      [].slice.call(d.querySelectorAll('.js_btn')).forEach((btn, index) => {
-        btn.addEventListener('click', (e) => {
-          const btnIndex = index;
-          [].slice.call(d.querySelectorAll('.js_imageSizeUp')).forEach((image, index, array) => {
-            array[btnIndex].classList.add('is_sizeUp');
-          });
-        })
-      });
+      fullScreenScroll();
+      backgroundMouseMove();
       if (d.getElementById('js_header').classList.contains('is_instagram') || d.getElementById('js_header').classList.contains('is_color')) {
         d.getElementById('js_header').classList.remove('is_instagram');
         d.getElementById('js_header').classList.remove('is_color');
@@ -38,6 +30,8 @@ import Barba from "barba.js";
       }
     },
     aboutPage: () => {
+      if(w.pageYOffset) w.pageYOffset = 0;
+      if(d.documentElement.scrollTop) d.documentElement.scrollTop = 0;
       d.body.style.height = '';
       d.body.style.overflow = 'scroll';
       [].slice.call(d.querySelectorAll('.js_active')).forEach((val) => {
@@ -45,13 +39,13 @@ import Barba from "barba.js";
       });
       d.getElementById('js_arrowButton').classList.add('is_show');
       d.getElementById('js_header').classList.add('is_instagram');
-      w.addEventListener('scroll', headerTextColor); //ヘッダーナビの文字色変更
-      w.addEventListener('scroll', progressBar); //プログレスバーのゲージ
+      w.addEventListener('scroll', headerTextColor);
+      w.addEventListener('scroll', progressBar);
     }
   }
 
-  // idで存在判定 > pageEvents()
-  const checkId = () => {
+  // idで存在判定 => pageEvents()
+  const checkElementId = () => {
     if (d.getElementById('js_top')) {
       pageEvents.topPage();
     } else if (d.getElementById('js_about')) {
@@ -62,7 +56,7 @@ import Barba from "barba.js";
 
   // 初回用
   const init = () => {
-    checkId();
+    checkElementId();
     d.querySelector('.js_curtain').classList.add('is_init');
     if (d.querySelector('.js_curtain').classList.contains('is_init')) {
       d.body.classList.remove('is_lock');
@@ -78,7 +72,7 @@ import Barba from "barba.js";
 
   // 遷移処理が完了し、以前の要素が削除されたとき
   Barba.Dispatcher.on('transitionCompleted', function(){
-    checkId();
+    checkElementId();
   });
 
   // 新しい要素が読み込まれ、コンテナ要素に挿入されたとき
