@@ -29,7 +29,6 @@ export default function () {
             } else {
               scrollPosition = w.pageYOffset || d.documentElement.scrollTop;
             }
-            // scrollPosition = w.pageYOffset || d.documentElement.scrollTop;
 
             if (!scrollFlag) {
               scrollFlag = true;
