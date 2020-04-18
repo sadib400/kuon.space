@@ -24,12 +24,12 @@ export default function () {
             event.preventDefault();
             // d.body.classList.add('is_lock');
             //モバイルとデスクトップでスクロール値取得を分ける
-            // if (navigator.userAgent.match(/iPhone|Android.+Mobile/)) {
-            //   scrollPosition = event.changedTouches[0].pageY;
-            // } else {
-            //   scrollPosition = w.pageYOffset || d.documentElement.scrollTop;
-            // }
-            scrollPosition = w.pageYOffset || d.documentElement.scrollTop;
+            if (navigator.userAgent.match(/iPhone|Android.+Mobile/)) {
+              scrollPosition = event.changedTouches[0].pageY;
+            } else {
+              scrollPosition = w.pageYOffset || d.documentElement.scrollTop;
+            }
+            // scrollPosition = w.pageYOffset || d.documentElement.scrollTop;
 
             if (!scrollFlag) {
               scrollFlag = true;
@@ -59,18 +59,15 @@ export default function () {
           }
 
           //モバイルとデスクトップでイベント分岐
-          // if (navigator.userAgent.match(/iPhone|Android.+Mobile/)) {
-          //   w.addEventListener('touchmove', (event) => {
-          //     scrollProcessing(event);
-          //   }, { passive: false });
-          // } else {
-          //   w.addEventListener('scroll', (event) => {
-          //     scrollProcessing(event);
-          //   });
-          // }
+          if (navigator.userAgent.match(/iPhone|Android.+Mobile/)) {
+            w.addEventListener('touchmove', (event) => {
+              scrollProcessing(event);
+            });
+          } else {
             w.addEventListener('scroll', (event) => {
               scrollProcessing(event);
             });
+          }
         }
       });
     }
