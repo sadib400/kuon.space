@@ -9,6 +9,7 @@ export default function () {
       d.querySelector('.js_menuOpen').classList.toggle('is_open');
       d.body.classList.toggle('is_lock');
     }
+
     d.getElementById('js_hamburgerMenu').addEventListener('click', () => {
       toggleOpen();
       querySliceAll('.js_link').forEach((val) => {
@@ -17,6 +18,7 @@ export default function () {
         },400);
       });
     });
+
     querySliceAll('.js_link').forEach((val) => { //メニュー項目をクリックした時の処理
       val.addEventListener('click', () => {
         toggleOpen();

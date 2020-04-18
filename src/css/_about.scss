@@ -1,7 +1,3 @@
-@import "./reset.css";
-@import "./common";
-@import "./haeder";
-@import "./button";
 /* =====================
     ly_about
 ===================== */
@@ -18,8 +14,11 @@
     background-color: #000;
     transition: height .6s;
   }
-  &.is_loaded:before {
+  &.is_init:before {
     height: 0;
+  }
+  &.is_loaded:before {
+    display: none;
   }
 
 
@@ -83,8 +82,12 @@
   ===================== */
   .el_btn_wrapper {
     .el_btn {
+      top: 100vh;
       left: 0;
-      transition: transform .3s ease;
+      transition: transform .3s ease, top .6s .4s;
+      &.is_active {
+        top: 0;
+      }
     }
   }
   /* end el_btn
@@ -230,7 +233,7 @@
         font-size: 3rem;
       }
 
-      &.is_sizeUp {
+      &.is_active {
         @include mediaQuery(mobileOnly) {
           top: 0;
           width: 100%;
@@ -291,28 +294,38 @@
 
     &_scrollDown {
       position: fixed;
-      bottom: 35px;
+      bottom: -100%;
       z-index: 1;
       writing-mode: vertical-lr;
       font-size: 1.2rem;
       letter-spacing: 0.3em;
       padding-bottom: 10px;
-      transition: bottom .4s;
+      transition: bottom .6s .4s;
       @include mediaQuery(mobileOnly) {
         right: 20px;
       }
       @include mediaQuery(tablet) {
-        bottom: 60px;
         left: 40px;
         font-size: 1.4em;
         padding-bottom: 20px;
       }
       @include mediaQuery(desktop) {
-        bottom: 70px;
         left: 40px;
         font-size: 1.6rem;
         padding-bottom: 20px;
       }
+      &.is_active {
+        @include mediaQuery(mobileOnly) {
+          bottom: 35px;
+        }
+        @include mediaQuery(tablet) {
+          bottom: 60px;
+        }
+        @include mediaQuery(desktop) {
+          bottom: 70px;
+        }
+      }
+
       &:after {
         content: '';
         position: absolute;
@@ -331,7 +344,8 @@
       }
     }
 
-    .bl_about_arrowBox {
+    .bl_about_arrow {
+      overflow: hidden;
       position: fixed;
       top: 60px;
       left: 20px;
@@ -350,17 +364,23 @@
       }
     }
 
-    &_arrow {
+    &_arrowIcon {
       cursor: pointer;
+      position: relative;
+      left: 100%;
       display: inline-block;
       width: 100%;
       height: 1px;
       margin-top: 18px;
       background-color: #fff;
-      transition: background-color .3s ease;
+      transition: background-color .3s ease, left .6s .5s ease-out;
       @include mediaQuery(desktop) {
         height: 2px;
       }
+      &.is_show {
+        left: 0;
+      }
+
       &:before,
       &:after {
         content: '';
@@ -375,20 +395,20 @@
         }
       }
       &:before {
-        top: 14px;
+        top: -4px;
         left: -2px;
         transform: rotate(-45deg);
         @include mediaQuery(desktop) {
-          top: 10px;
+          top: -8px;
           left: -4px;
         }
       }
       &:after {
-        top: 22px;
+        top: 4px;
         left: -2px;
         transform: rotate(45deg);
         @include mediaQuery(desktop) {
-          top: 26px;
+          top: 8px;
           left: -4px;
         }
       }
@@ -466,7 +486,7 @@
         width: 54%;
         padding: 0 10%;
       }
-      
+
       > h3 {
         font-size: 1.6rem;
         letter-spacing: .2em;
@@ -631,7 +651,7 @@
         padding: 0 10%;
       }
     }
-    
+
     .bl_skill_item {
       display: flex;
       justify-content: space-between;
@@ -650,7 +670,7 @@
           margin-top: 6rem;
         }
       }
-    
+
       &__1st {
         @include mediaQuery(mobile) {
           order: 1;
@@ -705,15 +725,15 @@
         }
       }
     }
-    
+
     .bl_skill_icon {
       width: 10%;
     }
-    
+
     .bl_skill_data {
       width: 86%;
     }
-    
+
     .bl_skill_name {
       display: flex;
       align-items: baseline;
@@ -727,7 +747,7 @@
       @include mediaQuery(desktop) {
         font-size: 2.4rem;
       }
-    
+
       &__history {
         color: $gray;
         font-size: .8em;
@@ -744,7 +764,7 @@
           margin-left: 6px;
         }
       }
-    
+
       &__value {
         color: $black;
         margin-left: auto;
@@ -752,7 +772,7 @@
           font-size: 1.4rem;
         }
       }
-    
+
       &__percentage {
         color: $black;
         font-size: .8em;
@@ -763,12 +783,12 @@
           font-size: .7em;
         }
       }
-    
+
       &__high {
         color: $red;
       }
     }
-    
+
     .bl_skill_progressBar {
       position: relative;
       width: 100%;
@@ -795,7 +815,7 @@
         background-image: linear-gradient(to right, #072142, #8c2b7a 42%, #ff4d5a);
         transition: width 1.5s ease;
       }
-    
+
       &.is_active {
         &.is_50:after {
           width: 50%;
