@@ -9,17 +9,27 @@ import progressBar from './progressBar';
 import Barba from "barba.js";
 
 ((d, w) => {
-  // ページごとの処理を分別
+  // ページごとの処理
   const pageEvents = {
     allPage: () => {
       hamburgerMenu();
-      d.querySelector('.js_curtain').classList.add('is_loaded');
-      if (d.querySelector('.js_curtain').classList.contains('is_loaded')) d.body.classList.remove('is_lock');
+      if (d.body.classList.contains('is_init')) {
+        d.querySelector('.js_curtain').classList.add('is_loaded');
+        d.body.classList.remove('is_lock');
+      }
     },
     topPage: () => {
       d.body.style.overflow = '';
       fullScreenScroll(); //スクリーンスクロール
       backgroundMouseMove(); //背景画像座標
+      [].slice.call(d.querySelectorAll('.js_btn')).forEach((btn, index) => {
+        btn.addEventListener('click', (e) => {
+          const btnIndex = index;
+          [].slice.call(d.querySelectorAll('.js_imageSizeUp')).forEach((image, index, array) => {
+            array[btnIndex].classList.add('is_sizeUp');
+          });
+        })
+      });
       if (d.getElementById('js_header').classList.contains('is_instagram') || d.getElementById('js_header').classList.contains('is_color')) {
         d.getElementById('js_header').classList.remove('is_instagram');
         d.getElementById('js_header').classList.remove('is_color');
@@ -30,8 +40,10 @@ import Barba from "barba.js";
     aboutPage: () => {
       d.body.style.height = '';
       d.body.style.overflow = 'scroll';
-      const keyVisual = d.getElementById('js_keyVisualSize');
-      if (keyVisual) keyVisual.classList.add('is_sizeUp');
+      [].slice.call(d.querySelectorAll('.js_active')).forEach((val) => {
+        val.classList.add('is_active');
+      });
+      d.getElementById('js_arrowButton').classList.add('is_show');
       d.getElementById('js_header').classList.add('is_instagram');
       w.addEventListener('scroll', headerTextColor); //ヘッダーナビの文字色変更
       w.addEventListener('scroll', progressBar); //プログレスバーのゲージ
@@ -47,7 +59,17 @@ import Barba from "barba.js";
     }
     pageEvents.allPage();
   }
-  w.addEventListener('load', checkId);
+
+  // 初回用
+  const init = () => {
+    checkId();
+    d.querySelector('.js_curtain').classList.add('is_init');
+    if (d.querySelector('.js_curtain').classList.contains('is_init')) {
+      d.body.classList.remove('is_lock');
+      d.body.classList.add('is_init');
+    }
+  }
+  w.addEventListener('load', init);
 
 
 

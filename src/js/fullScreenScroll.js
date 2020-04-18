@@ -21,14 +21,15 @@ export default function () {
           /** スクロール処理 */
           history.pushState(null, null, '#' + val.target.id);
           const scrollProcessing = (event) => {
-            // d.body.classList.add('is_lock');
             event.preventDefault();
+            // d.body.classList.add('is_lock');
             //モバイルとデスクトップでスクロール値取得を分ける
             if (navigator.userAgent.match(/iPhone|Android.+Mobile/)) {
               scrollPosition = event.changedTouches[0].pageY;
             } else {
               scrollPosition = w.pageYOffset || d.documentElement.scrollTop;
             }
+            // scrollPosition = w.pageYOffset || d.documentElement.scrollTop;
 
             if (!scrollFlag) {
               scrollFlag = true;
@@ -61,7 +62,7 @@ export default function () {
           if (navigator.userAgent.match(/iPhone|Android.+Mobile/)) {
             w.addEventListener('touchmove', (event) => {
               scrollProcessing(event);
-            }, { passive: false });
+            });
           } else {
             w.addEventListener('scroll', (event) => {
               scrollProcessing(event);
