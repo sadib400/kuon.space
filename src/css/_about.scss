@@ -84,7 +84,7 @@
     .el_btn {
       top: 100vh;
       left: 0;
-      transition: transform .3s ease, top .6s .4s;
+      transition: transform .3s ease, top .6s 1s;
       &.is_active {
         top: 0;
       }
@@ -264,33 +264,6 @@
       }
     }
 
-    &_numberBox {
-      overflow: hidden;
-      position: absolute;
-      right: -9%;
-      bottom: 10%;
-      @include mediaQuery(tablet) {
-        right: -6%;
-      }
-    }
-
-    &_number {
-      position: relative;
-      top: 160px;
-      transition: top .3s;
-      font-size: 16rem;
-      text-shadow: 0 10px 10px rgba(0,0,0,.3);
-      @include font_family(medium);
-      @include mediaQuery(tablet) {
-        top: 80px;
-        font-size: 8rem;
-      }
-
-      &.is_active {
-        top: 0;
-      }
-    }
-
     &_scrollDown {
       position: fixed;
       bottom: -100%;
@@ -299,7 +272,7 @@
       font-size: 1.2rem;
       letter-spacing: 0.3em;
       padding-bottom: 10px;
-      transition: bottom .6s .4s;
+      transition: bottom .6s 1s;
       @include mediaQuery(mobileOnly) {
         right: 20px;
       }
@@ -372,11 +345,11 @@
       height: 1px;
       margin-top: 18px;
       background-color: #fff;
-      transition: background-color .3s ease, left .6s .5s ease-out;
+      transition: background-color .3s ease, left .6s 1s ease-out;
       @include mediaQuery(desktop) {
         height: 2px;
       }
-      &.is_show {
+      &.is_active {
         left: 0;
       }
 

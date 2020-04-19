@@ -6,6 +6,7 @@ import backgroundMouseMove from './backgroundMouseMove';
 import fullScreenScroll from './fullScreenScroll';
 import headerTextColor from './headerTextColor';
 import progressBar from './progressBar';
+import anime from 'animejs'
 import Barba from "barba.js";
 
 ((d, w) => {
@@ -22,12 +23,6 @@ import Barba from "barba.js";
       d.body.style.overflow = '';
       fullScreenScroll();
       backgroundMouseMove();
-      if (d.getElementById('js_header').classList.contains('is_instagram') || d.getElementById('js_header').classList.contains('is_color')) {
-        d.getElementById('js_header').classList.remove('is_instagram');
-        d.getElementById('js_header').classList.remove('is_color');
-        w.removeEventListener('scroll', headerTextColor);
-        w.removeEventListener('scroll', progressBar);
-      }
     },
     aboutPage: () => {
       if(w.pageYOffset) w.pageYOffset = 0;
@@ -37,7 +32,6 @@ import Barba from "barba.js";
       [].slice.call(d.querySelectorAll('.js_active')).forEach((val) => {
         val.classList.add('is_active');
       });
-      d.getElementById('js_arrowButton').classList.add('is_show');
       d.getElementById('js_header').classList.add('is_instagram');
       w.addEventListener('scroll', headerTextColor);
       w.addEventListener('scroll', progressBar);
@@ -98,4 +92,43 @@ import Barba from "barba.js";
       head.appendChild(newHeadTags[i]);
     }
   });
+
+  // 遷移アニメーション
+  // const pageAnimation = Barba.BaseTransition.extend({
+  //   start: function() {
+  //       Promise
+  //           .all([this.image(),this.newContainerLoading ])
+  //           .then(this.finish.bind(this))
+  //   },
+  //   image: function(){
+  //     // 遷移前のアニメーション
+  //     anime({
+  //       targets: '.js_imageSizeUp',
+  //       width: '61%',
+  //       height: '100%',
+  //       duration: 600,
+  //       easing: 'easeInOutSine'
+  //     });
+  //   },
+  //   // bgColor: function () {
+  //   //   anime({
+  //   //     target: '.bl_slide_content',
+  //   //     backgroundColor: '#072142',
+  //   //     duration: 300
+  //   //   });
+  //   // },
+  //   finish: function(){
+  //     // 遷移後のアニメーション
+  //     const _this = this;
+  //     anime({
+  //         targets: this.newContainer,
+  //         opacity: [0, 1],
+  //         easing: 'easeInOutQuart'
+  //     });
+  //   }
+  // });
+  // Barba.Pjax.getTransition = function() {
+  //   return pageAnimation;
+  // };
+
 })(document, window);
