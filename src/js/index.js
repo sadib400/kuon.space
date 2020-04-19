@@ -6,7 +6,6 @@ import backgroundMouseMove from './backgroundMouseMove';
 import fullScreenScroll from './fullScreenScroll';
 import headerTextColor from './headerTextColor';
 import progressBar from './progressBar';
-import anime from 'animejs'
 import Barba from "barba.js";
 
 ((d, w) => {
@@ -25,8 +24,9 @@ import Barba from "barba.js";
       backgroundMouseMove();
     },
     aboutPage: () => {
-      if(w.pageYOffset) w.pageYOffset = 0;
-      if(d.documentElement.scrollTop) d.documentElement.scrollTop = 0;
+      setTimeout(() => {
+        scrollTo(0, 0);
+      });
       d.body.style.height = '';
       d.body.style.overflow = 'scroll';
       [].slice.call(d.querySelectorAll('.js_active')).forEach((val) => {
@@ -35,6 +35,7 @@ import Barba from "barba.js";
       d.getElementById('js_header').classList.add('is_instagram');
       w.addEventListener('scroll', headerTextColor);
       w.addEventListener('scroll', progressBar);
+
     }
   }
 
@@ -92,43 +93,18 @@ import Barba from "barba.js";
       head.appendChild(newHeadTags[i]);
     }
   });
-
-  // 遷移アニメーション
-  // const pageAnimation = Barba.BaseTransition.extend({
-  //   start: function() {
-  //       Promise
-  //           .all([this.image(),this.newContainerLoading ])
-  //           .then(this.finish.bind(this))
-  //   },
-  //   image: function(){
-  //     // 遷移前のアニメーション
-  //     anime({
-  //       targets: '.js_imageSizeUp',
-  //       width: '61%',
-  //       height: '100%',
-  //       duration: 600,
-  //       easing: 'easeInOutSine'
-  //     });
-  //   },
-  //   // bgColor: function () {
-  //   //   anime({
-  //   //     target: '.bl_slide_content',
-  //   //     backgroundColor: '#072142',
-  //   //     duration: 300
-  //   //   });
-  //   // },
-  //   finish: function(){
-  //     // 遷移後のアニメーション
-  //     const _this = this;
-  //     anime({
-  //         targets: this.newContainer,
-  //         opacity: [0, 1],
-  //         easing: 'easeInOutQuart'
-  //     });
-  //   }
-  // });
-  // Barba.Pjax.getTransition = function() {
-  //   return pageAnimation;
-  // };
-
+  // URLに#有りでも有効 参考:https://www.willstyle.co.jp/blog/1722/
+  Barba.Pjax.originalPreventCheck = Barba.Pjax.preventCheck;
+  Barba.Pjax.preventCheck = function (evt, element) {
+    if (element) {
+      const url = location.protocol + '//' + location.host + location.pathname;
+      const extract_hash = element.href.replace(/#.*$/,"");
+      if (element.href.startsWith(location.protocol + '//' + location.host)) {
+        if (element.href.indexOf('#') > -1 &&  extract_hash != url ){
+          return true;
+        }
+      }
+    }
+    return true;
+  }
 })(document, window);
