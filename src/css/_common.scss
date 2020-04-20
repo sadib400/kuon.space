@@ -5,19 +5,19 @@ $gray: #c0c5ca;
 
 @font-face {
   font-family: "futura_r";
-  src: url("/font/Futura-Boo.woff") format("woff");
+  src: url("https://j0811s.github.io/kuon.space/font/Futura-Boo.woff") format("woff");
 }
 @font-face {
   font-family: "futura_b";
-  src: url("/font/Futura-Bol.woff") format("woff");
+  src: url("https://j0811s.github.io/kuon.space/font/Futura-Bol.woff") format("woff");
 }
 @font-face {
   font-family: "futura_m";
-  src: url("/font/Futura-Med.woff") format("woff");
+  src: url("https://j0811s.github.io/kuon.space/font/Futura-Med.woff") format("woff");
 }
 @font-face {
   font-family: "Abril-Fatface";
-  src: url("/font/AbrilFatface-Regular.ttf") format('truetype');
+  src: url("https://j0811s.github.io/kuon.space/font/AbrilFatface-Regular.ttf") format('truetype');
 }
 
 @mixin font_family($type: default) {
