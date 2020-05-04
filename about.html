@@ -14,43 +14,45 @@
   <meta property="og:type" content="website" />
   <link rel="shortcut icon" href="./images/favicon.ico">
   <link href="./asset/css/index.css" rel="stylesheet">
-  <script src="https://kit.fontawesome.com/44f81fa005.js" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/44f81fa005.js" crossorigin="anonymous" defer></script>
+  <script src="https://www.promisejs.org/polyfills/promise-6.1.0.min.js" defer></script>
+  <script crossorigin="anonymous" src="https://polyfill.io/v3/polyfill.min.js?features=default%2CArray.prototype.find%2CIntersectionObserver" defer></script>
   <script src="./asset/js/index.js" defer></script>
-  <script src="https://www.promisejs.org/polyfills/promise-6.1.0.min.js"></script>
-  <script crossorigin="anonymous" src="https://polyfill.io/v3/polyfill.min.js?features=default%2CArray.prototype.find%2CIntersectionObserver"></script>
 </head>
 <body id="barba-wrapper" class="is_lock">
   <!-- メインコンテンツ -->
   <main id="js_about" class="ly_about js_curtain barba-container" data-namespace="about">
-    <header id="js_header" class="ly_header">
-      <h1 class="bl_headerNav_item bl_headerNav_item__both">
+    <section id="js_header" class="ly_header">
+      <div class="bl_headerNav_item bl_headerNav_item__both">
         <a href="./">Kuon <br class="is_br">Yagi</a>
-      </h1>
-      <ul class="bl_headerNav">
-        <li class="bl_headerNav_item">
-          <a href="https://www.instagram.com/kuon_y/" target="_blank">
-            <i class="fab fa-instagram"></i>
-          </a>
-        </li>
-        <li class="bl_headerNav_item">
-          <a href="https://twitter.com/Goldi69s" target="_blank">
-            <i class="fab fa-twitter"></i>
-          </a>
-        </li>
-        <li class="bl_headerNav_item">
-          <a href="https://dribbble.com/kuon_yagi" target="_blank">
-            <i class="fab fa-dribbble"></i>
-          </a>
-        </li>
-        <li class="bl_headerNav_item">
-          <a href="https://www.wantedly.com/users/48483598" target="_blank">
-            <span>Wantedly</span>
-          </a>
-        </li>
-        <li class="bl_headerNav_item bl_headerNav_item__both">
-          <div id="js_hamburgerMenu" class="bl_headerNav_btn"></div>
-        </li>
-      </ul>
+      </div>
+      <nav class="bl_headerNav">
+        <ul class="bl_headerNav_list">
+          <li class="bl_headerNav_item">
+            <a href="https://www.instagram.com/kuon_y/" target="_blank">
+              <i class="fab fa-instagram"></i>
+            </a>
+          </li>
+          <li class="bl_headerNav_item">
+            <a href="https://twitter.com/Goldi69s" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li class="bl_headerNav_item">
+            <a href="https://dribbble.com/kuon_yagi" target="_blank">
+              <i class="fab fa-dribbble"></i>
+            </a>
+          </li>
+          <li class="bl_headerNav_item">
+            <a href="https://www.wantedly.com/users/48483598" target="_blank">
+              <span>Wantedly</span>
+            </a>
+          </li>
+          <li class="bl_headerNav_item bl_headerNav_item__both">
+            <div id="js_hamburgerMenu" class="bl_headerNav_btn"></div>
+          </li>
+        </ul>
+      </nav>
       <nav class="bl_hamburgerMenu js_menuOpen">
         <ul class="bl_hamburgerMenu_list">
           <li class="bl_hamburgerMenu_item">
@@ -75,7 +77,7 @@
           </li>
         </ul>
       </nav>
-    </header>
+    </section>
 
     <section id="about" class="bl_about js_slide">
       <div class="bl_about_textBox">
@@ -86,9 +88,7 @@
         </div>
       </div>
       <div class="bl_about_imageBox js_active">
-        <span class="bl_about_image">
-          <img src="images/about.jpg" alt="DESIGN">
-        </span>
+        <img class="bl_about_image" src="images/about.jpg" alt="DESIGN">
       </div>
       <p id="js_scrollDown" class="bl_about_scrollDown js_active">SCROLLDOWN</p>
       <a class="bl_about_arrow" href="./#about">
@@ -96,154 +96,154 @@
       </a>
     </section>
 
-    <article class="ly_article">
-      <section class="bl_who">
-        <h2 class="el_title"><span class="mod-titleNumber">01</span> WHO I AM</h2>
-        <div class="bl_who_wrapper">
+    <div class="ly_article">
+      <section class="ly_article_content">
+        <h2 class="el_title"><span class="el_title__number">01</span> WHO I AM</h2>
+        <div class="bl_who">
           <div class="bl_who_profile">
-            <h3>屋宜久遠<br><span class="mod-en">KUON YAGI</span></h3>
-            <p>1992年、沖縄県生まれ。大学を卒業後、県内の制作会社でDTPオペレーターとして就職後、大手紳士服量販店を中心に十数社のコーポレートサイトの運用業務を担当しました。<br>2017年より、個人でもWebデザイナーとしての活動を開始し、写真撮影・デザイン・コーディングまでワンストップで対応しています。</p>
-            <img class="bl_who_image" src="images/about/portrait.jpg" alt="屋宜久遠 KUON YAGI">
+            <h3 class="bl_who_title">屋宜久遠<br><span class="bl_who_title__english">KUON YAGI</span></h3>
+            <p class="bl_who_text">1992年、沖縄県生まれ。大学を卒業後、県内の制作会社でDTPオペレーターとして就職後、大手紳士服量販店を中心に十数社のコーポレートサイトの運用業務を担当しました。<br>2017年より、個人でもWebデザイナーとしての活動を開始し、写真撮影・デザイン・コーディングまでワンストップで対応しています。</p>
+            <img class="bl_who_image" src="images/about/portrait.jpg" alt="久遠 屋宜 KUON YAGI">
           </div>
         </div>
       </section>
 
-      <section class="bl_passion">
-        <h2 class="el_title"><span class="mod-titleNumber">02</span> PASSION</h2>
-        <div class="bl_passion_wrapper">
+      <section class="ly_article_content">
+        <h2 class="el_title"><span class="el_title__number">02</span> PASSION</h2>
+        <div class="bl_passion">
           <ul class="bl_passion_list">
             <li class="bl_passion_item">
               <div class="bl_passion_image">
                 <img src="images/about/design-skills.svg" alt="DESIGN">
               </div>
-              <h3>DESIGN</h3>
-              <p>デザインとは「魔法の杖」の様なものだと考えています。サービスやプロダクトが問題を解決するための魔法だとするならば、それを使用者（ユーザー）が使いこなすための媒介となるのがデザインの役目ではないでしょうか。ユーザーにマッチした「魔法の杖」を創造できるように日々努力します。</p>
+              <h3 class="bl_passion_title">DESIGN</h3>
+              <p class="bl_passion_text">デザインとは「魔法の杖」の様なものだと考えています。サービスやプロダクトが問題を解決するための魔法だとするならば、それを使用者（ユーザー）が使いこなすための媒介となるのがデザインの役目ではないでしょうか。ユーザーにマッチした「魔法の杖」を創造できるように日々努力します。</p>
             </li>
             <li class="bl_passion_item">
               <div class="bl_passion_image">
                 <img src="images/about/tech.svg" alt="TECHNOLOGY">
               </div>
-              <h3>TECHNOLOGY</h3>
-              <p>“十分に発達した科学技術は、魔法と見分けがつかない”という言葉があるように、テクノロジーは世界と個人の人生を変える力を持っています。常に最新の技術のキャッチアップを行い、変化に対応できる人間でいたい。イノベーションを普及させるのはエンジニアとともにデザイナーの使命でもあると思っています。</p>
+              <h3 class="bl_passion_title">TECHNOLOGY</h3>
+              <p class="bl_passion_text">“十分に発達した科学技術は、魔法と見分けがつかない”という言葉があるように、テクノロジーは世界と個人の人生を変える力を持っています。常に最新の技術のキャッチアップを行い、変化に対応できる人間でいたい。イノベーションを普及させるのはエンジニアとともにデザイナーの使命でもあると思っています。</p>
             </li>
             <li class="bl_passion_item">
               <div class="bl_passion_image">
                 <img src="images/about/book-open.svg" alt="STORY">
               </div>
-              <h3>STORY</h3>
-              <p>小説・映画・漫画などストーリー性のあるコンテンツが大好きです。ストーリーは人々の注目を集め、物事をわかりやすく、覚えやすくすることができます。あらゆる物語のパターンを研究し、自分のアウトプットにもストーリー性を帯びさせることができれば大きなリターンがあると信じています。</p>
+              <h3 class="bl_passion_title">STORY</h3>
+              <p class="bl_passion_text">小説・映画・漫画などストーリー性のあるコンテンツが大好きです。ストーリーは人々の注目を集め、物事をわかりやすく、覚えやすくすることができます。あらゆる物語のパターンを研究し、自分のアウトプットにもストーリー性を帯びさせることができれば大きなリターンがあると信じています。</p>
             </li>
           </ul>
         </div>
       </section>
 
-      <section class="bl_skill">
-        <h2 class="el_title"><span class="mod-titleNumber">03</span> SKILL SET</h2>
-        <ul class="bl_skill_list">
-          <li class="bl_skill_item bl_skill_item__1st">
+      <section class="ly_article_content">
+        <h2 class="el_title"><span class="el_title__number">03</span> SKILL SET</h2>
+        <ul class="bl_skill">
+          <li class="bl_skill_item bl_skill_item__order1">
             <div class="bl_skill_icon">
               <img src="images/about/ai.svg" alt="Illustrator">
             </div>
             <div class="bl_skill_data">
-              <label class="bl_skill_name">Illustrator<span class="bl_skill_name__history">3YEARS</span><span class="bl_skill_name__value"><span class="bl_skill_name__high">90</span><span class="bl_skill_name__percentage">%</span></span></label>
+              <label class="bl_skill_name">Illustrator<span class="bl_skill_history">3YEARS</span><span class="bl_skill_value"><span class="bl_skill_value__high">90</span><span class="bl_skill_percentage">%</span></span></label>
               <div class="bl_skill_progressBar js_progressBar is_90"></div>
             </div>
           </li>
-          <li class="bl_skill_item bl_skill_item__6th">
+          <li class="bl_skill_item bl_skill_item__order6">
             <div class="bl_skill_icon">
               <img src="images/about/html.svg" alt="HTML CSS">
             </div>
             <div class="bl_skill_data">
-              <label class="bl_skill_name">HTML/CSS<span class="bl_skill_name__history">2YEARS</span><span class="bl_skill_name__value bl_skill_name__high"><span class="bl_skill_name__high">90</span><span class="bl_skill_name__percentage">%</span></span></label>
+              <label class="bl_skill_name">HTML/CSS<span class="bl_skill_history">2YEARS</span><span class="bl_skill_value"><span class="bl_skill_value__high">90</span><span class="bl_skill_percentage">%</span></span></label>
               <div class="bl_skill_progressBar js_progressBar is_90"></div>
             </div>
           </li>
-          <li class="bl_skill_item bl_skill_item__2nd">
+          <li class="bl_skill_item bl_skill_item__order2">
             <div class="bl_skill_icon">
               <img src="images/about/sketch.svg" alt="Sketch">
             </div>
             <div class="bl_skill_data">
-              <label class="bl_skill_name">Sketch<span class="bl_skill_name__history">1YEARS</span><span class="bl_skill_name__value">80<span class="bl_skill_name__percentage">%</span></span></label>
+              <label class="bl_skill_name">Sketch<span class="bl_skill_history">1YEARS</span><span class="bl_skill_value">80<span class="bl_skill_percentage">%</span></span></label>
               <div class="bl_skill_progressBar js_progressBar is_80"></div>
             </div>
           </li>
-          <li class="bl_skill_item bl_skill_item__7th">
+          <li class="bl_skill_item bl_skill_item__order7">
             <div class="bl_skill_icon">
               <img src="images/about/pug.svg" alt="Pug">
             </div>
             <div class="bl_skill_data">
-              <label class="bl_skill_name">Pug<span class="bl_skill_name__history">3MONTHS</span><span class="bl_skill_name__value">80<span class="bl_skill_name__percentage">%</span></span></label>
+              <label class="bl_skill_name">Pug<span class="bl_skill_history">3MONTHS</span><span class="bl_skill_value">80<span class="bl_skill_percentage">%</span></span></label>
               <div class="bl_skill_progressBar js_progressBar is_80"></div>
             </div>
           </li>
-          <li class="bl_skill_item bl_skill_item__3rd">
+          <li class="bl_skill_item bl_skill_item__order3">
             <div class="bl_skill_icon">
               <img src="images/about/abstract.svg" alt="Abstract">
             </div>
             <div class="bl_skill_data">
-              <label class="bl_skill_name">Abstract<span class="bl_skill_name__history">HALF A YEAR</span><span class="bl_skill_name__value">80<span class="bl_skill_name__percentage">%</span></span></label>
+              <label class="bl_skill_name">Abstract<span class="bl_skill_history">HALF A YEAR</span><span class="bl_skill_value">80<span class="bl_skill_percentage">%</span></span></label>
               <div class="bl_skill_progressBar js_progressBar is_80"></div>
             </div>
           </li>
-          <li class="bl_skill_item bl_skill_item__8th">
+          <li class="bl_skill_item bl_skill_item__order8">
             <div class="bl_skill_icon">
               <img src="images/about/wp.svg" alt="Wordpress">
             </div>
             <div class="bl_skill_data">
-              <label class="bl_skill_name">Wordpress<span class="bl_skill_name__history">1YEAR</span><span class="bl_skill_name__value">70<span class="bl_skill_name__percentage">%</span></span></label>
+              <label class="bl_skill_name">Wordpress<span class="bl_skill_history">1YEAR</span><span class="bl_skill_value">70<span class="bl_skill_percentage">%</span></span></label>
               <div class="bl_skill_progressBar js_progressBar is_70"></div>
             </div>
           </li>
-          <li class="bl_skill_item bl_skill_item__4th">
+          <li class="bl_skill_item bl_skill_item__order4">
             <div class="bl_skill_icon">
               <img src="images/about/ps.svg" alt="Photoshop">
             </div>
             <div class="bl_skill_data">
-              <label class="bl_skill_name">Photoshop<span class="bl_skill_name__history">3YEAR</span><span class="bl_skill_name__value">70<span class="bl_skill_name__percentage">%</span></span></label>
+              <label class="bl_skill_name">Photoshop<span class="bl_skill_history">3YEAR</span><span class="bl_skill_value">70<span class="bl_skill_percentage">%</span></span></label>
               <div class="bl_skill_progressBar js_progressBar is_70"></div>
             </div>
           </li>
-          <li class="bl_skill_item bl_skill_item__9th">
+          <li class="bl_skill_item bl_skill_item__order9">
             <div class="bl_skill_icon">
               <img src="images/about/sass.svg" alt="Sass">
             </div>
             <div class="bl_skill_data">
-              <label class="bl_skill_name">Sass<span class="bl_skill_name__history">1YEAR</span><span class="bl_skill_name__value">70<span class="bl_skill_name__percentage">%</span></span></label>
+              <label class="bl_skill_name">Sass<span class="bl_skill_history">1YEAR</span><span class="bl_skill_value">70<span class="bl_skill_percentage">%</span></span></label>
               <div class="bl_skill_progressBar js_progressBar is_70"></div>
             </div>
           </li>
-          <li class="bl_skill_item bl_skill_item__5th">
+          <li class="bl_skill_item bl_skill_item__order5">
             <div class="bl_skill_icon">
               <img src="images/about/flinto.png" alt="Flinto for mac">
             </div>
             <div class="bl_skill_data">
-              <label class="bl_skill_name">Flinto for mac<span class="bl_skill_name__history">2MONTHS</span><span class="bl_skill_name__value">50<span class="bl_skill_name__percentage">%</span></span></label>
+              <label class="bl_skill_name">Flinto for mac<span class="bl_skill_history">2MONTHS</span><span class="bl_skill_value">50<span class="bl_skill_percentage">%</span></span></label>
               <div class="bl_skill_progressBar js_progressBar is_50"></div>
             </div>
           </li>
-          <li class="bl_skill_item bl_skill_item__10th">
+          <li class="bl_skill_item bl_skill_item__order10">
             <div class="bl_skill_icon">
               <img src="images/about/js.svg" alt="Javascript">
             </div>
             <div class="bl_skill_data">
-              <label class="bl_skill_name">Javascript<span class="bl_skill_name__history">1YEAR</span><span class="bl_skill_name__value">60<span class="bl_skill_name__percentage">%</span></span></label>
+              <label class="bl_skill_name">Javascript<span class="bl_skill_history">1YEAR</span><span class="bl_skill_value">60<span class="bl_skill_percentage">%</span></span></label>
               <div class="bl_skill_progressBar js_progressBar is_60"></div>
             </div>
           </li>
         </ul>
       </section>
-    </article>
+    </div>
 
-      <footer class="bl_footer">
-        <ul class="bl_footer_list">
-          <li class="bl_footer_item">
-            <a class="bl_footer_link" href="mailto:kuon609@gmail.com">kuon609@gmail.com</a>
-          </li>
-          <li class="bl_footer_item">
-            <a class="bl_footer_link" href="https://www.wantedly.com/users/48483598" target="_blank">Wantedly</a>
-          </li>
-        </ul>
-      </footer>
+    <div class="bl_footer">
+      <ul class="bl_footer_list">
+        <li class="bl_footer_item">
+          <a class="bl_footer_link" href="mailto:kuon609@gmail.com">kuon609@gmail.com</a>
+        </li>
+        <li class="bl_footer_item">
+          <a class="bl_footer_link" href="https://www.wantedly.com/users/48483598" target="_blank">Wantedly</a>
+        </li>
+      </ul>
+    </div>
   </main>
   <!-- END コンテンツ -->
 </body>

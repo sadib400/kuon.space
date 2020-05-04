@@ -50,12 +50,12 @@ $gray: #c0c5ca;
       @content;
     }
   }
-  @if $device == tablet {
+  @if $device == tabletOnly {
     @media screen and (min-width:421px) and (max-width:800px) {
       @content;
     }
   }
-  @if $device == desktopFollow {
+  @if $device == fromTablet {
     @media screen and (min-width:421px) {
       @content;
     }
@@ -73,7 +73,7 @@ $gray: #c0c5ca;
   }
 }
 .is_tablet {
-  @include mediaQuery($device: tablet) {
+  @include mediaQuery($device: tabletOnly) {
     display: none;
   }
 }

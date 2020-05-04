@@ -48,7 +48,7 @@
           width: 150%;
         }
       }
-      @include mediaQuery(tablet) {
+      @include mediaQuery(tabletOnly) {
         top: 50%;
         left: 70%;
         transform: translate(-50%,-50%);
@@ -187,7 +187,7 @@
         padding: 0 25px;
         min-height: 188px;
       }
-      @include mediaQuery(tablet) {
+      @include mediaQuery(tabletOnly) {
         top: 50%;
         left: 40px;
         transform: translate(0,-50%);
@@ -217,7 +217,7 @@
       margin-bottom: 30px;
       transition: left .6s;
       @include font_family(medium);
-      @include mediaQuery(tablet) {
+      @include mediaQuery(tabletOnly) {
         font-size: 7.6rem;
         margin-bottom: 60px;
       }
@@ -236,7 +236,7 @@
         height: 2px;
         background-color: $red;
         border-radius: 4px;
-        @include mediaQuery(tablet) {
+        @include mediaQuery(tabletOnly) {
           width: 70px;
           height: 4px;
         }
@@ -248,7 +248,7 @@
       &:after {
         left: 30px;
         margin-top: 10px;
-        @include mediaQuery(tablet) {
+        @include mediaQuery(tabletOnly) {
           left: 40px;
           margin-top: 17px;
         }
@@ -271,7 +271,7 @@
       letter-spacing: .1em;
       line-height: 1.5;
       transition: left .6s .1s;
-      @include mediaQuery(tablet) {
+      @include mediaQuery(tabletOnly) {
         font-size: 2.4rem;
       }
       @include mediaQuery(desktop) {
@@ -294,7 +294,7 @@
         left: 50%;
         transform: translate(-50%,0);
       }
-      @include mediaQuery(tablet) {
+      @include mediaQuery(tabletOnly) {
         top: 13%;
         right: 5.3%;
         width: 53%;
@@ -315,7 +315,7 @@
           width: 100%;
           height: 65%;
         }
-        @include mediaQuery(tablet) {
+        @include mediaQuery(tabletOnly) {
           top: 0;
           right: 0;
           width: 58.3%;
@@ -379,7 +379,7 @@
       @include mediaQuery(mobileOnly) {
         display: none;
       }
-      @include mediaQuery(tablet) {
+      @include mediaQuery(tabletOnly) {
         right: -5%;
         bottom: 15%;
       }
@@ -396,7 +396,7 @@
       font-size: 15rem;
       text-shadow: 0 10px 10px rgba(0,0,0,.3);
       @include font_family(Abril);
-      @include mediaQuery(tablet) {
+      @include mediaQuery(tabletOnly) {
         top: 80px;
         font-size: 8rem;
       }
@@ -418,7 +418,7 @@
       @include mediaQuery(mobileOnly) {
         right: 20px;
       }
-      @include mediaQuery(desktopFollow) {
+      @include mediaQuery(fromTablet) {
         left: 40px;
         font-size: 1.4em;
       }
@@ -430,7 +430,7 @@
         width: 2px;
         height: 34px;
         background-color: #fff;
-        @include mediaQuery(tablet) {
+        @include mediaQuery(tabletOnly) {
           height: 64px;
         }
         @include mediaQuery(desktop) {
@@ -440,7 +440,7 @@
 
       &.is_active {
         bottom: 35px;
-        @include mediaQuery(tablet) {
+        @include mediaQuery(tabletOnly) {
           bottom: 60px;
         }
         @include mediaQuery(desktop) {
@@ -456,7 +456,7 @@
       left: 50%;
       transform: translate(-50%,0);
       width: 65%;
-      @include mediaQuery(tablet) {
+      @include mediaQuery(tabletOnly) {
         top: 50%;
         left: 70%;
         transform: translate(-50%,-50%);
@@ -470,7 +470,7 @@
         width: 1390px;
       }
 
-      > p {
+      > span {
         opacity: 0;
         position: absolute;
         top: 50%;
@@ -483,7 +483,7 @@
         text-shadow: 0 10px 10px rgba(0,0,0,.3);
         transition: left .4s, opacity .6s, transform .3s ease-out;
         @include font_family(primary);
-        @include mediaQuery(tablet) {
+        @include mediaQuery(tabletOnly) {
           font-size: 3.2rem;
         }
         @include mediaQuery(desktop) {
@@ -493,7 +493,7 @@
         &.is_active {
           opacity: 1;
           left: -14%;
-          @include mediaQuery(tablet) {
+          @include mediaQuery(tabletOnly) {
             left: -12%;
           }
           @include mediaQuery(desktop) {
@@ -589,7 +589,7 @@
       &__LowerCenter {
         top: 20%;
         left: 120%;
-        @include mediaQuery(tablet) {
+        @include mediaQuery(tabletOnly) {
           top: 28%;
           width: 85%;
         }
@@ -634,7 +634,7 @@
       top: 8%;
       right: 0;
       z-index: 2;
-      @include mediaQuery(tablet) {
+      @include mediaQuery(tabletOnly) {
         top: 10%;
       }
       @include mediaQuery(desktop) {
@@ -644,7 +644,7 @@
       > img {
         width: 100%;
         max-width: 45px;
-        @include mediaQuery(tablet) {
+        @include mediaQuery(tabletOnly) {
           max-width: 90px;
         }
         @include mediaQuery(desktop) {
@@ -658,7 +658,7 @@
         font-size: 1.4rem;
         letter-spacing: .1em;
         margin-top: 12px;
-        @include mediaQuery(tablet) {
+        @include mediaQuery(tabletOnly) {
           font-size: 2.4rem;
           margin-top: 22px;
         }
