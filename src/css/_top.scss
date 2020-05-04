@@ -65,6 +65,7 @@
 
       > img {
         width: 100%;
+        transition: transform .3s ease-out;
       }
     }
   }
@@ -99,7 +100,7 @@
         justify-content: space-between;
       }
       @media screen and (min-width: 1251px) {
-        width: 60px;
+        width: 40px;
       }
     }
 
@@ -112,14 +113,14 @@
         margin: 0 20px;
         transition: height .3s;
       }
-      @media screen and (min-width: 600px) and (max-width: 1250px) {
+      @media screen and (min-width: 421px) and (max-width: 1250px) {
         width: 3px;
         height: 24px;
         margin: 0 35px;
         transition: height .3s;
       }
       @media screen and (min-width: 1251px) {
-        width: 50%;
+        width: 24px;
         height: 3px;
         transition: width .3s;
         &:not(:first-child) {
@@ -130,7 +131,7 @@
         @include mediaQuery(mobileOnly) {
           height: 35px;
         }
-        @media screen and (min-width: 600px) and (max-width: 1250px) {
+        @media screen and (min-width: 421px) and (max-width: 1250px) {
           height: 40px;
         }
         @media screen and (min-width: 1251px) {
@@ -375,12 +376,12 @@
     &_numberBox {
       overflow: hidden;
       position: absolute;
-      @include mediaQuery(mobile) {
+      @include mediaQuery(mobileOnly) {
         display: none;
       }
       @include mediaQuery(tablet) {
-        right: -6%;
-        bottom: 10%;
+        right: -5%;
+        bottom: 15%;
       }
       @include mediaQuery(desktop) {
         right: -7%;
@@ -417,15 +418,9 @@
       @include mediaQuery(mobileOnly) {
         right: 20px;
       }
-      @include mediaQuery(tablet) {
+      @include mediaQuery(desktopFollow) {
         left: 40px;
         font-size: 1.4em;
-        padding-bottom: 20px;
-      }
-      @include mediaQuery(desktop) {
-        left: 40px;
-        font-size: 1.6rem;
-        padding-bottom: 20px;
       }
       &:after {
         content: '';
@@ -436,10 +431,10 @@
         height: 34px;
         background-color: #fff;
         @include mediaQuery(tablet) {
-          height: 60px;
+          height: 64px;
         }
         @include mediaQuery(desktop) {
-          height: 70px;
+          height: 64px;
         }
       }
 
@@ -486,13 +481,13 @@
         font-weight: bold;
         letter-spacing: .1em;
         text-shadow: 0 10px 10px rgba(0,0,0,.3);
-        transition: left .4s,opacity .6s,transform .3s ease-out;
+        transition: left .4s, opacity .6s, transform .3s ease-out;
         @include font_family(primary);
         @include mediaQuery(tablet) {
           font-size: 3.2rem;
         }
         @include mediaQuery(desktop) {
-          font-size: 7rem;
+          font-size: 6.6rem;
         }
 
         &.is_active {
@@ -515,10 +510,10 @@
       display: block;
       width: 100%;
       margin: 0 auto;
-      transition: left .6s,opacity .6s,transform .3s ease-out;
+      transition: left .6s, opacity .6s, transform .3s ease-out;
       @include mediaQuery(desktop) {
         left: 43%;
-        width: 43%;
+        width: 40%;
       }
 
       &.is_active {
@@ -532,10 +527,10 @@
       position: absolute;
       left: 90%;
       width: 90%;
-      transition: left .6s,opacity .6s,transform .3s ease-out;
+      transition: left .6s,opacity .6s, transform .3s ease-out;
       @include mediaQuery(desktop) {
         left: 38%;
-        width: 38%;
+        width: 33%;
       }
 
       &__upperLeft {

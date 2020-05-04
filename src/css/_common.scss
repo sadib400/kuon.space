@@ -67,17 +67,17 @@ $gray: #c0c5ca;
   }
 }
 
-.mod-disyplayNone_mobile {
-  @include mediaQuery($device: mobile) {
+.is_mobile {
+  @include mediaQuery($device: mobileOnly) {
     display: none;
   }
 }
-.mod-disyplayNone_tablet {
+.is_tablet {
   @include mediaQuery($device: tablet) {
     display: none;
   }
 }
-.mod-disyplayNone_desktop {
+.is_desktop {
   @include mediaQuery($device: desktop) {
     display: none;
   }
