@@ -12,12 +12,12 @@ const util = {
 
   /** setClass (classの付け替え)
    * @param element{String} 対象セレクタ
-   * @param type{String} 'add' or 'remove' or 'toggle'
-   * @param className{String} class名
+   * @param classList{String} classList: 'add' or 'remove' or 'toggle'
+   * @param className{String} class名 初期値： 'is_intersection'
    */
-  setClass: (element, type = 'add', className = 'is_intersection') => {
+  setClass: (element, classList = 'add', className = 'is_intersection') => {
     const condition = (entry) => {
-      switch (type) {
+      switch (classList) {
         case 'add':
           entry.classList.add(className);
           break;
@@ -45,8 +45,8 @@ const util = {
    * @param nodeListFunc{Object} nodeListの処理
    * @param htmlCollectionFunc{Object} HTMLCollectionの処理
    */
-  checkElementType : (targetElement, nodeListFunc, htmlCollectionFunc) => {
-    if ({}.toString.call(element) === '[object NodeList]' || {}.toString.call(element) === '[object Array]') {
+  checkElementType: (targetElement, nodeListFunc, htmlCollectionFunc) => {
+    if ({}.toString.call(targetElement) === '[object NodeList]' || {}.toString.call(targetElement) === '[object Array]') {
       nodeListFunc(targetElement);
     } else {
       htmlCollectionFunc(targetElement);
@@ -55,28 +55,23 @@ const util = {
 
   /** fadeToggleClass (可視範囲のクラス付与)
    * @param observeTarget{String} 交差対象セレクタ (IntersectionObserverの発火要素)
-   * @param element{String} class付替対象のセレクタ (常に画面内にいるようなposition:fixed要素のclass操作などに)
-   * @param visibleClassType{String} 可視のclassList ('add' or 'remove')
-   * @param inVisibleClassType{String} 不可視のclassList ('add' or 'remove')
+   * @param classTarget{String} class付替対象のセレクタ (常に画面内にいるようなposition:fixed要素のclass操作などに)
+   * @param visibleClassList{String} 可視のclassList ('add' or 'remove')
+   * @param inVisibleClassList{String} 不可視のclassList ('add' or 'remove')
    */
-  fadeToggleClass: (observeTarget, element = observeTarget, visibleClassType = 'add', inVisibleClassType = 'remove', root = null, rootMargin = '0px') => {
+  fadeToggleClass: (observeTarget, classTarget = observeTarget, visibleClassList = 'add', inVisibleClassList = 'remove', root = null, rootMargin = '0px') => {
     // class付与のコールバック
     const callback = (entries) => {
       if ({}.toString.call(entries) === '[object Array]') {
         [].slice.call(entries).forEach((entry) => {
           if (entry.isIntersecting) {
-            setClass(element, visibleClassType);
+            classTarget !== observeTarget ? setClass(classTarget, visibleClassList) : setClass(entry.target, visibleClassList);
           } else {
-            setClass(element, inVisibleClassType);
+            classTarget !== observeTarget ? setClass(classTarget, inVisibleClassList) : setClass(entry.target, inVisibleClassList);
           }
         })
       } else {
-        if (entries.isIntersecting) {
-          console.log(entries);
-          setClass(element, visibleClassType);
-        } else {
-          setClass(element, inVisibleClassType);
-        }
+        entries.isIntersecting ? setClass(classTarget, visibleClassList) : setClass(classTarget, inVisibleClassList);
       }
     };
     // オプション

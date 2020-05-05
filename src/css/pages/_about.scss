@@ -724,7 +724,7 @@
       transition: width 1.5s ease;
     }
 
-    &.is_active {
+    &.is_intersection {
       @for $i from 5 through 9 {
         &.is_#{10 * $i}:after {
           width: 10% * $i;
