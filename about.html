@@ -13,17 +13,17 @@
   <meta property="og:description" content="KUON YAGI PORTFOLIO / Web designer / Markup engineer" />
   <meta property="og:type" content="website" />
   <link rel="shortcut icon" href="./images/favicon.ico">
-  <link href="./asset/css/index.css" rel="stylesheet">
+  <link href="./asset/css/pages.css" rel="stylesheet">
   <script src="https://kit.fontawesome.com/44f81fa005.js" crossorigin="anonymous" defer></script>
   <script src="https://www.promisejs.org/polyfills/promise-6.1.0.min.js" defer></script>
   <script crossorigin="anonymous" src="https://polyfill.io/v3/polyfill.min.js?features=default%2CArray.prototype.find%2CIntersectionObserver" defer></script>
   <script src="./asset/js/index.js" defer></script>
 </head>
-<body id="barba-wrapper" class="is_lock">
+<body id="barba-wrapper" class="js_curtain">
   <!-- メインコンテンツ -->
-  <main id="js_about" class="ly_about js_curtain barba-container" data-namespace="about">
-    <section id="js_header" class="ly_header">
-      <div class="bl_headerNav_item bl_headerNav_item__both">
+  <main id="js_about" class="ly_about barba-container" data-namespace="about">
+    <div id="js_header" class="ly_header">
+      <div class="ly_header_title bl_headerNav_item bl_headerNav_item__both">
         <a href="./">Kuon <br class="is_br">Yagi</a>
       </div>
       <nav class="bl_headerNav">
@@ -77,9 +77,9 @@
           </li>
         </ul>
       </nav>
-    </section>
+    </div>
 
-    <section id="about" class="bl_about js_slide">
+    <section id="js_hero" class="bl_about js_slide">
       <div class="bl_about_textBox">
         <h1 class="bl_about_title">About Me</h1>
         <p class="bl_about_text">I love Design, Technology,<br>and Story.</p>
@@ -96,7 +96,7 @@
       </a>
     </section>
 
-    <div class="ly_article">
+    <div id="js_article" class="ly_article">
       <section class="ly_article_content">
         <h2 class="el_title"><span class="el_title__number">01</span> WHO I AM</h2>
         <div class="bl_who">

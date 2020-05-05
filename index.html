@@ -13,17 +13,17 @@
   <meta property="og:description" content="KUON YAGI PORTFOLIO / Web designer / Markup engineer" />
   <meta property="og:type" content="website" />
   <link rel="shortcut icon" href="./images/favicon.ico">
-  <link href="./asset/css/index.css" rel="stylesheet">
+  <link href="./asset/css/pages.css" rel="stylesheet">
   <script src="https://kit.fontawesome.com/44f81fa005.js" crossorigin="anonymous" defer></script>
   <script src="https://www.promisejs.org/polyfills/promise-6.1.0.min.js" defer></script>
   <script crossorigin="anonymous" src="https://polyfill.io/v3/polyfill.min.js?features=default%2CArray.prototype.find%2CIntersectionObserver" defer></script>
   <script src="./asset/js/index.js" defer></script>
 </head>
-<body id="barba-wrapper" class="is_lock">
+<body id="barba-wrapper" class="js_curtain">
   <!-- メインコンテンツ -->
-  <main id="js_top" class="ly_main js_curtain barba-container" data-namespace="top">
-    <section id="js_header" class="ly_header">
-      <div class="bl_headerNav_item bl_headerNav_item__both">
+  <main id="js_top" class="ly_main barba-container" data-namespace="top">
+    <div id="js_header" class="ly_header">
+      <div class="ly_header_title bl_headerNav_item bl_headerNav_item__both">
         <a href="./">Kuon <br class="is_br">Yagi</a>
       </div>
       <nav class="bl_headerNav">
@@ -77,14 +77,14 @@
           </li>
         </ul>
       </nav>
-    </section>
+    </div>
 
     <div class="bl_background">
       <div class="bl_background_imageBox">
-        <img class="js_backgroundPosition" src="images/moonlight.svg" alt="">
+        <img id="js_background" src="images/moonlight.svg" alt="">
       </div>
       <div class="bl_background_imageBox">
-        <img class="js_backgroundPosition js_star" src="images/star.svg" alt="">
+        <img id="js_background_star" src="images/star.svg" alt="">
       </div>
     </div>
 
@@ -112,13 +112,13 @@
           <p class="bl_slide_text js_slideIn">web designer /<br>markup engineer.</p>
         </div>
         <div class="bl_slide_moon">
-          <img class="bl_slide_moonImg js_slideIn js_moon" src="images/moon.svg" alt="満月">
-          <img class="bl_slide_cloudImg bl_slide_cloudImg__upperLeft js_slideIn js_cloud js_upperLeft" src="images/b_cloud02.svg" alt="淡い雲">
-          <img class="bl_slide_cloudImg bl_slide_cloudImg__upperRight js_slideIn js_cloud js_upperRight" src="images/b_cloud01.svg" alt="淡い雲">
-          <img class="bl_slide_cloudImg bl_slide_cloudImg__LowerLeft js_slideIn js_deep_cloud js_lowerLeft" src="images/cloud3.svg" alt="濃い雲">
-          <img class="bl_slide_cloudImg bl_slide_cloudImg__LowerRight js_slideIn js_deep_cloud js_lowerRight" src="images/cloud2.svg" alt="濃い雲">
-          <img class="bl_slide_cloudImg bl_slide_cloudImg__LowerCenter js_slideIn js_deep_cloud js_lowerCenter" src="images/cloud1.svg" alt="濃い雲">
-          <span class="js_slideIn js_background_text">PORTFOLIO</span>
+          <img id="js_moon" class="bl_slide_moonImg js_slideIn" src="images/moon.svg" alt="満月">
+          <img id="js_cloud_upperLeft" class="bl_slide_cloudImg bl_slide_cloudImg__upperLeft js_slideIn" src="images/b_cloud02.svg" alt="淡い雲">
+          <img id="js_cloud_upperRight" class="bl_slide_cloudImg bl_slide_cloudImg__upperRight js_slideIn" src="images/b_cloud01.svg" alt="淡い雲">
+          <img id="js_cloud_lowerLeft" class="bl_slide_cloudImg bl_slide_cloudImg__LowerLeft js_slideIn" src="images/cloud3.svg" alt="濃い雲">
+          <img id="js_cloud_lowerRight" class="bl_slide_cloudImg bl_slide_cloudImg__LowerRight js_slideIn" src="images/cloud2.svg" alt="濃い雲">
+          <img id="js_cloud_center" class="bl_slide_cloudImg bl_slide_cloudImg__LowerCenter js_slideIn" src="images/cloud1.svg" alt="濃い雲">
+          <span id="js_background_text" class="js_slideIn">PORTFOLIO</span>
         </div>
         <a class="bl_slide_awards" href="http://www.awwwards.com/" target="_blank">
           <img src="images/awwwards_honorable_white_right@2x.png" alt="Honors Awards">

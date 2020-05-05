@@ -31,7 +31,7 @@
     }
   }
 
-  h1 {
+  .ly_header_title {
     position: relative;
     z-index: 1;
     margin-right: auto;
@@ -144,9 +144,6 @@
     align-items: center;
     background-image: linear-gradient(to right, #072142, #8c2b7a 42%, #ff4d5a);
     transition: bottom .3s;
-    &.is_open {
-      bottom: 0;
-    }
 
     &_list {
       text-align: center;
@@ -178,7 +175,7 @@
     &_link {
       position: relative;
       top: 50px;
-      transition: top .3s;
+      transition: top .3s .4s;
       @include mediaQuery(tabletOnly) {
         top: 74px;
       }
@@ -198,10 +195,6 @@
           transition: width .3s linear;
         }
       }
-
-      &.is_open {
-        top: 0;
-      }
     }
 
     &_icon {
@@ -211,10 +204,18 @@
       }
     }
   }
-  /* end bl_hamburgerMenu
-  ===================== */
 
-  &.is_color {
+  // メニューオープン時
+  .bl_hamburgerMenu.is_open {
+    bottom: 0;
+
+    .bl_hamburgerMenu_link {
+      top: 0;
+    }
+  }
+
+  // テキストカラー 変更用
+  &.is_intersection {
     .bl_headerNav_item > a {
       color: $black;
     }
@@ -223,6 +224,18 @@
       background-color: $black;
     }
   }
+
+  &.is_open {
+    .bl_headerNav_item > a {
+      color: #fff;
+    }
+    .bl_headerNav_btn:before,
+    .bl_headerNav_btn:after {
+      background-color: #fff;
+    }
+  }
+  /* end bl_hamburgerMenu
+  ===================== */
 }
 /* end ly_header
 ===================== */

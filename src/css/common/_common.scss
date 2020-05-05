@@ -65,6 +65,11 @@ $gray: #c0c5ca;
       @content;
     }
   }
+  @if $device == desktopAdjust { //~1250px調整用
+    @media screen and (min-width:801px) and (max-width:1250px) {
+      @content;
+    }
+  }
 }
 
 .is_mobile {
@@ -88,13 +93,32 @@ html {
 }
 
 body {
-  overflow-y: scroll;
-  overflow-x: hidden;
+  overflow: hidden;
   -ms-overflow-style: none;
   scrollbar-width: none;
   overscroll-behavior: none;
   @include font_family();
-
+  &:before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    transition: height .6s;
+  }
+  &.is_init {
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+  &.is_init:before {
+    height: 0;
+  }
+  &.is_loaded:before {
+    display: none;
+  }
   &.is_lock {
     overflow: hidden;
   }

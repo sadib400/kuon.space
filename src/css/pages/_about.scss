@@ -3,29 +3,6 @@
 ===================== */
 .ly_about {
   overflow: hidden;
-  &:before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 10;
-    width: 100%;
-    height: 100%;
-    background-color: #000;
-    transition: height .6s;
-  }
-  &.is_init:before {
-    height: 0;
-  }
-  &.is_loaded:before {
-    display: none;
-  }
-  //~1250px調整用
-  @if $device == desktopAdjust {
-    @media screen and (min-width:801px) and (max-width:1250px) {
-      @content;
-    }
-  }
 
 
   /* =====================
@@ -298,6 +275,9 @@
         bottom: 70px;
       }
     }
+    &.is_intersection {
+      opacity: 0;
+    }
 
     &:after {
       content: '';
@@ -390,11 +370,11 @@
       }
     }
 
-    &.is_color {
+    &.is_intersection {
       background-color: $black;
     }
-    &.is_color:before,
-    &.is_color:after {
+    &.is_intersection:before,
+    &.is_intersection:after {
       background-color: $black;
     }
   }

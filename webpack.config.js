@@ -2,7 +2,7 @@ module.exports = {
   watch: true,
   mode: "production",
   entry: {
-    index: "./src/js/index.js"
+    index: "./src/js/entry/index.js"
   },
   output: {
     filename: "[name].js",
