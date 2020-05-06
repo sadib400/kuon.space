@@ -8,53 +8,62 @@ import fullScreenScroll from '../top/fullScreenScroll';
 import headerTextColor from '../about/headerTextColor';
 import progressBar from '../about/progressBar';
 import Barba from "barba.js";
+Barba.Pjax.start();
 
-// ページごとの処理
-const pageEvents = {
+// ページ毎の処理
+const pageType = {
   all: () => {
     hamburgerMenu();
-    about ? header.classList.add('is_instagram') : header.classList.remove('is_instagram');
+    d.querySelector('.js_instagram').classList[top ? 'add' : 'remove']('is_hide');
   },
   top: () => {
     d.body.style.overflow = '';
     fullScreenScroll();
     backgroundMouseMove();
+    setTimeout(() => { header.classList.remove('is_intersection'); });
   },
   about: () => {
-    setTimeout(() => {
-      scrollTo(0, 0);
-    });
     d.body.style.height = '';
     d.body.style.overflow = 'scroll';
     querySliceCall(d.querySelectorAll('.js_active')).forEach((val) => {
       val.classList.add('is_active');
     });
-    hamburgerButton.addEventListener('click', headerTextColor);
     headerTextColor();
     w.addEventListener('scroll', progressBar);
+    setTimeout(() => { scrollTo(0, 0); });
   }
 }
+
+const pageTop = Barba.BaseView.extend({
+  namespace: 'top',
+  onEnterCompleted: function() {
+    pageType.top();
+  }
+});
+
+const pageAbout = Barba.BaseView.extend({
+  namespace: 'about',
+  onEnterCompleted: function() {
+    pageType.about();
+  }
+});
 
 const checkPage = () => {
-  if (top) {
-    pageEvents.top();
-  } else if (about) {
-    pageEvents.about();
-  }
-  pageEvents.all();
+  pageTop.init();
+  pageAbout.init();
 }
 
-// 初回用
+// 初回表示用
 const init = () => {
-  checkPage();
+  if (top) {
+    pageType.top();
+  } else if (about) {
+    pageType.about();
+  }
+  pageType.all();
   d.body.classList.add('is_init');
 }
 w.addEventListener('load', init);
-
-
-
-// barba.js  参考：https://qiita.com/kokushin/items/a9cca2ef52e6e927115d
-Barba.Pjax.start();
 
 // 新しい要素が読み込まれ、コンテナ要素に挿入されたとき
 Barba.Dispatcher.on('newPageReady', function (currentStatus, oldStatus, container, newPageRawHTML) {
@@ -78,8 +87,8 @@ Barba.Dispatcher.on('newPageReady', function (currentStatus, oldStatus, containe
   for (let i = 0; i < newHeadTags.length; i++) {
     head.appendChild(newHeadTags[i]);
   }
-  checkPage();
 });
+
 // URLに#有りでも有効 参考:https://www.willstyle.co.jp/blog/1722/
 Barba.Pjax.originalPreventCheck = Barba.Pjax.preventCheck;
 Barba.Pjax.preventCheck = function (evt, element) {
@@ -94,3 +103,8 @@ Barba.Pjax.preventCheck = function (evt, element) {
   }
   return true;
 }
+
+// pjax対象のリンクをクリックした時。
+Barba.Dispatcher.on('linkClicked', function () {
+  checkPage();
+});

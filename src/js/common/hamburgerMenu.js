@@ -5,10 +5,9 @@ export default function () {
     hamburgerButton.classList.toggle('is_close');
     d.querySelector('.js_menuOpen').classList.toggle('is_open');
     d.body.classList.toggle('is_lock');
-
-    // メニュー表示かつis_intersectionを持っていたら消す
+    // メニュー表示かつ対象classを持っていたら消す
     if (header.classList.contains('is_intersection')) {
-      setClass(header, 'toggle', 'is_open')
+      setClass(header, 'toggle', 'is_open');
     }
   }
 

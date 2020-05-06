@@ -16,13 +16,6 @@
   @include mediaQuery(fromTablet) {
     padding: 40px;
   }
-  &.is_instagram {
-    @include mediaQuery(desktop) {
-      .bl_headerNav_item:nth-child(2) {
-        display: block;
-      }
-    }
-  }
 
   .is_br {
     display: none;
@@ -74,7 +67,7 @@
           opacity: .6;
         }
       }
-      &__instagram {
+      &__instagram.is_hide {
         display: none;
       }
       &:not(.bl_headerNav_item__both) {

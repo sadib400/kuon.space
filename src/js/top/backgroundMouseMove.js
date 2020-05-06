@@ -1,7 +1,7 @@
 export default function () {
   /** マウス移動で背景画像を逆追従
-   * @param id {string} 対象のセレクタ
-   * @param movement {number} 移動量の数値
+   * @param {string} id 対象のセレクタ
+   * @param {number} movement 移動量の数値
    */
   const setMouseMove = (id, movement = .1) => {
     document.body.addEventListener('mousemove', (event) => {
