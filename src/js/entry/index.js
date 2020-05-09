@@ -1,9 +1,11 @@
-import {d, w, top, about, header, hamburgerButton, querySliceCall} from '../common/util';
+import {d, w, top, about, header, logoReload, querySliceCall} from '../common/util';
 require('intersection-observer');
 import objectFitImages from 'object-fit-images';
 objectFitImages();
+import anime from 'animejs';
 import hamburgerMenu from '../common/hamburgerMenu';
 import backgroundMouseMove from '../top/backgroundMouseMove';
+import active from '../top/active';
 import fullScreenScroll from '../top/fullScreenScroll';
 import headerTextColor from '../about/headerTextColor';
 import progressBar from '../about/progressBar';
@@ -13,47 +15,80 @@ Barba.Pjax.start();
 // ページ毎の処理
 const pageType = {
   all: () => {
+    logoReload();
     hamburgerMenu();
     d.querySelector('.js_instagram').classList[top ? 'add' : 'remove']('is_hide');
   },
   top: () => {
-    d.body.style.overflow = '';
+    active();
     fullScreenScroll();
     backgroundMouseMove();
     setTimeout(() => { header.classList.remove('is_intersection'); });
   },
   about: () => {
-    d.body.style.height = '';
-    d.body.style.overflow = 'scroll';
     querySliceCall(d.querySelectorAll('.js_active')).forEach((val) => {
       val.classList.add('is_active');
     });
     headerTextColor();
     w.addEventListener('scroll', progressBar);
     setTimeout(() => { scrollTo(0, 0); });
+
+    /** ヒーローエリアの左矢印ボタンの処理 */
+    (() => {
+      let pageScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      let scrollFlag = false;
+      w.addEventListener('scroll', () => {
+        pageScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        if (scrollFlag && pageScrollTop === 0) {
+          d.getElementById('js_arrowButton').click();
+        }
+      });
+      d.getElementById('js_arrowButton').addEventListener('click', (e) => {
+        if (pageScrollTop === 0) return;
+        e.preventDefault();
+        e.stopPropagation();
+        anime.remove("html, body");
+        anime({
+          targets: "html, body",
+          scrollTop: 0,
+          dulation: 600,
+          easing: 'easeOutCubic',
+        });
+        scrollFlag = true;
+      });
+    })();
   }
 }
 
+// barba.js遷移の分岐用
 const pageTop = Barba.BaseView.extend({
   namespace: 'top',
   onEnterCompleted: function() {
     pageType.top();
+  },
+  onLeave: function () {
+  },
+  onLeaveCompleted: function() {
   }
 });
-
 const pageAbout = Barba.BaseView.extend({
   namespace: 'about',
+  onEnter: function() {
+  },
   onEnterCompleted: function() {
     pageType.about();
+  },
+  onLeave: function () {
+  },
+  onLeaveCompleted: function() {
   }
 });
-
 const checkPage = () => {
   pageTop.init();
   pageAbout.init();
 }
 
-// 初回表示用
+// ページの初回表示用
 const init = () => {
   if (top) {
     pageType.top();

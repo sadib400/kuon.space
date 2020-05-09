@@ -4,8 +4,13 @@ const util = {
   top: document.getElementById('js_top'),
   about: document.getElementById('js_about'),
   header: document.getElementById('js_header'),
-  hamburgerButton : document.getElementById('js_hamburgerMenu'),
+  hamburgerButton: document.getElementById('js_hamburgerMenu'),
   isMobile: navigator.userAgent.match(/iPhone|Android.+Mobile/),
+  logoReload: () => {
+    d.getElementById('js_logo').addEventListener('click', () => {
+      if (location.pathname === '/') location.reload();
+    });
+  },
   querySliceCall : (element) => {
     return [].slice.call(element);
   },
@@ -100,6 +105,7 @@ const about = util.about;
 const header = util.header;
 const hamburgerButton = util.hamburgerButton;
 const isMobile = util.isMobile;
+const logoReload = util.logoReload;
 const querySliceCall = util.querySliceCall;
 const setClass = util.setClass;
 const checkElementType = util.checkElementType;
@@ -113,6 +119,7 @@ export {
   header as header,
   hamburgerButton as hamburgerButton,
   isMobile as isMobile,
+  logoReload as logoReload,
   querySliceCall as querySliceCall,
   setClass as setClass,
   checkElementType as checkElementType,

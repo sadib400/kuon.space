@@ -23,7 +23,7 @@
   <!-- メインコンテンツ -->
   <header id="js_header" class="ly_header">
     <div class="ly_header_title bl_headerNav_item bl_headerNav_item__both">
-      <a href="./">Kuon <br class="is_br">Yagi</a>
+      <a id="js_logo" href="./">Kuon <br class="is_br">Yagi</a>
     </div>
     <nav class="bl_headerNav">
       <ul class="bl_headerNav_list">
@@ -48,7 +48,7 @@
           </a>
         </li>
         <li class="bl_headerNav_item bl_headerNav_item__both">
-          <div id="js_hamburgerMenu" class="bl_headerNav_btn"></div>
+          <div id="js_hamburgerMenu" class="bl_headerNav_btn js_link"></div>
         </li>
       </ul>
     </nav>
@@ -76,6 +76,7 @@
         </li>
       </ul>
     </nav>
+    <div id="js_curtain" class="bl_curtain"></div>
   </header>
   <main id="js_about" class="ly_about barba-container" data-namespace="about">
     <section id="js_hero" class="bl_about js_slide">
@@ -90,8 +91,8 @@
         <img class="bl_about_image" src="images/about.jpg" alt="DESIGN">
       </div>
       <p id="js_scrollDown" class="bl_about_scrollDown js_active">SCROLLDOWN</p>
-      <a class="bl_about_arrow" href="./#about">
-        <span id="js_arrowButton" class="bl_about_arrowIcon js_active"></span>
+      <a id="js_arrowButton" class="bl_about_arrow js_backButton" href="./#about">
+        <span id="js_arrowIcon" class="bl_about_arrowIcon js_active"></span>
       </a>
     </section>
 

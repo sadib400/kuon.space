@@ -1,7 +1,7 @@
-import {d, header, hamburgerButton, querySliceCall, setClass} from './util';
+import {d, header, hamburgerButton, querySliceCall, setClass, isMobile} from './util';
 export default function () {
+  // メニュー開閉
   const toggleOpen = () => {
-    // メニュー開閉
     hamburgerButton.classList.toggle('is_close');
     d.querySelector('.js_menuOpen').classList.toggle('is_open');
     d.body.classList.toggle('is_lock');
@@ -10,16 +10,25 @@ export default function () {
       setClass(header, 'toggle', 'is_open');
     }
   }
+  // リンククリックで黒幕表示
+  const curtainActive = (link) => {
+    if (location.pathname === '/' && link.getAttribute('href') !== './about.html') {
+      toggleOpen();
+      return;
+    }
+    d.getElementById('js_curtain').classList.add('is_active');
+    setTimeout(() => {
+      toggleOpen();
+    },1000);
+    setTimeout(() => {
+      d.getElementById('js_curtain').classList.remove('is_active');
+    },1500);
+  }
 
-  // ハンバーガーボタン クリック処理
-  hamburgerButton.addEventListener('click', () => {
-    toggleOpen();
-  });
-
-  // メニューリンク クリック処理
+  // クリック処理
   querySliceCall(d.querySelectorAll('.js_link')).forEach((link) => {
     link.addEventListener('click', () => {
-      toggleOpen();
+      d.getElementById(link.id) === hamburgerButton ? toggleOpen() : curtainActive(link) ;
     });
   });
 };

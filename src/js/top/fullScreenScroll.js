@@ -10,18 +10,10 @@ export default function () {
   const slide = d.querySelectorAll('.js_slide'); //スライド要素
 
 
-  //スクロールのcss-transition設定
-  const setScrollTransiton = (property = 'top', duration = '1s', timing = 'ease-in-out') => {
-    slideWrapper.style.transitionProperty = property;
-    slideWrapper.style.transitionDuration = duration;
-    slideWrapper.style.transitionTimingFunction = timing;
-  };
-  setScrollTransiton();
-
-
-  /** fullScreenScroll 1画面スクロール
+  /** fullScreenScroll 1画面スクロール関連
    * @property {object} scrollProcessing スクロール方向判定
-   * @property {object} scrollEvent イベントリスナーに登録
+   * @property {object} scrollEvent scrollProcessing()をイベントリスナーに登録
+   * @property {object} scrollHash 表示されたスライドのハッシュに更新
    */
   const fullScreenScroll = {
     scrollProcessing: (event) => {
@@ -51,15 +43,18 @@ export default function () {
       }
       currentPosition = scrollPosition; //比較値を上書き
     },
-    scrollEvent: (entries) => {
+    scrollEvent: () => {
+      //SPとPCでスクロール用イベント分岐
+      const eventType = isMobile ? 'touchmove' : 'wheel';
+      w.addEventListener(eventType, (event) => {
+        fullScreenScroll.scrollProcessing(event);
+      });
+    },
+    scrollHash: (entries) => {
+      //ハッシュ更新
       [].slice.call(entries).forEach((val) => {
         if (val.isIntersecting) {
           history.pushState(null, null, '#' + val.target.id);
-          //SPとPCでイベント分岐
-          const eventType = isMobile ? 'touchmove' : 'wheel';
-          w.addEventListener(eventType, (event) => {
-            fullScreenScroll.scrollProcessing(event);
-          });
         }
       });
     }
@@ -68,68 +63,29 @@ export default function () {
     root: null,
     rootMargin: "-50% 0px"
   };
-  const scrollObserver = new IntersectionObserver(fullScreenScroll.scrollEvent, scrollOptions);
+  const scrollObserver = new IntersectionObserver(fullScreenScroll.scrollHash, scrollOptions);
   querySliceCall(slide).forEach((slideElement) => {
     scrollObserver.observe(slideElement);
   });
+  fullScreenScroll.scrollEvent();
 
 
-  /** slideFade フェードイン・アウトでis_activeを付替
-   * @param {String} ele fade対象セレクタ
-   * @param {String} type fade要素のis_active付替
+  /** moveHash
+   * @param {String} targetClass ナビクリックでハッシュ先に移動
    */
-  const slideFade = (ele, type = 'in') => {
-    querySliceCall(d.querySelectorAll('#' + ele.id + ' .js_slideIn')).forEach((fadeElement) => {
-      fadeElement.classList[type === 'in' ? 'add' : 'remove']('is_active');
-    })
-  };
-
-  /** currentNav カレントナビ関連
-   * @property {Object} isActive 現在見えている範囲のidに合わせてナビをアクティブにする
-   * @property {Object} moveHash ナビクリックでハッシュ先に移動
-   */
-  const currentNav = {
-    isActive: (ele) => {
-      const currentActive = d.querySelector(".js_dot.is_active");
-      if (currentActive !== null) {
-        currentActive.classList.remove("is_active");
-      }
-      d.querySelector(`a[href='#${ele.id}']`).parentNode.classList.add("is_active");
-    },
-    moveHash: (targetClass) => {
-      querySliceCall(targetClass).forEach((btn, index) => {
-        btn.addEventListener('click', (event) => {
-          event.preventDefault();
-          slideWrapper.style.top = '-' + windowHeight * index + 'px';
-          slideNum = index;
-          scrollPosition = windowHeight * index;
-          currentPosition = scrollPosition;
-        });
+  const moveHash = (targetClass) => {
+    querySliceCall(targetClass).forEach((btn, index) => {
+      btn.addEventListener('click', (event) => {
+        event.preventDefault();
+        slideWrapper.style.top = '-' + windowHeight * index + 'px';
+        slideNum = index;
+        scrollPosition = windowHeight * index;
+        currentPosition = scrollPosition;
       });
-    }
-  };
-  currentNav.moveHash(d.querySelectorAll('.js_dot'));
-  currentNav.moveHash(d.querySelectorAll('.js_link'));
-
-  /** カレントナビとフェードイン実行 */
-  const slideInEvent = (entries) => {
-    [].slice.call(entries).forEach((entries) => {
-      if (entries.isIntersecting) {
-        currentNav.isActive(entries.target);
-        slideFade(entries.target);
-      } else {
-        slideFade(entries.target, null);
-      }
     });
-  };
-  const slideInOptions = {
-    root: null,
-    rootMargin: "-50% 0px"
-  };
-  const slideInObserver = new IntersectionObserver(slideInEvent, slideInOptions);
-  querySliceCall(slide).forEach((slideElement) => {
-    slideInObserver.observe(slideElement);
-  });
+  }
+  moveHash(d.querySelectorAll('.js_dot'));
+  moveHash(d.querySelectorAll('.js_link.js_hash'));
 
   //スライドの高さと表示位置を設定
   const setPosition = () => {
@@ -146,4 +102,16 @@ export default function () {
     windowHeight = innerHeight;
     setPosition();
   });
+
+  /** setScrollTransiton スクロール要素のトランジション
+   * @param {String} property 対象プロパティ
+   * @param {String} duration 時間
+   * @param {String} timing イージング系
+   */
+  const setScrollTransiton = (property = 'top', duration = '1s', timing = 'ease-in-out') => {
+    slideWrapper.style.transitionProperty = property;
+    slideWrapper.style.transitionDuration = duration;
+    slideWrapper.style.transitionTimingFunction = timing;
+  };
+  setScrollTransiton();
 }
