@@ -115,11 +115,8 @@ body {
     overflow-y: scroll;
     overflow-x: hidden;
   }
-  &.is_init:before {
+  &.is_curtain:before {
     height: 0;
-  }
-  &.is_loaded:before {
-    display: none;
   }
   &.is_lock {
     overflow: hidden;

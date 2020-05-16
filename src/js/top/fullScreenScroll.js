@@ -1,57 +1,68 @@
 import {d, w, isMobile, querySliceCall} from '../common/util';
 export default function () {
+
   let slideNum = 0; //スライド番号
   let scrollFlag = false; //スライドのスクロールフラグ
   let currentPosition = 0; //スライドの現在位置
   let scrollPosition = 0; //スライドのスクロール量
   let wrapperHeight = 0;
   let windowHeight = innerHeight;
+  let touchStart, touchMove, touchEnd; //isMobile タッチ移動量の比較用
   const slideWrapper = d.getElementById('js_slideWrap'); //各スライドを囲む親要素
   const slide = d.querySelectorAll('.js_slide'); //スライド要素
 
-
   /** fullScreenScroll 1画面スクロール関連
-   * @property {object} scrollProcessing スクロール方向判定
+   * @property {object} scrollProcessing スクロール方向判定の処理
    * @property {object} scrollEvent scrollProcessing()をイベントリスナーに登録
-   * @property {object} scrollHash 表示されたスライドのハッシュに更新
+   * @property {object} scrollHash 表示されたスライドのハッシュにURL更新
    */
   const fullScreenScroll = {
     scrollProcessing: (event) => {
       // SPとPCで条件文を分岐
-      scrollPosition = isMobile ? event.changedTouches[0].pageY : event.deltaY;
-      const conditions = isMobile ? scrollPosition > currentPosition : scrollPosition > 0;
+      scrollPosition = isMobile ? touchEnd : event.deltaY;
+      const scrollDown = isMobile ? scrollPosition > currentPosition : scrollPosition > 0;
       if (!scrollFlag) {
         scrollFlag = true;
-        if (conditions) { //下方向
+        if (scrollDown) {
           if (slideNum >= slide.length - 1) {
-            slideNum = slide.length - 1; //スライド総数を超えないように代入
+            slideNum = slide.length - 1; //スライド総数を超えない
           } else {
             slideNum++;
             slideWrapper.style.top = -windowHeight * slideNum + 'px';
           }
-        } else { //上方向
-          if (slideNum <= 0) { //スライドを0より小さくさせない
-            slideNum = 0;
+        } else {
+          if (slideNum <= 0) {
+            slideNum = 0; //スライド1枚目より前に移動させない
           } else {
             slideNum--;
             slideWrapper.style.top = -windowHeight * slideNum + 'px';
           }
         }
-        setTimeout(() => { //1s後にFlag戻し
+        setTimeout(() => {
+          // 1画面スクロール終わってからfalseに
           scrollFlag = false;
         }, 1000);
       }
-      currentPosition = scrollPosition; //比較値を上書き
     },
     scrollEvent: () => {
-      //SPとPCでスクロール用イベント分岐
-      const eventType = isMobile ? 'touchmove' : 'wheel';
-      w.addEventListener(eventType, (event) => {
-        fullScreenScroll.scrollProcessing(event);
-      });
+      if (isMobile) {
+        w.addEventListener('touchstart', (event) => {
+          touchStart = event.touches[0].pageY;
+        });
+        w.addEventListener('touchmove', (event) => {
+          touchMove = event.touches[0].pageY;
+        });
+        w.addEventListener('touchend', (event) => {
+          touchEnd = touchStart - touchMove;
+          fullScreenScroll.scrollProcessing(event);
+        });
+      } else {
+        w.addEventListener('wheel', (event) => {
+          fullScreenScroll.scrollProcessing(event);
+        });
+      }
     },
     scrollHash: (entries) => {
-      //ハッシュ更新
       [].slice.call(entries).forEach((val) => {
         if (val.isIntersecting) {
           history.pushState(null, null, '#' + val.target.id);
@@ -113,5 +124,7 @@ export default function () {
     slideWrapper.style.transitionDuration = duration;
     slideWrapper.style.transitionTimingFunction = timing;
   };
-  setScrollTransiton();
+  setTimeout(() => {
+    setScrollTransiton();
+  },600);
 }

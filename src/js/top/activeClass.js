@@ -6,9 +6,9 @@ export default function () {
    * @param {String} element fade対象セレクタ
    * @param {String} type fade要素のis_active付替
    */
-  const slideFade = (element, type = 'in') => {
+  const slideFade = (element, type = 'add') => {
     querySliceCall(d.querySelectorAll('#' + element.id + ' .js_slideIn')).forEach((fadeElement) => {
-      fadeElement.classList[type === 'in' ? 'add' : 'remove']('is_active');
+      fadeElement.classList[type === 'add' ? 'add' : 'remove']('is_active');
     })
   };
 

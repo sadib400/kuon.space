@@ -1,11 +1,11 @@
-import {d, w, top, about, header, logoReload, querySliceCall} from '../common/util';
+import {d, w, top, about, header, querySliceCall} from '../common/util';
 require('intersection-observer');
 import objectFitImages from 'object-fit-images';
 objectFitImages();
 import anime from 'animejs';
 import hamburgerMenu from '../common/hamburgerMenu';
 import backgroundMouseMove from '../top/backgroundMouseMove';
-import active from '../top/active';
+import active from '../top/activeClass';
 import fullScreenScroll from '../top/fullScreenScroll';
 import headerTextColor from '../about/headerTextColor';
 import progressBar from '../about/progressBar';
@@ -15,9 +15,11 @@ Barba.Pjax.start();
 // ページ毎の処理
 const pageType = {
   all: () => {
-    logoReload();
     hamburgerMenu();
     d.querySelector('.js_instagram').classList[top ? 'add' : 'remove']('is_hide');
+    d.getElementById('js_logo').addEventListener('click', () => {
+      if (location.pathname === '/') location.replace('/');
+    });
   },
   top: () => {
     active();
@@ -36,15 +38,22 @@ const pageType = {
     /** ヒーローエリアの左矢印ボタンの処理 */
     (() => {
       let pageScrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      let scrollFlag = false;
+      let removeActiveClass = false;
       w.addEventListener('scroll', () => {
         pageScrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        if (scrollFlag && pageScrollTop === 0) {
-          d.getElementById('js_arrowButton').click();
+        if (removeActiveClass && pageScrollTop === 0) {
+          querySliceCall(d.querySelectorAll('.js_active')).forEach((val) => {
+            val.classList.remove('is_active');
+          });
+          setTimeout(() => {
+            d.getElementById('js_arrowButton').click();
+          },1600);
         }
       });
       d.getElementById('js_arrowButton').addEventListener('click', (e) => {
-        if (pageScrollTop === 0) return;
+        if (pageScrollTop === 0) {
+          return false;
+        }
         e.preventDefault();
         e.stopPropagation();
         anime.remove("html, body");
@@ -54,15 +63,17 @@ const pageType = {
           dulation: 600,
           easing: 'easeOutCubic',
         });
-        scrollFlag = true;
+        removeActiveClass = true;
       });
     })();
   }
 }
 
-// barba.js遷移の分岐用
+// barba.js 遷移分岐用
 const pageTop = Barba.BaseView.extend({
   namespace: 'top',
+  onEnter: function () {
+  },
   onEnterCompleted: function() {
     pageType.top();
   },
@@ -96,7 +107,10 @@ const init = () => {
     pageType.about();
   }
   pageType.all();
-  d.body.classList.add('is_init');
+  d.body.classList.add('is_curtain');
+  setTimeout(() => {
+    d.body.classList.add('is_init');
+  },600);
 }
 w.addEventListener('load', init);
 
@@ -127,6 +141,7 @@ Barba.Dispatcher.on('newPageReady', function (currentStatus, oldStatus, containe
 // URLに#有りでも有効 参考:https://www.willstyle.co.jp/blog/1722/
 Barba.Pjax.originalPreventCheck = Barba.Pjax.preventCheck;
 Barba.Pjax.preventCheck = function (evt, element) {
+  if(!element) return;
   if (element) {
     const url = location.protocol + '//' + location.host + location.pathname;
     const extract_hash = element.href.replace(/#.*$/,"");
