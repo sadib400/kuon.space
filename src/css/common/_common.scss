@@ -8,21 +8,23 @@ $curtain: #020b16;
   font-family: "futura_r";
   src: local("/font/Futura-Boo.woff");
   src: url("/font/Futura-Boo.woff") format("woff");
+  src: local("../../font/Futura-Boo.woff");
+  src: url("../../font/Futura-Boo.woff") format("woff");
 }
 @font-face {
   font-family: "futura_b";
-  src: local("/font/Futura-Bol.woff");
-  src: url("/font/Futura-Bol.woff") format("woff");
+  src: local("../../font/Futura-Bol.woff");
+  src: url("../../font/Futura-Bol.woff") format("woff");
 }
 @font-face {
   font-family: "futura_m";
-  src: local("/font/Futura-Med.woff");
-  src: url("/font/Futura-Med.woff") format("woff");
+  src: local("../../font/Futura-Med.woff");
+  src: url("../../font/Futura-Med.woff") format("woff");
 }
 @font-face {
   font-family: "Abril-Fatface";
-  src: local("/font/AbrilFatface-Regular.ttf");
-  src: url("/font/AbrilFatface-Regular.ttf") format('truetype');
+  src: local("../../font/AbrilFatface-Regular.ttf");
+  src: url("../../font/AbrilFatface-Regular.ttf") format('truetype');
 }
 
 @mixin font_family($type: default) {

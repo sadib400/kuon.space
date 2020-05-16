@@ -29,7 +29,6 @@
     z-index: 1;
     margin-right: auto;
     font-weight: normal;
-    flex: 0 0 auto;
   }
 
   /* =====================
@@ -48,7 +47,6 @@
     &_item {
       cursor: pointer;
       display: inline-block;
-      flex: 0 0 auto;
       font-size: 1.8rem;
       letter-spacing: .1em;
       margin-right: 3rem;

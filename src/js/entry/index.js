@@ -1,4 +1,4 @@
-import {d, w, top, about, header, querySliceCall} from '../common/util';
+import {d, w, setId, querySliceCall} from '../common/util';
 require('intersection-observer');
 import objectFitImages from 'object-fit-images';
 objectFitImages();
@@ -16,16 +16,13 @@ Barba.Pjax.start();
 const pageType = {
   all: () => {
     hamburgerMenu();
-    d.querySelector('.js_instagram').classList[top ? 'add' : 'remove']('is_hide');
-    d.getElementById('js_logo').addEventListener('click', () => {
-      if (location.pathname === '/') location.replace('/');
-    });
+    d.querySelector('.js_instagram').classList[setId.top ? 'add' : 'remove']('is_hide');
   },
   top: () => {
     active();
     fullScreenScroll();
     backgroundMouseMove();
-    setTimeout(() => { header.classList.remove('is_intersection'); });
+    setTimeout(() => { setId.header.classList.remove('is_intersection'); });
   },
   about: () => {
     querySliceCall(d.querySelectorAll('.js_active')).forEach((val) => {
@@ -46,6 +43,7 @@ const pageType = {
             val.classList.remove('is_active');
           });
           setTimeout(() => {
+            removeActiveClass = false;
             d.getElementById('js_arrowButton').click();
           },1600);
         }
@@ -101,9 +99,9 @@ const checkPage = () => {
 
 // ページの初回表示用
 const init = () => {
-  if (top) {
+  if (setId.top) {
     pageType.top();
-  } else if (about) {
+  } else if (setId.about) {
     pageType.about();
   }
   pageType.all();
@@ -149,6 +147,9 @@ Barba.Pjax.preventCheck = function (evt, element) {
       if (element.href.indexOf('#') > -1 &&  extract_hash != url ){
         return true;
       }
+    }
+    if (element.classList.contains('js_noBarba')) {
+      return false;
     }
   }
   return true;

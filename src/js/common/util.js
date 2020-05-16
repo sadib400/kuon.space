@@ -1,11 +1,17 @@
 const util = {
   w : window,
   d: document,
-  top: document.getElementById('js_top'),
-  about: document.getElementById('js_about'),
-  header: document.getElementById('js_header'),
-  hamburgerButton: document.getElementById('js_hamburgerMenu'),
+  setId: {
+    top: document.getElementById('js_top'),
+    about: document.getElementById('js_about'),
+    header: document.getElementById('js_header'),
+    hamburgerButton: document.getElementById('js_hamburgerMenu')
+  },
   isMobile: navigator.userAgent.match(/iPhone|Android.+Mobile/),
+  setRegex: {
+    topPath: RegExp('/$'),
+    aboutPath: RegExp('/about.html$')
+  },
   querySliceCall : (element) => {
     return [].slice.call(element);
   },
@@ -31,7 +37,6 @@ const util = {
           break;
       }
     };
-    //複数あればforEachで付替する
     if ({}.toString.call(element) === '[object NodeList]' || {}.toString.call(element) === '[object Array]') {
       [].slice.call(element).forEach((entry) => {
         condition(entry);
@@ -95,11 +100,9 @@ const util = {
 
 const d = util.d;
 const w = util.w;
-const top = util.top;
-const about = util.about;
-const header = util.header;
-const hamburgerButton = util.hamburgerButton;
+const setId = util.setId;
 const isMobile = util.isMobile;
+const setRegex = util.setRegex;
 const querySliceCall = util.querySliceCall;
 const setClass = util.setClass;
 const checkElementType = util.checkElementType;
@@ -108,11 +111,9 @@ const fadeClass = util.fadeClass;
 export {
   d as d,
   w as w,
-  top as top,
-  about as about,
-  header as header,
-  hamburgerButton as hamburgerButton,
+  setId as setId,
   isMobile as isMobile,
+  setRegex as setRegex,
   querySliceCall as querySliceCall,
   setClass as setClass,
   checkElementType as checkElementType,

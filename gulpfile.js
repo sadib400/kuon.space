@@ -34,7 +34,8 @@ gulp.task("browserSync", function() {
   browserSync({
     server: {
       baseDir: "./"
-    }
+    },
+    port: 80,
   });
   gulp.watch("./**", function(done) {
     browserSync.reload();
