@@ -17,6 +17,7 @@
     height: 100vh;
     z-index: 1;
     transition: transform .3s ease-out;
+    backface-visibility: hidden;
     background-image: linear-gradient(to bottom, #072142, #061c37, #07182b, #061220, #020b16);
 
     &_imageBox {
@@ -464,6 +465,7 @@
         letter-spacing: .1em;
         text-shadow: 0 10px 10px rgba(0,0,0,.3);
         transition: left .4s, opacity .6s, transform .3s ease-out;
+        backface-visibility: hidden;
         @include font_family(primary);
         @include mediaQuery(tabletOnly) {
           font-size: 3.2rem;
@@ -493,6 +495,7 @@
       width: 100%;
       margin: 0 auto;
       transition: left .6s, opacity .6s, transform .3s ease-out;
+      backface-visibility: hidden;
       @include mediaQuery(desktop) {
         left: 43%;
         width: 40%;
@@ -510,6 +513,7 @@
       left: 90%;
       width: 90%;
       transition: left .6s,opacity .6s, transform .3s ease-out;
+      backface-visibility: hidden;
       @include mediaQuery(desktop) {
         left: 38%;
         width: 33%;
