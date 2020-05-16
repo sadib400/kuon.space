@@ -1,4 +1,4 @@
-import {d, setId, querySliceCall, setClass, setRegex} from './util';
+import {d, setId, sliceCall, setClass, setRegex, isMobile} from './util';
 export default function () {
   /** process イベント処理
    * @property {object} toggleOpen リンク一覧の開閉
@@ -6,9 +6,9 @@ export default function () {
    */
   const process = {
     toggleOpen: () => {
+      d.body.classList.toggle('is_lock');
       setId.hamburgerButton.classList.toggle('is_close');
       d.querySelector('.js_menuOpen').classList.toggle('is_open');
-      d.body.classList.toggle('is_lock');
       if (setId.header.classList.contains('is_intersection')) setClass(setId.header, 'toggle', 'is_open');
     },
     curtainOpen: (link) => {
@@ -28,7 +28,7 @@ export default function () {
   }
 
   // クリック処理
-  querySliceCall(d.querySelectorAll('.js_link')).forEach((link) => {
+  sliceCall(d.querySelectorAll('.js_link')).forEach((link) => {
     link.addEventListener('click', () => {
       d.getElementById(link.id) === setId.hamburgerButton ? process.toggleOpen() : process.curtainOpen(link) ;
     });

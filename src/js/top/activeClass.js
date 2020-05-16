@@ -1,4 +1,4 @@
-import {d, querySliceCall} from '../common/util';
+import {d, sliceCall} from '../common/util';
 export default function () {
   const slide = d.querySelectorAll('.js_slide'); //スライド要素
 
@@ -7,7 +7,7 @@ export default function () {
    * @param {String} type fade要素のis_active付替
    */
   const slideFade = (element, type = 'add') => {
-    querySliceCall(d.querySelectorAll('#' + element.id + ' .js_slideIn')).forEach((fadeElement) => {
+    sliceCall(d.querySelectorAll('#' + element.id + ' .js_slideIn')).forEach((fadeElement) => {
       fadeElement.classList[type === 'add' ? 'add' : 'remove']('is_active');
     })
   };
@@ -37,7 +37,7 @@ export default function () {
     rootMargin: "-50% 0px"
   };
   const slideInObserver = new IntersectionObserver(slideInEvent, slideInOptions);
-  querySliceCall(slide).forEach((slideElement) => {
+  sliceCall(slide).forEach((slideElement) => {
     slideInObserver.observe(slideElement);
   });
 }

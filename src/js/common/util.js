@@ -12,7 +12,7 @@ const util = {
     topPath: RegExp('/$'),
     aboutPath: RegExp('/about.html$')
   },
-  querySliceCall : (element) => {
+  sliceCall : (element) => {
     return [].slice.call(element);
   },
 
@@ -103,7 +103,7 @@ const w = util.w;
 const setId = util.setId;
 const isMobile = util.isMobile;
 const setRegex = util.setRegex;
-const querySliceCall = util.querySliceCall;
+const sliceCall = util.sliceCall;
 const setClass = util.setClass;
 const checkElementType = util.checkElementType;
 const fadeClass = util.fadeClass;
@@ -114,7 +114,7 @@ export {
   setId as setId,
   isMobile as isMobile,
   setRegex as setRegex,
-  querySliceCall as querySliceCall,
+  sliceCall as sliceCall,
   setClass as setClass,
   checkElementType as checkElementType,
   fadeClass as fadeClass,

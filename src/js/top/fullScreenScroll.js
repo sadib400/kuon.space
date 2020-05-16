@@ -1,4 +1,4 @@
-import {d, w, isMobile, querySliceCall} from '../common/util';
+import {d, w, isMobile, sliceCall} from '../common/util';
 export default function () {
 
   let slideNum = 0; //スライド番号
@@ -46,18 +46,18 @@ export default function () {
     },
     scrollEvent: () => {
       if (isMobile) {
-        w.addEventListener('touchstart', (event) => {
+        slideWrapper.addEventListener('touchstart', (event) => {
           touchStart = event.touches[0].pageY;
         });
-        w.addEventListener('touchmove', (event) => {
+        slideWrapper.addEventListener('touchmove', (event) => {
           touchMove = event.touches[0].pageY;
         });
-        w.addEventListener('touchend', (event) => {
+        slideWrapper.addEventListener('touchend', (event) => {
           touchEnd = touchStart - touchMove;
           fullScreenScroll.scrollProcessing(event);
         });
       } else {
-        w.addEventListener('wheel', (event) => {
+        slideWrapper.addEventListener('wheel', (event) => {
           fullScreenScroll.scrollProcessing(event);
         });
       }
@@ -75,7 +75,7 @@ export default function () {
     rootMargin: "-50% 0px"
   };
   const scrollObserver = new IntersectionObserver(fullScreenScroll.scrollHash, scrollOptions);
-  querySliceCall(slide).forEach((slideElement) => {
+  sliceCall(slide).forEach((slideElement) => {
     scrollObserver.observe(slideElement);
   });
   fullScreenScroll.scrollEvent();
@@ -85,7 +85,7 @@ export default function () {
    * @param {String} targetClass ナビクリックでハッシュ先に移動
    */
   const moveHash = (targetClass) => {
-    querySliceCall(targetClass).forEach((btn, index) => {
+    sliceCall(targetClass).forEach((btn, index) => {
       btn.addEventListener('click', (event) => {
         event.preventDefault();
         slideWrapper.style.top = '-' + windowHeight * index + 'px';
@@ -96,11 +96,11 @@ export default function () {
     });
   }
   moveHash(d.querySelectorAll('.js_dot'));
-  moveHash(d.querySelectorAll('.js_link.js_hash'));
+  moveHash(d.querySelectorAll('.js_hash'));
 
   //スライドの高さと表示位置を設定
   const setPosition = () => {
-    querySliceCall(slide).forEach((ele, index) => {
+    sliceCall(slide).forEach((ele, index) => {
       if(location.hash == '#' + ele.id) slideNum = index;
       ele.style.height = windowHeight + `px`;
       wrapperHeight = windowHeight * slide.length;

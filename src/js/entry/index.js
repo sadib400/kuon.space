@@ -1,11 +1,11 @@
-import {d, w, setId, querySliceCall} from '../common/util';
+import {d, w, setId, sliceCall} from '../common/util';
 require('intersection-observer');
 import objectFitImages from 'object-fit-images';
 objectFitImages();
 import anime from 'animejs';
 import hamburgerMenu from '../common/hamburgerMenu';
 import backgroundMouseMove from '../top/backgroundMouseMove';
-import active from '../top/activeClass';
+import activeClass from '../top/activeClass';
 import fullScreenScroll from '../top/fullScreenScroll';
 import headerTextColor from '../about/headerTextColor';
 import progressBar from '../about/progressBar';
@@ -19,13 +19,13 @@ const pageType = {
     d.querySelector('.js_instagram').classList[setId.top ? 'add' : 'remove']('is_hide');
   },
   top: () => {
-    active();
+    activeClass();
     fullScreenScroll();
     backgroundMouseMove();
     setTimeout(() => { setId.header.classList.remove('is_intersection'); });
   },
   about: () => {
-    querySliceCall(d.querySelectorAll('.js_active')).forEach((val) => {
+    sliceCall(d.querySelectorAll('.js_active')).forEach((val) => {
       val.classList.add('is_active');
     });
     headerTextColor();
@@ -39,7 +39,7 @@ const pageType = {
       w.addEventListener('scroll', () => {
         pageScrollTop = window.pageYOffset || document.documentElement.scrollTop;
         if (removeActiveClass && pageScrollTop === 0) {
-          querySliceCall(d.querySelectorAll('.js_active')).forEach((val) => {
+          sliceCall(d.querySelectorAll('.js_active')).forEach((val) => {
             val.classList.remove('is_active');
           });
           setTimeout(() => {
