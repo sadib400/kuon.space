@@ -16,7 +16,7 @@ export default function () {
   const currentNav = (element) => {
     const currentActive = d.querySelector(".js_dot.is_active");
     if (currentActive !== null) currentActive.classList.remove("is_active");
-    d.querySelector(`a[href='#${element.id}']`).parentNode.classList.add("is_active");
+    d.querySelector(`span[data-href='#${element.id}']`).parentNode.classList.add("is_active");
   }
 
   /** カレントナビとフェードイン実行 */

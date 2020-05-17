@@ -11,7 +11,7 @@ const util = {
     topPath: RegExp('/$'),
     aboutPath: RegExp('/about.html$')
   },
-  isMobile: navigator.userAgent.match(/iPhone|Android.+Mobile/),
+  isMobile: navigator.userAgent.match(/iPhone|iPad|Android.+Mobile/),
   sliceCall : (element) => {
     return [].slice.call(element);
   },
