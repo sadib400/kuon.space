@@ -1,6 +1,6 @@
-import {d, sliceCall, setId} from '../common/util';
+import {d, sliceCall} from '../common/util';
 export default function () {
-  const slide = d.querySelectorAll('.js_slide'); //スライド要素
+  const slide = document.querySelectorAll('.js_slide');
 
   /** slideFade フェードイン・アウトでis_activeを付替
    * @param {String} element fade対象セレクタ

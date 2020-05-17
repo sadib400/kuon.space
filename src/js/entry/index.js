@@ -1,4 +1,4 @@
-import {d, w, setId, sliceCall} from '../common/util';
+import {d, w, useId, sliceCall} from '../common/util';
 require('intersection-observer');
 import objectFitImages from 'object-fit-images';
 objectFitImages();
@@ -12,6 +12,14 @@ import progressBar from '../about/progressBar';
 import Barba from "barba.js";
 Barba.Pjax.start();
 Barba.Prefetch.init();
+
+
+// barba.js 対象クリック要素
+let lastElementClicked;
+Barba.Dispatcher.on('linkClicked', function(element) {
+  lastElementClicked = element;
+});
+
 
 // barba.js 遷移アニメーション
 const normalTransition = Barba.BaseTransition.extend({
@@ -56,12 +64,6 @@ const backArrowTransition = Barba.BaseTransition.extend({
   }
 });
 
-// クリックした要素
-let lastElementClicked;
-Barba.Dispatcher.on('linkClicked', function(element) {
-  lastElementClicked = element;
-});
-
 Barba.Pjax.getTransition = function () {
   let transition;
   const clickArrowButton = d.getElementById('js_arrowButton');
@@ -73,17 +75,18 @@ Barba.Pjax.getTransition = function () {
   return transition;
 };
 
+
 // ページ毎の処理
 const pageType = {
   all: () => {
     hamburgerMenu();
-    d.querySelector('.js_instagram').classList[setId.top ? 'add' : 'remove']('is_hide');
+    d.querySelector('.js_instagram').classList[useId.top ? 'add' : 'remove']('is_hide');
   },
   top: () => {
     activeClass();
     fullScreenScroll();
     backgroundMouseMove();
-    setTimeout(() => { setId.header.classList.remove('is_intersection'); },100);
+    setTimeout(() => { useId.header.classList.remove('is_intersection'); },100);
   },
   about: () => {
     sliceCall(d.querySelectorAll('.js_active')).forEach((val) => {
@@ -95,40 +98,29 @@ const pageType = {
   }
 }
 
+
 // barba.js 遷移分岐用
 const pageTop = Barba.BaseView.extend({
   namespace: 'top',
-  onEnter: function () {
-  },
   onEnterCompleted: function() {
     pageType.top();
-  },
-  onLeave: function () {
-  },
-  onLeaveCompleted: function() {
   }
 });
 const pageAbout = Barba.BaseView.extend({
   namespace: 'about',
-  onEnter: function() {
-  },
   onEnterCompleted: function() {
     pageType.about();
-  },
-  onLeave: function () {
-  },
-  onLeaveCompleted: function() {
-    w.removeEventListener('scroll', progressBar);
   }
 });
 pageTop.init();
 pageAbout.init();
 
+
 // ページの初回表示用
 const init = () => {
-  if (setId.top) {
+  if (useId.top) {
     pageType.top();
-  } else if (setId.about) {
+  } else if (useId.about) {
     pageType.about();
   }
   pageType.all();
@@ -138,6 +130,7 @@ const init = () => {
   },600);
 }
 w.addEventListener('load', init);
+
 
 // 新しい要素が読み込まれ、コンテナ要素に挿入されたとき
 Barba.Dispatcher.on('newPageReady', function (currentStatus, oldStatus, container, newPageRawHTML) {
@@ -162,6 +155,7 @@ Barba.Dispatcher.on('newPageReady', function (currentStatus, oldStatus, containe
     head.appendChild(newHeadTags[i]);
   }
 });
+
 
 // URLに#有りでも有効 参考:https://www.willstyle.co.jp/blog/1722/
 Barba.Pjax.originalPreventCheck = Barba.Pjax.preventCheck;

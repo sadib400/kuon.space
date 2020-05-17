@@ -1,4 +1,4 @@
-import {d, setId, sliceCall, setClass, setRegex, isMobile} from './util';
+import {d, useId, sliceCall, setClass, useRegex, isMobile} from './util';
 export default function () {
   /** process イベント処理
    * @property {object} toggleOpen リンク一覧の開閉
@@ -7,16 +7,16 @@ export default function () {
   const process = {
     toggleOpen: () => {
       d.body.classList.toggle('is_lock');
-      setId.hamburgerButton.classList.toggle('is_close');
+      useId.hamburgerButton.classList.toggle('is_close');
       d.querySelector('.js_menuOpen').classList.toggle('is_open');
-      if (setId.header.classList.contains('is_intersection')) setClass(setId.header, 'toggle', 'is_open');
+      if (useId.header.classList.contains('is_intersection')) setClass(useId.header, 'toggle', 'is_open');
     },
     curtainOpen: (link) => {
-      if (!setRegex.topPath.test(location.pathname) && setRegex.aboutPath.test(link.getAttribute('href'))) {
+      if (!useRegex.topPath.test(location.pathname) && useRegex.aboutPath.test(link.getAttribute('href'))) {
         location.reload();
         return;
       }
-      if (setId.header.classList.contains('is_open')) setClass(setId.header, 'remove', 'is_open');
+      if (useId.header.classList.contains('is_open')) setClass(useId.header, 'remove', 'is_open');
       d.getElementById('js_curtain').classList.add('is_active');
       setTimeout(() => {
         process.toggleOpen();
@@ -30,7 +30,7 @@ export default function () {
   // クリック処理
   sliceCall(d.querySelectorAll('.js_link')).forEach((link) => {
     link.addEventListener('click', () => {
-      d.getElementById(link.id) === setId.hamburgerButton ? process.toggleOpen() : process.curtainOpen(link) ;
+      d.getElementById(link.id) === useId.hamburgerButton ? process.toggleOpen() : process.curtainOpen(link) ;
     });
   });
 };

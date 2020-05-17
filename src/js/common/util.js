@@ -1,17 +1,17 @@
 const util = {
-  w : window,
+  w: window,
   d: document,
-  setId: {
+  useId: {
     top: document.getElementById('js_top'),
     about: document.getElementById('js_about'),
     header: document.getElementById('js_header'),
     hamburgerButton: document.getElementById('js_hamburgerMenu')
   },
-  isMobile: navigator.userAgent.match(/iPhone|Android.+Mobile/),
-  setRegex: {
+  useRegex: {
     topPath: RegExp('/$'),
     aboutPath: RegExp('/about.html$')
   },
+  isMobile: navigator.userAgent.match(/iPhone|Android.+Mobile/),
   sliceCall : (element) => {
     return [].slice.call(element);
   },
@@ -100,9 +100,9 @@ const util = {
 
 const d = util.d;
 const w = util.w;
-const setId = util.setId;
+const useId = util.useId;
+const useRegex = util.useRegex;
 const isMobile = util.isMobile;
-const setRegex = util.setRegex;
 const sliceCall = util.sliceCall;
 const setClass = util.setClass;
 const checkElementType = util.checkElementType;
@@ -111,9 +111,9 @@ const fadeClass = util.fadeClass;
 export {
   d as d,
   w as w,
-  setId as setId,
+  useId as useId,
+  useRegex as useRegex,
   isMobile as isMobile,
-  setRegex as setRegex,
   sliceCall as sliceCall,
   setClass as setClass,
   checkElementType as checkElementType,

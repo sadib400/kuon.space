@@ -1,4 +1,4 @@
-import {d, w, isMobile, sliceCall} from '../common/util';
+import {d, w, useId, useClass, isMobile, sliceCall} from '../common/util';
 export default function () {
 
   let slideNum = 0; //スライド番号
@@ -8,8 +8,8 @@ export default function () {
   let wrapperHeight = 0;
   let windowHeight = innerHeight;
   let touchStart, touchMove, touchEnd; //isMobile タッチ移動量の比較用
-  const slideWrapper = d.getElementById('js_slideWrap'); //各スライドを囲む親要素
-  const slide = d.querySelectorAll('.js_slide'); //スライド要素
+  const slideWrapper = document.getElementById('js_slideWrap');
+  const slide = document.querySelectorAll('.js_slide');
 
   /** fullScreenScroll 1画面スクロール関連
    * @property {object} scrollProcessing スクロール方向判定の処理
