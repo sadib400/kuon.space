@@ -1,10 +1,8 @@
-import {d, w, useId, useClass, isMobile, sliceCall} from '../common/util';
+import {d, w, isMobile, sliceCall} from '../common/util';
 export default function () {
 
   let slideNum = 0; //スライド番号
   let scrollFlag = false; //スライドのスクロールフラグ
-  let currentPosition = 0; //スライドの現在位置
-  let scrollPosition = 0; //スライドのスクロール量
   let wrapperHeight = 0;
   let windowHeight = innerHeight;
   let touchStart, touchMove, touchEnd; //isMobile タッチ移動量の比較用
@@ -19,8 +17,8 @@ export default function () {
   const fullScreenScroll = {
     scrollProcessing: (event) => {
       // SPとPCで条件文を分岐
-      scrollPosition = isMobile ? touchEnd : event.deltaY;
-      const scrollDown = isMobile ? scrollPosition > currentPosition : scrollPosition > 0;
+      const scrollPosition = isMobile ? touchEnd : event.deltaY;
+      const scrollDown = scrollPosition > 0;
       if (!scrollFlag) {
         scrollFlag = true;
         if (scrollDown) {
@@ -89,8 +87,6 @@ export default function () {
         event.preventDefault();
         slideWrapper.style.top = '-' + windowHeight * index + 'px';
         slideNum = index;
-        scrollPosition = windowHeight * index;
-        currentPosition = scrollPosition;
       });
     });
   }
