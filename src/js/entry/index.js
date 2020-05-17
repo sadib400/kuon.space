@@ -11,14 +11,25 @@ import headerTextColor from '../about/headerTextColor';
 import progressBar from '../about/progressBar';
 import Barba from "barba.js";
 Barba.Pjax.start();
+Barba.Prefetch.init();
 
-// barba.js about.html => index.html 遷移アニメーション用
-const pageScrollTop = Barba.BaseTransition.extend({
+// barba.js 遷移アニメーション
+const normalTransition = Barba.BaseTransition.extend({
+  start: function() {
+    this.newContainerLoading.then(this.finish.bind(this));
+  },
+  finish: function() {
+    document.body.scrollTop = 0;
+    this.done();
+  }
+});
+const backArrowTransition = Barba.BaseTransition.extend({
   start: function() {
     this.move().then(this.removeClasses).then(this.newContainerLoading).then(this.finish.bind(this))
   },
   move: function() {
     return new Promise(function (resolve) {
+      anime.remove("html, body");
       anime({
         targets: "html, body",
         scrollTop: 0,
@@ -34,17 +45,33 @@ const pageScrollTop = Barba.BaseTransition.extend({
     return new Promise(function (resolve) {
       sliceCall(d.querySelectorAll('.js_active')).forEach((val) => {
         val.classList.remove('is_active');
-        resolve();
       });
+      setTimeout(() => {
+        resolve();
+      }, 1600);
     });
   },
   finish: function () {
-    clearInterval(timerId);
-    let timerId = setTimeout(() => {
-      this.done();
-    }, 1600);
+    this.done();
   }
 });
+
+// クリックした要素
+let lastElementClicked;
+Barba.Dispatcher.on('linkClicked', function(element) {
+  lastElementClicked = element;
+});
+
+Barba.Pjax.getTransition = function () {
+  let transition;
+  const clickArrowButton = d.getElementById('js_arrowButton');
+  if (lastElementClicked == clickArrowButton) {
+    transition = backArrowTransition;
+  } else {
+    transition = normalTransition;
+  }
+  return transition;
+};
 
 // ページ毎の処理
 const pageType = {
@@ -56,7 +83,7 @@ const pageType = {
     activeClass();
     fullScreenScroll();
     backgroundMouseMove();
-    setTimeout(() => { setId.header.classList.remove('is_intersection'); });
+    setTimeout(() => { setId.header.classList.remove('is_intersection'); },100);
   },
   about: () => {
     sliceCall(d.querySelectorAll('.js_active')).forEach((val) => {
@@ -65,11 +92,6 @@ const pageType = {
     headerTextColor();
     w.addEventListener('scroll', progressBar);
     setTimeout(() => { scrollTo(0, 0); });
-    d.getElementById('js_arrowButton').addEventListener('click', () => {
-      Barba.Pjax.getTransition = function() {
-        return pageScrollTop;
-      };
-    });
   }
 }
 
@@ -96,6 +118,7 @@ const pageAbout = Barba.BaseView.extend({
   onLeave: function () {
   },
   onLeaveCompleted: function() {
+    w.removeEventListener('scroll', progressBar);
   }
 });
 pageTop.init();
@@ -143,7 +166,7 @@ Barba.Dispatcher.on('newPageReady', function (currentStatus, oldStatus, containe
 // URLに#有りでも有効 参考:https://www.willstyle.co.jp/blog/1722/
 Barba.Pjax.originalPreventCheck = Barba.Pjax.preventCheck;
 Barba.Pjax.preventCheck = function (evt, element) {
-  if(!element) return;
+  if (!element) return;
   if (element) {
     const url = location.protocol + '//' + location.host + location.pathname;
     const extract_hash = element.href.replace(/#.*$/,"");

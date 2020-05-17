@@ -19,12 +19,12 @@
     transition: transform .3s ease-out;
     backface-visibility: hidden;
     background-image: linear-gradient(to bottom, #072142, #061c37, #07182b, #061220, #020b16);
-    // _:-ms-lang(x)::-ms-backdrop, .bl_background {
-    //   transition: none;
-    // }
-    // _:-ms-lang(x)::backdrop, .bl_background {
-    //   transition: none;
-    // }
+    _:-ms-lang(x)::-ms-backdrop, .bl_background {
+      transition: none;
+    }
+    _:-ms-lang(x)::backdrop, .bl_background {
+      transition: none;
+    }
 
     &_imageBox {
       position: absolute;
@@ -492,12 +492,12 @@
         }
       }
     }
-    // _:-ms-lang(x)::-ms-backdrop, &_moonText {
-    //   transition: left .4s, opacity .6s;
-    // }
-    // _:-ms-lang(x)::backdrop, &_moonText {
-    //   transition: left .4s, opacity .6s;
-    // }
+    _:-ms-lang(x)::-ms-backdrop, &_moonText {
+      transition: left .4s, opacity .6s;
+    }
+    _:-ms-lang(x)::backdrop, &_moonText {
+      transition: left .4s, opacity .6s;
+    }
 
     &_moonImg {
       opacity: 0;
@@ -518,12 +518,12 @@
         left: 0;
       }
     }
-    // _:-ms-lang(x)::-ms-backdrop, &_moonImg {
-    //   transition: left .6s, opacity .6s;
-    // }
-    // _:-ms-lang(x)::backdrop, &_moonImg {
-    //   transition: left .6s, opacity .6s;
-    // }
+    _:-ms-lang(x)::-ms-backdrop, &_moonImg {
+      transition: left .6s, opacity .6s;
+    }
+    _:-ms-lang(x)::backdrop, &_moonImg {
+      transition: left .6s, opacity .6s;
+    }
 
     &_cloudImg {
       opacity: 0;
@@ -631,12 +631,12 @@
         }
       }
     }
-    // _:-ms-lang(x)::-ms-backdrop, &_cloudImg {
-    //   transition: left .6s,opacity .6s;
-    // }
-    // _:-ms-lang(x)::backdrop, &_cloudImg {
-    //   transition: left .6s,opacity .6s;
-    // }
+    _:-ms-lang(x)::-ms-backdrop, &_cloudImg {
+      transition: left .6s,opacity .6s;
+    }
+    _:-ms-lang(x)::backdrop, &_cloudImg {
+      transition: left .6s,opacity .6s;
+    }
 
     &_awards {
       position: absolute;

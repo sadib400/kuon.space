@@ -37,6 +37,7 @@
   .bl_headerNav {
     position: relative;
     z-index: 1;
+    margin-left: auto;
 
     &_list {
       display: flex;

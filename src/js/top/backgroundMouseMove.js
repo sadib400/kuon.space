@@ -7,7 +7,7 @@ export default function () {
     document.body.addEventListener('mousemove', (event) => {
       const bgX = (event.pageX * .1) * movement;
       const bgY = (event.pageY * .1) * movement;
-      if(document.getElementById(id)) document.getElementById(id).style.transform = 'translate3d' + '(' + '-' + bgX + 'px' + ',' + '-' + bgY + 'px' + ',' + 0 + ')' + 'rotate(0.0001deg)';
+      if(document.getElementById(id)) document.getElementById(id).style.transform = 'translate3d' + '(' + '-' + bgX + 'px' + ',' + '-' + bgY + 'px' + ',' + 0 + ')';
     });
   }
 
