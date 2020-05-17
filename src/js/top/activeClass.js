@@ -1,7 +1,5 @@
-import {d, sliceCall} from '../common/util';
+import {d, w, isMobile, sliceCall} from '../common/util';
 export default function () {
-  const slide = document.querySelectorAll('.js_slide');
-
   /** slideFade フェードイン・アウトでis_activeを付替
    * @param {String} element fade対象セレクタ
    * @param {String} add fade要素のis_active付替[true,false]
@@ -23,7 +21,7 @@ export default function () {
 
   /** カレントナビとフェードイン実行 */
   const slideInEvent = (entries) => {
-    [].slice.call(entries).forEach((entries) => {
+    sliceCall(entries).forEach((entries) => {
       if (entries.isIntersecting) {
         currentNav(entries.target);
         slideFade(entries.target);
@@ -37,32 +35,42 @@ export default function () {
     rootMargin: "-50% 0px"
   };
   const slideInObserver = new IntersectionObserver(slideInEvent, slideInOptions);
-  sliceCall(slide).forEach((slideElement) => {
+  sliceCall(document.querySelectorAll('.js_slide')).forEach((slideElement) => {
     slideInObserver.observe(slideElement);
   });
 
 
   /** 満月要素のフェードインアウト */
   const moonInEvent = (entries) => {
-    [].slice.call(entries).forEach((entries) => {
-      if (entries.isIntersecting) {
-        slideFade(entries.target, true, '.js_moonItem');
-      }
+    sliceCall(entries).forEach((entries) => {
+      if (entries.isIntersecting) slideFade(entries.target, true, '.js_moonItem');
     });
   };
   const moonOutEvent = (entries) => {
-    [].slice.call(entries).forEach((entries) => {
-      if (!entries.isIntersecting) {
-        slideFade(entries.target, false, '.js_moonItem');
-      }
+    sliceCall(entries).forEach((entries) => {
+      if (!entries.isIntersecting) slideFade(entries.target, false, '.js_moonItem');
     });
   };
-  const moonOutOptions = {
+  const moonInOptionsSP = {
+    root: null,
+    rootMargin: '0px 0px -55% 0px'
+  };
+  const moonOutOptionsPC = {
     root: null,
     rootMargin: '-80% 0px 0px 0px'
   };
-  const moonOutObserver = new IntersectionObserver(moonInEvent, slideInOptions);
-  moonOutObserver.observe(d.querySelector('#js_slideMoon'));
-  const moonInObserver = new IntersectionObserver(moonOutEvent, moonOutOptions);
+  const moonOutOptionsSP = {
+    root: null,
+    rootMargin: '-45% 0px 0px 0px'
+  };
+  const moonInObserver = new IntersectionObserver(moonInEvent, isMobile ? moonInOptionsSP : slideInOptions);
   moonInObserver.observe(d.querySelector('#js_slideMoon'));
+  const moonOutObserver = new IntersectionObserver(moonOutEvent, isMobile ? moonOutOptionsSP : moonOutOptionsPC);
+  moonOutObserver.observe(d.querySelector('#js_slideMoon'));
+
+  w.addEventListener('resize', () => {
+    sliceCall(d.querySelectorAll('#js_slideMoon' + ' ' + '.js_moonItem')).forEach((moon) => {
+      moon.classList.add('is_active');
+    })
+  });
 }
