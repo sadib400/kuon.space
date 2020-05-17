@@ -13,8 +13,8 @@ export default function () {
 
   /** fullScreenScroll 1画面スクロール関連
    * @property {object} scrollProcessing スクロール方向判定の処理
-   * @property {object} scrollEvent scrollProcessing()をイベントリスナーに登録
-   * @property {object} scrollHash 表示されたスライドのハッシュにURL更新
+   * @property {object} scrollEventListener scrollProcessing()をイベントリスナーに登録
+   * @property {object} scrollChangeHash 表示されたスライドのハッシュにURL更新
    */
   const fullScreenScroll = {
     scrollProcessing: (event) => {
@@ -45,7 +45,7 @@ export default function () {
         }, 1000);
       }
     },
-    scrollEvent: () => {
+    scrollEventListener: () => {
       if (isMobile) {
         slideWrapper.addEventListener('touchstart', (event) => {
           touchStart = event.touches[0].pageY;
@@ -63,11 +63,9 @@ export default function () {
         });
       }
     },
-    scrollHash: (entries) => {
+    scrollChangeHash: (entries) => {
       [].slice.call(entries).forEach((val) => {
-        if (val.isIntersecting) {
-          history.pushState(null, null, '#' + val.target.id);
-        }
+        if (val.isIntersecting) history.pushState(null, null, '#' + val.target.id);
       });
     }
   };
@@ -75,11 +73,11 @@ export default function () {
     root: null,
     rootMargin: "-50% 0px"
   };
-  const scrollObserver = new IntersectionObserver(fullScreenScroll.scrollHash, scrollOptions);
+  const scrollObserver = new IntersectionObserver(fullScreenScroll.scrollChangeHash, scrollOptions);
   sliceCall(slide).forEach((slideElement) => {
     scrollObserver.observe(slideElement);
   });
-  fullScreenScroll.scrollEvent();
+  fullScreenScroll.scrollEventListener();
 
 
   /** moveHash

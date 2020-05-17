@@ -15,9 +15,9 @@ Barba.Prefetch.init();
 
 
 // barba.js 対象クリック要素
-let lastElementClicked;
+let linkTarget;
 Barba.Dispatcher.on('linkClicked', function(element) {
-  lastElementClicked = element;
+  linkTarget = element;
 });
 
 
@@ -31,6 +31,7 @@ const normalTransition = Barba.BaseTransition.extend({
     this.done();
   }
 });
+
 const backArrowTransition = Barba.BaseTransition.extend({
   start: function() {
     this.move().then(this.removeClasses).then(this.newContainerLoading).then(this.finish.bind(this))
@@ -67,7 +68,7 @@ const backArrowTransition = Barba.BaseTransition.extend({
 Barba.Pjax.getTransition = function () {
   let transition;
   const clickArrowButton = d.getElementById('js_arrowButton');
-  if (lastElementClicked == clickArrowButton) {
+  if (linkTarget == clickArrowButton) {
     transition = backArrowTransition;
   } else {
     transition = normalTransition;
