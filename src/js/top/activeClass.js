@@ -4,11 +4,11 @@ export default function () {
 
   /** slideFade フェードイン・アウトでis_activeを付替
    * @param {String} element fade対象セレクタ
-   * @param {String} type fade要素のis_active付替
+   * @param {String} add fade要素のis_active付替[true,false]
    */
-  const slideFade = (element, type = 'add') => {
+  const slideFade = (element, add = true) => {
     sliceCall(d.querySelectorAll('#' + element.id + ' .js_slideIn')).forEach((fadeElement) => {
-      fadeElement.classList[type === 'add' ? 'add' : 'remove']('is_active');
+      fadeElement.classList[add ? 'add' : 'remove']('is_active');
     })
   };
 
@@ -28,7 +28,7 @@ export default function () {
         currentNav(entries.target);
         slideFade(entries.target);
       } else {
-        slideFade(entries.target, null);
+        slideFade(entries.target, false);
       }
     });
   };

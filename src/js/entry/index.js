@@ -12,6 +12,40 @@ import progressBar from '../about/progressBar';
 import Barba from "barba.js";
 Barba.Pjax.start();
 
+// barba.js about.html => index.html 遷移アニメーション用
+const pageScrollTop = Barba.BaseTransition.extend({
+  start: function() {
+    this.move().then(this.removeClasses).then(this.newContainerLoading).then(this.finish.bind(this))
+  },
+  move: function() {
+    return new Promise(function (resolve) {
+      anime({
+        targets: "html, body",
+        scrollTop: 0,
+        dulation: 600,
+        easing: 'easeOutCubic',
+        complete: function () {
+          resolve();
+        }
+      });
+    })
+  },
+  removeClasses: function () {
+    return new Promise(function (resolve) {
+      sliceCall(d.querySelectorAll('.js_active')).forEach((val) => {
+        val.classList.remove('is_active');
+        resolve();
+      });
+    });
+  },
+  finish: function () {
+    clearInterval(timerId);
+    let timerId = setTimeout(() => {
+      this.done();
+    }, 1600);
+  }
+});
+
 // ページ毎の処理
 const pageType = {
   all: () => {
@@ -31,39 +65,11 @@ const pageType = {
     headerTextColor();
     w.addEventListener('scroll', progressBar);
     setTimeout(() => { scrollTo(0, 0); });
-
-    /** ヒーローエリアの左矢印ボタンの処理 */
-    (() => {
-      let pageScrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      let removeActiveClass = false;
-      w.addEventListener('scroll', () => {
-        pageScrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        if (removeActiveClass && pageScrollTop === 0) {
-          sliceCall(d.querySelectorAll('.js_active')).forEach((val) => {
-            val.classList.remove('is_active');
-          });
-          setTimeout(() => {
-            removeActiveClass = false;
-            d.getElementById('js_arrowButton').click();
-          },1600);
-        }
-      });
-      d.getElementById('js_arrowButton').addEventListener('click', (e) => {
-        if (pageScrollTop === 0) {
-          return false;
-        }
-        e.preventDefault();
-        e.stopPropagation();
-        anime.remove("html, body");
-        anime({
-          targets: "html, body",
-          scrollTop: 0,
-          dulation: 600,
-          easing: 'easeOutCubic',
-        });
-        removeActiveClass = true;
-      });
-    })();
+    d.getElementById('js_arrowButton').addEventListener('click', () => {
+      Barba.Pjax.getTransition = function() {
+        return pageScrollTop;
+      };
+    });
   }
 }
 
@@ -92,10 +98,8 @@ const pageAbout = Barba.BaseView.extend({
   onLeaveCompleted: function() {
   }
 });
-const checkPage = () => {
-  pageTop.init();
-  pageAbout.init();
-}
+pageTop.init();
+pageAbout.init();
 
 // ページの初回表示用
 const init = () => {
@@ -154,8 +158,3 @@ Barba.Pjax.preventCheck = function (evt, element) {
   }
   return true;
 }
-
-// pjax対象のリンクをクリックした時。
-Barba.Dispatcher.on('linkClicked', function () {
-  checkPage();
-});

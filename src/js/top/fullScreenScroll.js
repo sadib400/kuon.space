@@ -38,7 +38,8 @@ export default function () {
             slideWrapper.style.top = -windowHeight * slideNum + 'px';
           }
         }
-        setTimeout(() => {
+        clearTimeout(timerId);
+        const timerId = setTimeout(() => {
           // 1画面スクロール終わってからfalseに
           scrollFlag = false;
         }, 1000);
