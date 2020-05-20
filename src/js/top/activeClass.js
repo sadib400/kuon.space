@@ -19,7 +19,7 @@ export default function () {
     d.querySelector(`span[data-href='#${element.id}']`).parentNode.classList.add("is_active");
   }
 
-/** カレントナビとフェードイン実行 */
+  /** カレントナビとフェードイン実行 */
   const aboutButton = d.querySelector('#about .js_btn');
   const slideInEvent = (entries) => {
     sliceCall(entries).forEach((entries) => {

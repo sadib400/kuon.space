@@ -10,8 +10,6 @@ import fullScreenScroll from '../top/fullScreenScroll';
 import headerTextColor from '../about/headerTextColor';
 import progressBar from '../about/progressBar';
 import Barba from "barba.js";
-Barba.Pjax.start();
-Barba.Prefetch.init();
 
 
 // barba.js 対象クリック要素
@@ -68,8 +66,7 @@ const backArrowTransition = Barba.BaseTransition.extend({
 
 Barba.Pjax.getTransition = function () {
   let transition;
-  const clickArrowButton = d.getElementById('js_arrowButton');
-  if (linkTarget == clickArrowButton) {
+  if (linkTarget == d.getElementById('js_arrowButton')) {
     transition = backArrowTransition;
   } else {
     transition = normalTransition;
@@ -78,7 +75,11 @@ Barba.Pjax.getTransition = function () {
 };
 
 
-// ページ毎の処理
+/** ページ毎の処理
+ * @property {object} all 共通部分
+ * @property {object} top index.html
+ * @property {object} about about.html
+ */
 const pageType = {
   all: () => {
     hamburgerMenu();
@@ -104,13 +105,13 @@ const pageType = {
 // barba.js 遷移分岐用
 const pageTop = Barba.BaseView.extend({
   namespace: 'top',
-  onEnterCompleted: function() {
+  onEnterCompleted: () => {
     pageType.top();
   }
 });
 const pageAbout = Barba.BaseView.extend({
   namespace: 'about',
-  onEnterCompleted: function() {
+  onEnterCompleted: () => {
     pageType.about();
   }
 });
@@ -120,11 +121,8 @@ pageAbout.init();
 
 // ページの初回表示用
 const init = () => {
-  if (useId.top) {
-    pageType.top();
-  } else if (useId.about) {
-    pageType.about();
-  }
+  Barba.Pjax.start();
+  Barba.Prefetch.init();
   pageType.all();
   d.body.classList.add('is_curtain');
   setTimeout(() => {

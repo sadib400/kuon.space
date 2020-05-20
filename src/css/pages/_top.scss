@@ -46,7 +46,6 @@
         width: 100%;
         max-width: 1390px;
       }
-
       > img {
         width: 100%;
         transition: transform .3s ease-out;
@@ -95,7 +94,6 @@
     }
 
     &_dot {
-      cursor: pointer;
       width: 2px;
       height: 15px;
       background-color: #fff;
@@ -131,6 +129,7 @@
     }
 
     &_link {
+      cursor: pointer;
       display: block;
       height: 100%;
     }

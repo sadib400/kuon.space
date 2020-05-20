@@ -93,7 +93,6 @@ $curtain: #020b16;
 
 html {
   font-size: 62.5%;
-  touch-action: manipulation;
 }
 
 body {
@@ -101,6 +100,8 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
   overscroll-behavior: none;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
   @include font_family();
   &:before {
     content: '';

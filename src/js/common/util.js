@@ -12,6 +12,18 @@ const util = {
     aboutPath: RegExp('/about.html$')
   },
   isMobile: navigator.userAgent.match(/iPhone|iPad|Android.+Mobile/),
+  userAgentFunction: {
+    isIE11: (callback) => {
+      if(window.navigator.userAgent.toLowerCase().indexOf('trident') != -1) {
+        callback();
+      }
+    },
+    isSafari: (callback) => {
+      if(window.navigator.userAgent.toLowerCase().indexOf('safari') !== -1 && window.navigator.userAgent.toLowerCase().indexOf('chrome') === -1 && window.navigator.userAgent.toLowerCase().indexOf('edge') === -1) {
+        callback();
+      }
+    }
+  },
   sliceCall : (element) => {
     return [].slice.call(element);
   },
@@ -103,6 +115,7 @@ const w = util.w;
 const useId = util.useId;
 const useRegex = util.useRegex;
 const isMobile = util.isMobile;
+const userAgentFunction = util.userAgentFunction;
 const sliceCall = util.sliceCall;
 const setClass = util.setClass;
 const checkElementType = util.checkElementType;
@@ -114,6 +127,7 @@ export {
   useId as useId,
   useRegex as useRegex,
   isMobile as isMobile,
+  userAgentFunction as userAgentFunction,
   sliceCall as sliceCall,
   setClass as setClass,
   checkElementType as checkElementType,
