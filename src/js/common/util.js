@@ -14,7 +14,7 @@ const util = {
   isMobile: navigator.userAgent.match(/iPhone|iPad|Android.+Mobile/),
   userAgentFunction: {
     isIE11: (callback) => {
-      if(window.navigator.userAgent.toLowerCase().indexOf('trident') != -1) {
+      if(window.navigator.userAgent.toLowerCase().indexOf('trident') !== -1) {
         callback();
       }
     },

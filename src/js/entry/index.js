@@ -11,6 +11,11 @@ import headerTextColor from '../about/headerTextColor';
 import progressBar from '../about/progressBar';
 import Barba from "barba.js";
 
+if (window.navigator.userAgent.toLowerCase().indexOf('trident') !== -1) {
+  console.log("IE11")
+} else {
+  console.log("IE11以外")
+}
 
 // barba.js 対象クリック要素
 let linkTarget;
