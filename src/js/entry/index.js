@@ -122,7 +122,7 @@ pageAbout.init();
 // ページの初回表示用
 const init = () => {
   Barba.Pjax.start();
-  if(window.navigator.userAgent.toLowerCase().indexOf('trident') === -1) Barba.Prefetch.init();
+  Barba.Prefetch.init();
   pageType.all();
   d.body.classList.add('is_curtain');
   setTimeout(() => {

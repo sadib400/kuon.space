@@ -128,3 +128,7 @@ body {
 body::-webkit-scrollbar {
   display:none;
 }
+
+_:-ms-lang(x)::-ms-backdrop, img {
+  pointer-events: none;
+}
