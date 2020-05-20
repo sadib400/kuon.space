@@ -12,8 +12,8 @@ export default function () {
   let getDuration;
   const transitionHotfix = () => {
     setTimeout(() => {
-      slideWrapper.style.webkitTransitionDuration = 0;
-      slideWrapper.style.webkitTransitionDuration = getDuration + 's';
+      slideWrapper.style.transitionDuration = 0;
+      slideWrapper.style.transitionDuration = getDuration + 's';
     }, getDuration * 1000);
   };
 
