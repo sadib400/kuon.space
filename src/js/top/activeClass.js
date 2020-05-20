@@ -1,6 +1,6 @@
-import {d, w, isMobile, sliceCall} from '../common/util';
+import {d, w, isMobile, setClass, sliceCall} from '../common/util';
 export default function () {
-  /** slideFade フェードイン・アウトでis_activeを付替
+  /** slideFade TOPページ用のフェードイン・アウト
    * @param {String} element fade対象セレクタ
    * @param {String} add fade要素のis_active付替[true,false]
    */
@@ -19,7 +19,8 @@ export default function () {
     d.querySelector(`span[data-href='#${element.id}']`).parentNode.classList.add("is_active");
   }
 
-  /** カレントナビとフェードイン実行 */
+/** カレントナビとフェードイン実行 */
+  const aboutButton = d.querySelector('#about .js_btn');
   const slideInEvent = (entries) => {
     sliceCall(entries).forEach((entries) => {
       if (entries.isIntersecting) {
@@ -27,6 +28,7 @@ export default function () {
         slideFade(entries.target);
       } else {
         slideFade(entries.target, false);
+        if (aboutButton && aboutButton.classList.contains('is_position')) setClass(aboutButton, 'remove', 'is_position');
       }
     });
   };

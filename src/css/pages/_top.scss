@@ -19,12 +19,6 @@
     transition: transform .3s ease-out;
     backface-visibility: hidden;
     background-image: linear-gradient(to bottom, #072142, #061c37, #07182b, #061220, #020b16);
-    _:-ms-lang(x)::-ms-backdrop, .bl_background {
-      transition: none;
-    }
-    _:-ms-lang(x)::backdrop, .bl_background {
-      transition: none;
-    }
 
     &_imageBox {
       position: absolute;
@@ -58,6 +52,12 @@
         transition: transform .3s ease-out;
       }
     }
+  }
+  _:-ms-lang(x)::-ms-backdrop, .bl_background {
+    transition: none;
+  }
+  _:-ms-lang(x)::backdrop, .bl_background {
+    transition: none;
   }
   /* end bl_background
   ===================== */

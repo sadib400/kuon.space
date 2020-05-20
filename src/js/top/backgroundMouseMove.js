@@ -1,13 +1,14 @@
+import {d} from '../common/util';
 export default function () {
   /** マウス移動で背景画像を逆追従
    * @param {string} id 対象のセレクタ
    * @param {number} movement 移動量の数値
    */
   const setMouseMove = (id, movement = .1) => {
-    document.body.addEventListener('mousemove', (event) => {
+    d.body.addEventListener('mousemove', (event) => {
       const bgX = (event.pageX * .1) * movement;
       const bgY = (event.pageY * .1) * movement;
-      if(document.getElementById(id)) document.getElementById(id).style.transform = 'translate3d' + '(' + '-' + bgX + 'px' + ',' + '-' + bgY + 'px' + ',' + 0 + ')';
+      if(d.getElementById(id)) d.getElementById(id).style.transform = 'translate3d' + '(' + '-' + bgX + 'px' + ',' + '-' + bgY + 'px' + ',' + 0 + ')';
     });
   }
 

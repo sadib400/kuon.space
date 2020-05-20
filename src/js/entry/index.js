@@ -1,4 +1,4 @@
-import {d, w, useId, sliceCall} from '../common/util';
+import {d, w, useId, setClass, sliceCall} from '../common/util';
 require('intersection-observer');
 import objectFitImages from 'object-fit-images';
 objectFitImages();
@@ -52,9 +52,10 @@ const backArrowTransition = Barba.BaseTransition.extend({
   },
   removeClasses: function () {
     return new Promise(function (resolve) {
-      sliceCall(d.querySelectorAll('.js_active')).forEach((val) => {
-        val.classList.remove('is_active');
-      });
+      setClass(d.querySelectorAll('#js_hero .js_active'), 'remove', 'is_active');
+      setClass(d.querySelectorAll('#about .js_fromAnother'), 'add', 'is_active');
+      setClass(d.querySelector('#about .js_btn'), 'add', 'is_position');
+      // transition分を待ってからdone()へ
       setTimeout(() => {
         resolve();
       }, 1600);

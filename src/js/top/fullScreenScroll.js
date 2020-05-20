@@ -38,7 +38,7 @@ export default function () {
         }
         clearTimeout(timerId);
         const timerId = setTimeout(() => {
-          // 1画面スクロール終わってからfalseに
+          // 1画面スクロール終わってからfalseに戻す
           scrollFlag = false;
         }, 1000);
       }
