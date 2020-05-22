@@ -58,8 +58,10 @@ const backArrowTransition = Barba.BaseTransition.extend({
   removeClasses: function () {
     return new Promise(function (resolve) {
       setClass(d.querySelectorAll('#js_hero .js_active'), 'remove', 'is_active');
-      setClass(d.querySelectorAll('#about .js_fromAnother'), 'add', 'is_active');
-      setClass(d.querySelector('#about .js_btn'), 'add', 'is_position');
+      setTimeout(() => {
+        setClass(d.querySelectorAll('#about .js_fromAnother'), 'add', 'is_active');
+        setClass(d.querySelector('#about .js_btn'), 'add', 'is_position');
+      }, 500);
       setTimeout(() => {
         resolve();
       }, 1600);
