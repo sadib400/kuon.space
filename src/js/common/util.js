@@ -7,10 +7,6 @@ const util = {
     header: document.getElementById('js_header'),
     hamburgerButton: document.getElementById('js_hamburgerMenu')
   },
-  useRegex: {
-    topPath: RegExp('/$'),
-    aboutPath: RegExp('/about.html$')
-  },
   isMobile: navigator.userAgent.match(/iPhone|iPad|Android.+Mobile/),
   userAgentFunction: {
     isIE11: (callback) => {
@@ -113,7 +109,6 @@ const util = {
 const d = util.d;
 const w = util.w;
 const useId = util.useId;
-const useRegex = util.useRegex;
 const isMobile = util.isMobile;
 const userAgentFunction = util.userAgentFunction;
 const sliceCall = util.sliceCall;
@@ -125,7 +120,6 @@ export {
   d as d,
   w as w,
   useId as useId,
-  useRegex as useRegex,
   isMobile as isMobile,
   userAgentFunction as userAgentFunction,
   sliceCall as sliceCall,

@@ -1,4 +1,4 @@
-import {d, useId, sliceCall, setClass, useRegex, isMobile} from './util';
+import {d, useId, sliceCall, setClass} from './util';
 export default function () {
   /** process イベント処理
    * @property {object} toggleOpen リンク一覧の開閉
@@ -12,7 +12,8 @@ export default function () {
       if (useId.header.classList.contains('is_intersection')) setClass(useId.header, 'toggle', 'is_open');
     },
     curtainOpen: (link) => {
-      if (!useRegex.topPath.test(location.pathname) && useRegex.aboutPath.test(link.getAttribute('href'))) {
+      if (link.getAttribute('href').endsWith(location.pathname)) {
+        location.hash = '';
         location.reload();
         return;
       }
@@ -23,7 +24,7 @@ export default function () {
       },1000);
       setTimeout(() => {
         d.getElementById('js_curtain').classList.remove('is_active');
-      },1500);
+      },1800);
     }
   }
 

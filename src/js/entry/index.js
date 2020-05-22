@@ -18,8 +18,7 @@ Barba.Dispatcher.on('linkClicked', function(element) {
   linkTarget = element;
 });
 
-
-// barba.js 遷移アニメーション
+// barba.js ページ遷移アニメーション
 const normalTransition = Barba.BaseTransition.extend({
   start: function() {
     this.newContainerLoading.then(this.finish.bind(this));
@@ -53,7 +52,6 @@ const backArrowTransition = Barba.BaseTransition.extend({
       setClass(d.querySelectorAll('#js_hero .js_active'), 'remove', 'is_active');
       setClass(d.querySelectorAll('#about .js_fromAnother'), 'add', 'is_active');
       setClass(d.querySelector('#about .js_btn'), 'add', 'is_position');
-      // transition分を待ってからdone()へ
       setTimeout(() => {
         resolve();
       }, 1600);
@@ -66,7 +64,7 @@ const backArrowTransition = Barba.BaseTransition.extend({
 
 Barba.Pjax.getTransition = function () {
   let transition;
-  if (linkTarget == d.getElementById('js_arrowButton')) {
+  if (linkTarget == d.getElementById('js_arrowButton') || linkTarget == d.getElementById('js_topBack')) {
     transition = backArrowTransition;
   } else {
     transition = normalTransition;
@@ -76,7 +74,7 @@ Barba.Pjax.getTransition = function () {
 
 
 /** ページ毎の処理
- * @property {object} all 共通部分
+ * @property {object} all 共通
  * @property {object} top index.html
  * @property {object} about about.html
  */
@@ -89,6 +87,12 @@ const pageType = {
     activeClass();
     fullScreenScroll();
     backgroundMouseMove();
+    d.getElementById('js_topBack').addEventListener('click', (link) => {
+      if (link.target.getAttribute('href').endsWith(location.pathname)) {
+        location.hash = '';
+        location.reload();
+      }
+    });
     setTimeout(() => { useId.header.classList.remove('is_intersection'); },100);
   },
   about: () => {

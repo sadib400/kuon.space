@@ -16,7 +16,9 @@
     width: 100%;
     height: 100vh;
     z-index: 1;
+    transform: translate3d(0, 0 ,0) rotate(.1deg);
     transition: transform .3s ease-out;
+    transform-style: preserve-3d;
     backface-visibility: hidden;
     background-image: linear-gradient(to bottom, #072142, #061c37, #07182b, #061220, #020b16);
 
@@ -46,18 +48,19 @@
         width: 100%;
         max-width: 1390px;
       }
-      > img {
-        width: 100%;
-        transition: transform .3s ease-out;
-      }
+    }
+
+    &_image {
+      width: 100%;
+      transition: transform .3s ease-out;
     }
   }
-  _:-ms-lang(x)::-ms-backdrop, .bl_background {
-    transition: none;
-  }
-  _:-ms-lang(x)::backdrop, .bl_background {
-    transition: none;
-  }
+  // _:-ms-lang(x)::-ms-backdrop, .bl_background {
+  //   transition: none;
+  // }
+  // _:-ms-lang(x)::backdrop, .bl_background {
+  //   transition: none;
+  // }
   /* end bl_background
   ===================== */
 
@@ -316,7 +319,7 @@
       }
     }
 
-    &_image {
+    &_imageLink {
       overflow: hidden;
       cursor: pointer;
       position: relative;
@@ -325,12 +328,6 @@
       height: 100%;
       transform: scale(0.8) translateX(10%);
       transition: transform 1s ease-out;
-      > img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        font-family: 'object-fit: cover;';
-      }
 
       &:before,
       &:after {
@@ -359,6 +356,13 @@
           transform: translate(100%,0);
         }
       }
+    }
+
+    &_image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      font-family: 'object-fit: cover;';
     }
 
     &_numberBox {
@@ -464,13 +468,14 @@
       position: absolute;
       top: 50%;
       left: 30%;
-      transform: translateY(-50%);
+      transform: translate3d(0, -50% ,0) rotate(.1deg);
       color: $red;
       font-size: 2.8rem;
       font-weight: bold;
       letter-spacing: .1em;
       text-shadow: 0 10px 10px rgba(0,0,0,.3);
       transition: left .4s, opacity .6s, transform .3s ease-out;
+      transform-style: preserve-3d;
       backface-visibility: hidden;
       @include font_family(primary);
       @include mediaQuery(tabletOnly) {
@@ -491,12 +496,12 @@
         }
       }
     }
-    _:-ms-lang(x)::-ms-backdrop, &_moonText {
-      transition: left .4s, opacity .6s;
-    }
-    _:-ms-lang(x)::backdrop, &_moonText {
-      transition: left .4s, opacity .6s;
-    }
+    // _:-ms-lang(x)::-ms-backdrop, &_moonText {
+    //   transition: left .4s, opacity .6s;
+    // }
+    // _:-ms-lang(x)::backdrop, &_moonText {
+    //   transition: left .4s, opacity .6s;
+    // }
 
     &_moonImg {
       opacity: 0;
@@ -505,7 +510,9 @@
       display: block;
       width: 100%;
       margin: 0 auto;
+      transform: translate3d(0, 0 ,0) rotate(.1deg);
       transition: left .6s, opacity .6s, transform .3s ease-out;
+      transform-style: preserve-3d;
       backface-visibility: hidden;
       @include mediaQuery(desktop) {
         left: 43%;
@@ -517,20 +524,22 @@
         left: 0;
       }
     }
-    _:-ms-lang(x)::-ms-backdrop, &_moonImg {
-      transition: left .6s, opacity .6s;
-    }
-    _:-ms-lang(x)::backdrop, &_moonImg {
-      transition: left .6s, opacity .6s;
-    }
+    // _:-ms-lang(x)::-ms-backdrop, &_moonImg {
+    //   transition: left .6s, opacity .6s;
+    // }
+    // _:-ms-lang(x)::backdrop, &_moonImg {
+    //   transition: left .6s, opacity .6s;
+    // }
 
     &_cloudImg {
       opacity: 0;
       position: absolute;
       left: 90%;
       width: 90%;
+      transform: translate3d(0, 0 ,0) rotate(.1deg);
       transition: left .6s,opacity .6s, transform .3s ease-out;
-      backface-visibility: hidden;
+      transform-style: preserve-3d;
+      backface-visibility: hidden;backface-visibility: hidden;
       @include mediaQuery(desktop) {
         left: 38%;
         width: 33%;
@@ -630,12 +639,12 @@
         }
       }
     }
-    _:-ms-lang(x)::-ms-backdrop, &_cloudImg {
-      transition: left .6s,opacity .6s;
-    }
-    _:-ms-lang(x)::backdrop, &_cloudImg {
-      transition: left .6s,opacity .6s;
-    }
+    // _:-ms-lang(x)::-ms-backdrop, &_cloudImg {
+    //   transition: left .6s,opacity .6s;
+    // }
+    // _:-ms-lang(x)::backdrop, &_cloudImg {
+    //   transition: left .6s,opacity .6s;
+    // }
 
     &_awards {
       position: absolute;
@@ -646,63 +655,67 @@
         top: 10%;
       }
       @include mediaQuery(desktop) {
-        top: 15%;
-      }
-
-      > img {
-        width: 100%;
-        max-width: 45px;
-        @include mediaQuery(tabletOnly) {
-          max-width: 90px;
-        }
-        @include mediaQuery(desktop) {
-          max-width: 100px;
-        }
+        top: 12%;
       }
     }
 
-    .bl_contact {
-      display: inline-block;
-      &_item {
-        font-size: 1.4rem;
-        letter-spacing: .1em;
-        margin-top: 12px;
-        @include mediaQuery(tabletOnly) {
-          font-size: 2.4rem;
-          margin-top: 22px;
-        }
-        @include mediaQuery(desktop) {
-          font-size: 3rem;
-          margin-top: 30px;
-        }
-      }
-
-      &_link {
-        overflow: hidden;
-        position: relative;
-        left: -100%;
-        display: inline-block;
-        margin-right: 20px;
-        transition: opacity .3s ease,left .6s .1s;
-        &:hover {
-          opacity: .6;
-        }
-
-        &__delay {
-          transition: opacity .3s ease,left .6s .2s;
-        }
-
-        &__delay2 {
-          transition: opacity .3s ease,left .6s .3s;
-        }
-
-        &.is_active {
-          left: 0;
-        }
+    &_awardsImage {
+      width: 100%;
+      max-width: 45px;
+      @include mediaQuery(fromTablet) {
+        max-width: 90px;
       }
     }
   }
   /* end bl_slide
+  ===================== */
+
+
+  /* =====================
+      bl_contact
+  ===================== */
+  .bl_contact {
+    display: inline-block;
+
+    &_item {
+      font-size: 1.4rem;
+      letter-spacing: .1em;
+      margin-top: 12px;
+      @include mediaQuery(tabletOnly) {
+        font-size: 2.4rem;
+        margin-top: 22px;
+      }
+      @include mediaQuery(desktop) {
+        font-size: 3rem;
+        margin-top: 30px;
+      }
+    }
+
+    &_link {
+      overflow: hidden;
+      position: relative;
+      left: -100%;
+      display: inline-block;
+      margin-right: 20px;
+      transition: opacity .3s ease,left .6s .1s;
+      &:hover {
+        opacity: .6;
+      }
+
+      &__delay {
+        transition: opacity .3s ease,left .6s .2s;
+      }
+
+      &__delay2 {
+        transition: opacity .3s ease,left .6s .3s;
+      }
+
+      &.is_active {
+        left: 0;
+      }
+    }
+  }
+  /* end bl_contact
   ===================== */
 }
 /* end ly_main

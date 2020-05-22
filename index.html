@@ -23,7 +23,7 @@
   <!-- ヘッダー -->
   <header id="js_header" class="ly_header">
     <div class="ly_header_title bl_headerNav_item bl_headerNav_item__both">
-      <a class="js_noBarba" href="./">Kuon <br class="is_br">Yagi</a>
+      <a id="js_topBack" href="./">Kuon <br class="is_br">Yagi</a>
     </div>
     <nav class="bl_headerNav">
       <ul class="bl_headerNav_list">
@@ -55,7 +55,7 @@
     <nav class="bl_hamburgerMenu js_menuOpen">
       <ul class="bl_hamburgerMenu_list">
         <li class="bl_hamburgerMenu_item">
-          <a class="bl_hamburgerMenu_link js_link js_hash" href="./#top">HOME</a>
+          <a class="bl_hamburgerMenu_link js_link js_hash" href="./">HOME</a>
         </li>
         <li class="bl_hamburgerMenu_item">
           <a class="bl_hamburgerMenu_link js_link js_hash" href="./#reile">WORKS</a>
@@ -83,10 +83,10 @@
   <main id="js_top" class="ly_main barba-container" data-namespace="top">
     <div class="bl_background">
       <div class="bl_background_imageBox">
-        <img id="js_background" src="images/moonlight.svg" alt="">
+        <img id="js_background" class="bl_background_image" src="images/moonlight.svg" alt="">
       </div>
       <div class="bl_background_imageBox">
-        <img id="js_background_star" src="images/star.svg" alt="">
+        <img id="js_background_star" class="bl_background_image" src="images/star.svg" alt="">
       </div>
     </div>
 
@@ -123,7 +123,7 @@
           <span id="js_background_text" class="bl_slide_moonText js_moonItem">PORTFOLIO</span>
         </div>
         <a class="bl_slide_awards js_noBarba" href="http://www.awwwards.com/" target="_blank">
-          <img src="images/awwwards_honorable_white_right@2x.png" alt="Honors Awards">
+          <img class="bl_slide_awardsImage" src="images/awwwards_honorable_white_right@2x.png" alt="Honors Awards">
         </a>
         <span class="bl_slide_scrollDown js_scrollDown js_slideIn">SCROLLDOWN</span>
       </section>
@@ -137,8 +137,8 @@
           </div>
         </div>
         <div class="bl_slide_imageBox js_imageSizeUp">
-          <a class="bl_slide_image js_slideIn" href="./#reile">
-            <img src="images/reile.jpg" alt="Hair Space REILE">
+          <a class="bl_slide_imageLink js_slideIn" href="./#reile">
+            <img class="bl_slide_image" src="images/reile.jpg" alt="Hair Space REILE">
           </a>
           <div class="bl_slide_numberBox">
             <span class="bl_slide_number js_slideIn">01</span>
@@ -155,8 +155,8 @@
           </div>
         </div>
         <div class="bl_slide_imageBox js_imageSizeUp">
-          <a class="bl_slide_image js_slideIn js_fromAnother" href="./about.html">
-            <img src="images/about.jpg" alt="About me">
+          <a class="bl_slide_imageLink js_slideIn js_fromAnother" href="./about.html">
+            <img class="bl_slide_image" src="images/about.jpg" alt="About me">
           </a>
           <div class="bl_slide_numberBox">
             <span class="bl_slide_number js_slideIn">02</span>
@@ -181,8 +181,8 @@
           </ul>
         </div>
         <div class="bl_slide_imageBox">
-          <span class="bl_slide_image js_slideIn">
-            <img src="images/contact.jpg" alt="Get In Touch">
+          <span class="bl_slide_imageLink js_slideIn">
+            <img class="bl_slide_image" src="images/contact.jpg" alt="Get In Touch">
           </span>
           <div class="bl_slide_numberBox">
             <span class="bl_slide_number js_slideIn">03</span>

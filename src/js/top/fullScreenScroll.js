@@ -4,13 +4,12 @@ export default function () {
   let scrollFlag = false; //スライドのスクロールフラグ
   let wrapperHeight = 0;
   let windowHeight = innerHeight;
-  let touchStart, touchMove, touchEnd; //isMobile タッチ移動量の比較用
+  let touchStart, touchMove, touchEnd;
   const slideWrapper = document.getElementById('js_slideWrap');
   const slide = document.querySelectorAll('.js_slide');
-
   //IE,safariは最後までtransition-durationが残っているとうまく動作しないので付け直す
   let getDuration;
-  const transitionHotfix = () => {
+  const transitionReset = () => {
     setTimeout(() => {
       slideWrapper.style.transitionDuration = 0;
       slideWrapper.style.transitionDuration = getDuration + 's';
@@ -18,10 +17,40 @@ export default function () {
   };
 
 
-  /** fullScreenScroll 1画面スクロール関連
+  /** setSlide
+   * @property {object} position スライドの高さと表示位置を設定
+   * @property {object} scrollTransiton スライド要素のcss-transition
+   */
+  const setSlide = {
+    position: () => {
+      sliceCall(slide).forEach((ele, index) => {
+        if(location.hash == '#' + ele.id) slideNum = index;
+        ele.style.height = windowHeight + `px`;
+        wrapperHeight = windowHeight * slide.length;
+        slideWrapper.style.height = wrapperHeight + `px`;
+        slideWrapper.style.top = -windowHeight * slideNum + 'px';
+      });
+    },
+    scrollTransiton: (property = 'top', duration = 1, timing = 'ease-in-out') => {
+      slideWrapper.style.transitionProperty = property;
+      slideWrapper.style.transitionDuration = duration + 's';
+      slideWrapper.style.transitionTimingFunction = timing;
+      getDuration = duration;
+    }
+  }
+  w.addEventListener('resize', () => {
+    windowHeight = innerHeight;
+    setSlide.position();
+  });
+  setSlide.position();
+  setTimeout(setSlide.scrollTransiton, 600);
+
+
+  /** fullScreenScroll
    * @property {object} scrollProcessing スクロール方向判定の処理
    * @property {object} scrollEventListener scrollProcessing()をイベントリスナーに登録
    * @property {object} scrollChangeHash 表示されたスライドのハッシュにURL更新
+   * @property {object} targetClass ナビクリックでハッシュ先に移動
    */
   const fullScreenScroll = {
     scrollProcessing: (event) => {
@@ -30,12 +59,12 @@ export default function () {
       const scrollDown = scrollPosition > 0;
       if (!scrollFlag) {
         scrollFlag = true;
+        userAgentFunction.isIE11(transitionReset);
+        userAgentFunction.isSafari(transitionReset);
         if (scrollDown) {
           if (slideNum >= slide.length - 1) {
             slideNum = slide.length - 1; //スライド総数を超えない
           } else {
-            userAgentFunction.isIE11(transitionHotfix);
-            userAgentFunction.isSafari(transitionHotfix);
             slideNum++;
             slideWrapper.style.top = -windowHeight * slideNum + 'px';
           }
@@ -43,8 +72,6 @@ export default function () {
           if (slideNum <= 0) {
             slideNum = 0; //スライド1枚目より前に移動させない
           } else {
-            userAgentFunction.isIE11(transitionHotfix);
-            userAgentFunction.isSafari(transitionHotfix);
             slideNum--;
             slideWrapper.style.top = -windowHeight * slideNum + 'px';
           }
@@ -81,6 +108,17 @@ export default function () {
       sliceCall(entries).forEach((val) => {
         if (val.isIntersecting) history.pushState(null, null, '#' + val.target.id);
       });
+    },
+    moveHash: (targetClass) => {
+      sliceCall(targetClass).forEach((btn, index) => {
+        btn.addEventListener('click', (event) => {
+          event.preventDefault();
+          userAgentFunction.isIE11(transitionReset);
+          userAgentFunction.isSafari(transitionReset);
+          slideWrapper.style.top = '-' + windowHeight * index + 'px';
+          slideNum = index;
+        });
+      });
     }
   };
   const scrollOptions = {
@@ -92,54 +130,6 @@ export default function () {
     scrollObserver.observe(slideElement);
   });
   fullScreenScroll.scrollEventListener();
-
-
-  //スライドの高さと表示位置を設定
-  const setPosition = () => {
-    sliceCall(slide).forEach((ele, index) => {
-      if(location.hash == '#' + ele.id) slideNum = index;
-      ele.style.height = windowHeight + `px`;
-      wrapperHeight = windowHeight * slide.length;
-      slideWrapper.style.height = wrapperHeight + `px`;
-      slideWrapper.style.top = -windowHeight * slideNum + 'px';
-    });
-  }
-  setPosition();
-  w.addEventListener('resize', () => {
-    windowHeight = innerHeight;
-    setPosition();
-  });
-
-  /** setScrollTransiton スクロール要素のトランジション
-   * @param {String} property 対象プロパティ
-   * @param {String} duration 時間
-   * @param {String} timing イージング系
-   */
-  const setScrollTransiton = (property = 'top', duration = 1, timing = 'ease-in-out') => {
-    slideWrapper.style.transitionProperty = property;
-    slideWrapper.style.transitionDuration = duration + 's';
-    slideWrapper.style.transitionTimingFunction = timing;
-    getDuration = duration;
-  };
-  setTimeout(() => {
-    setScrollTransiton();
-  },600);
-
-
-  /** moveHash
-   * @param {String} targetClass ナビクリックでハッシュ先に移動
-   */
-  const moveHash = (targetClass) => {
-    sliceCall(targetClass).forEach((btn, index) => {
-      btn.addEventListener('click', (event) => {
-        event.preventDefault();
-        userAgentFunction.isIE11(transitionHotfix);
-        userAgentFunction.isSafari(transitionHotfix);
-        slideWrapper.style.top = '-' + windowHeight * index + 'px';
-        slideNum = index;
-      });
-    });
-  }
-  moveHash(d.querySelectorAll('.js_dot'));
-  moveHash(d.querySelectorAll('.js_hash'));
+  fullScreenScroll.moveHash(d.querySelectorAll('.js_dot'));
+  fullScreenScroll.moveHash(d.querySelectorAll('.js_hash'));
 }
