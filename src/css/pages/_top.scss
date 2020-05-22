@@ -157,6 +157,7 @@
     width: 100%;
     height: 100vh;
     z-index: 1;
+    touch-action: none;
   }
 
   .bl_slide {
@@ -471,7 +472,6 @@
     }
 
     &_moonText {
-      overflow: hidden;
       opacity: 0;
       position: absolute;
       top: 50%;

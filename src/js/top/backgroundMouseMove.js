@@ -5,9 +5,9 @@ export default function () {
    * @param {number} movement 移動量の数値
    */
   const setMouseMove = (id, movement = .1) => {
-    d.body.addEventListener('mousemove', (event) => {
-      const bgX = (event.pageX * .1) * movement;
-      const bgY = (event.pageY * .1) * movement;
+    d.querySelector('.js_mouseMove').addEventListener('mousemove', (event) => {
+      const bgX = Math.floor((event.pageX * movement) * .1);
+      const bgY = Math.floor((event.pageY * movement) * .1);
       if(d.getElementById(id)) d.getElementById(id).style.transform = 'translate3d' + '(' + '-' + bgX + 'px' + ',' + '-' + bgY + 'px' + ',' + 0 + ')';
     });
   }
