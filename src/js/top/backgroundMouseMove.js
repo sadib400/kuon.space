@@ -8,7 +8,7 @@ export default function () {
     d.body.addEventListener('mousemove', (event) => {
       const bgX = (event.pageX * .1) * movement;
       const bgY = (event.pageY * .1) * movement;
-      if(d.getElementById(id)) d.getElementById(id).style.transform = 'translate3d' + '(' + '-' + bgX + 'px' + ',' + '-' + bgY + 'px' + ',' + 0 + ')' + ' rotate(.1deg)';
+      if(d.getElementById(id)) d.getElementById(id).style.transform = 'translate3d' + '(' + '-' + bgX + 'px' + ',' + '-' + bgY + 'px' + ',' + 0 + ')';
     });
   }
 

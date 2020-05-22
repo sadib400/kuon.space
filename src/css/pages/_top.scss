@@ -10,24 +10,24 @@
       bl_background
   ===================== */
   .bl_background {
+    overflow: hidden;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100vh;
     z-index: 1;
-    transform: translate3d(0, 0 ,0) rotate(.1deg);
-    transition: transform .3s ease-out;
-    transform-style: preserve-3d;
-    backface-visibility: hidden;
     background-image: linear-gradient(to bottom, #072142, #061c37, #07182b, #061220, #020b16);
 
     &_imageBox {
       position: absolute;
       top: 0;
       left: 50%;
-      transform: translate(-50%,-17%);
+      transform: translate3d(-50%, -17% ,0) rotate(0.0001deg);
       width: 160%;
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+      will-change: transform;
       @include mediaQuery(mobileOnly) {
         &:nth-child(2) {
           top: 16%;
@@ -37,14 +37,14 @@
       @include mediaQuery(tabletOnly) {
         top: 50%;
         left: 70%;
-        transform: translate(-50%,-50%);
+        transform: translate3d(-50%, -50% ,0) rotate(0.0001deg);
         width: 100%;
       }
       @include mediaQuery(desktop) {
         top: 50%;
         right: 0;
         left: 27%;
-        transform: translate(10%,-50%);
+        transform: translate3d(10%, -50% ,0) rotate(0.0001deg);
         width: 100%;
         max-width: 1390px;
       }
@@ -52,7 +52,11 @@
 
     &_image {
       width: 100%;
+      transform: translate3d(0, 0 ,0);
       transition: transform .3s ease-out;
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+      will-change: transform;
     }
   }
   // _:-ms-lang(x)::-ms-backdrop, .bl_background {
@@ -446,29 +450,33 @@
       z-index: 2;
       top: 11%;
       left: 50%;
-      transform: translate(-50%,0);
+      transform: translate3d(-50%, 0, 0) rotate(0.0001deg);
       width: 65%;
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+      pointer-events: none;
       @include mediaQuery(tabletOnly) {
         top: 50%;
         left: 70%;
-        transform: translate(-50%,-50%);
+        transform: translate3d(-50%, -50%, 0) rotate(0.0001deg);
         width: 40%;
       }
       @include mediaQuery() {
         top: 50%;
         right: 0;
         left: 27%;
-        transform: translate(10%,-50%);
+        transform: translate3d(10%, -50%, 0) rotate(0.0001deg);
         width: 1390px;
       }
     }
 
     &_moonText {
+      overflow: hidden;
       opacity: 0;
       position: absolute;
       top: 50%;
       left: 30%;
-      transform: translate3d(0, -50% ,0) rotate(.1deg);
+      transform: translate3d(0, -50% ,0);
       color: $red;
       font-size: 2.8rem;
       font-weight: bold;
@@ -504,16 +512,18 @@
     // }
 
     &_moonImg {
+      overflow: hidden;
       opacity: 0;
       position: relative;
       left: 100%;
       display: block;
       width: 100%;
       margin: 0 auto;
-      transform: translate3d(0, 0 ,0) rotate(.1deg);
+      transform: translate3d(0, 0 ,0);
       transition: left .6s, opacity .6s, transform .3s ease-out;
       transform-style: preserve-3d;
       backface-visibility: hidden;
+      will-change: transform;
       @include mediaQuery(desktop) {
         left: 43%;
         width: 40%;
@@ -532,13 +542,15 @@
     // }
 
     &_cloudImg {
+      overflow: hidden;
       opacity: 0;
       position: absolute;
       left: 90%;
       width: 90%;
-      transform: translate3d(0, 0 ,0) rotate(.1deg);
+      transform: translate3d(0, 0 ,0);
       transition: left .6s,opacity .6s, transform .3s ease-out;
       transform-style: preserve-3d;
+      will-change: transform;
       backface-visibility: hidden;backface-visibility: hidden;
       @include mediaQuery(desktop) {
         left: 38%;
