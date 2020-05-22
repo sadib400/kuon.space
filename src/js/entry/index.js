@@ -1,4 +1,4 @@
-import {d, w, useId, setClass, sliceCall} from '../common/util';
+import {d, w, useId, useRegex, setClass, sliceCall} from '../common/util';
 require('intersection-observer');
 import objectFitImages from 'object-fit-images';
 objectFitImages();
@@ -18,6 +18,7 @@ Barba.Dispatcher.on('linkClicked', function(element) {
   linkTarget = element;
 });
 
+
 // barba.js ページ遷移アニメーション
 const normalTransition = Barba.BaseTransition.extend({
   start: function() {
@@ -33,19 +34,26 @@ const backArrowTransition = Barba.BaseTransition.extend({
   start: function() {
     this.move().then(this.removeClasses).then(this.newContainerLoading).then(this.finish.bind(this))
   },
-  move: function() {
-    return new Promise(function (resolve) {
-      anime.remove("html, body");
-      anime({
-        targets: "html, body",
-        scrollTop: 0,
-        dulation: 600,
-        easing: 'easeOutCubic',
-        complete: function () {
-          resolve();
-        }
+  move: function () {
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    if (scrollTop === 0) {
+      return new Promise(function (resolve) {
+        resolve();
       });
-    })
+    } else {
+      return new Promise(function (resolve) {
+        anime.remove("html, body");
+        anime({
+          targets: "html, body",
+          scrollTop: 0,
+          dulation: 600,
+          easing: 'easeOutCubic',
+          complete: function () {
+            resolve();
+          }
+        });
+      });
+    };
   },
   removeClasses: function () {
     return new Promise(function (resolve) {
@@ -74,7 +82,7 @@ Barba.Pjax.getTransition = function () {
 
 
 /** ページ毎の処理
- * @property {object} all 共通
+ * @property {object} all 共通部分
  * @property {object} top index.html
  * @property {object} about about.html
  */
@@ -82,17 +90,17 @@ const pageType = {
   all: () => {
     hamburgerMenu();
     d.querySelector('.js_instagram').classList[useId.top ? 'add' : 'remove']('is_hide');
+    d.getElementById('js_topBack').addEventListener('click', (link) => {
+      if (useRegex.topPath.test(location.pathname) && useRegex.topPath.test(link.target.getAttribute('href'))) {
+        location.hash = '';
+        location.reload();
+      }
+    });
   },
   top: () => {
     activeClass();
     fullScreenScroll();
     backgroundMouseMove();
-    d.getElementById('js_topBack').addEventListener('click', (link) => {
-      if (link.target.getAttribute('href').endsWith(location.pathname)) {
-        location.hash = '';
-        location.reload();
-      }
-    });
     setTimeout(() => { useId.header.classList.remove('is_intersection'); },100);
   },
   about: () => {
