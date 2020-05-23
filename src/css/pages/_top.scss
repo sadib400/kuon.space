@@ -59,12 +59,12 @@
       will-change: transform;
     }
   }
-  // _:-ms-lang(x)::-ms-backdrop, .bl_background {
-  //   transition: none;
-  // }
-  // _:-ms-lang(x)::backdrop, .bl_background {
-  //   transition: none;
-  // }
+  _:-ms-lang(x)::-ms-backdrop, .bl_background {
+    transition: none;
+  }
+  _:-ms-lang(x)::backdrop, .bl_background {
+    transition: none;
+  }
   /* end bl_background
   ===================== */
 
@@ -504,12 +504,12 @@
         }
       }
     }
-    // _:-ms-lang(x)::-ms-backdrop, &_moonText {
-    //   transition: left .4s, opacity .6s;
-    // }
-    // _:-ms-lang(x)::backdrop, &_moonText {
-    //   transition: left .4s, opacity .6s;
-    // }
+    _:-ms-lang(x)::-ms-backdrop, &_moonText {
+      transition: left .4s, opacity .6s;
+    }
+    _:-ms-lang(x)::backdrop, &_moonText {
+      transition: left .4s, opacity .6s;
+    }
 
     &_moonImg {
       overflow: hidden;
@@ -534,12 +534,12 @@
         left: 0;
       }
     }
-    // _:-ms-lang(x)::-ms-backdrop, &_moonImg {
-    //   transition: left .6s, opacity .6s;
-    // }
-    // _:-ms-lang(x)::backdrop, &_moonImg {
-    //   transition: left .6s, opacity .6s;
-    // }
+    _:-ms-lang(x)::-ms-backdrop, &_moonImg {
+      transition: left .6s, opacity .6s;
+    }
+    _:-ms-lang(x)::backdrop, &_moonImg {
+      transition: left .6s, opacity .6s;
+    }
 
     &_cloudImg {
       overflow: hidden;
@@ -651,12 +651,12 @@
         }
       }
     }
-    // _:-ms-lang(x)::-ms-backdrop, &_cloudImg {
-    //   transition: left .6s,opacity .6s;
-    // }
-    // _:-ms-lang(x)::backdrop, &_cloudImg {
-    //   transition: left .6s,opacity .6s;
-    // }
+    _:-ms-lang(x)::-ms-backdrop, &_cloudImg {
+      transition: left .6s,opacity .6s;
+    }
+    _:-ms-lang(x)::backdrop, &_cloudImg {
+      transition: left .6s,opacity .6s;
+    }
 
     &_awards {
       position: absolute;

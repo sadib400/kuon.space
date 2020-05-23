@@ -102,8 +102,16 @@ const pageType = {
   top: () => {
     activeClass();
     fullScreenScroll();
-    backgroundMouseMove();
-    setTimeout(() => { useId.header.classList.remove('is_intersection'); },100);
+    backgroundMouseMove('js_background', .03);
+    backgroundMouseMove('js_background_star');
+    backgroundMouseMove('js_background_text', .02);
+    backgroundMouseMove('js_moon', .05);
+    backgroundMouseMove('js_cloud_upperLeft', .04);
+    backgroundMouseMove('js_cloud_upperRight', .03);
+    backgroundMouseMove('js_cloud_lowerLeft', .07);
+    backgroundMouseMove('js_cloud_lowerRight', .06);
+    backgroundMouseMove('js_cloud_center', .08);
+    setTimeout(() => { useId.header.classList.remove('is_intersection'); },150);
   },
   about: () => {
     sliceCall(d.querySelectorAll('.js_active')).forEach((val) => {
