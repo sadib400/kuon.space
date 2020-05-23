@@ -511,6 +511,14 @@
     //   transition: left .4s, opacity .6s;
     // }
 
+    &_moonImgBox {
+      transform: translate3d(0, 0 ,0);
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+      will-change: transform;
+      transition: left .6s, opacity .6s, transform .3s ease-out;
+    }
+
     &_moonImg {
       overflow: hidden;
       opacity: 0;
