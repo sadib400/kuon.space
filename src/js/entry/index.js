@@ -61,6 +61,7 @@ const backArrowTransition = Barba.BaseTransition.extend({
       setTimeout(() => {
         setClass(d.querySelectorAll('#about .js_fromAnother'), 'add', 'is_active');
         setClass(d.querySelector('#about .js_btn'), 'add', 'is_position');
+        setClass(d.getElementById('js_currentNav'), 'add', 'is_active');
       }, 500);
       setTimeout(() => {
         resolve();
@@ -90,6 +91,10 @@ Barba.Pjax.getTransition = function () {
  */
 const pageType = {
   all: () => {
+    d.body.classList.add('is_curtain');
+    setTimeout(() => {
+      d.body.classList.add('is_init');
+    },600);
     hamburgerMenu();
     d.querySelector('.js_instagram').classList[useId.top ? 'add' : 'remove']('is_hide');
     d.getElementById('js_topBack').addEventListener('click', (link) => {
@@ -146,10 +151,6 @@ const init = () => {
   Barba.Pjax.start();
   Barba.Prefetch.init();
   pageType.all();
-  d.body.classList.add('is_curtain');
-  setTimeout(() => {
-    d.body.classList.add('is_init');
-  },600);
 }
 w.addEventListener('load', init);
 

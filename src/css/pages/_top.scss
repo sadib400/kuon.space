@@ -73,6 +73,7 @@
       bl_currentNav
   ===================== */
   .bl_currentNav {
+    overflow: hidden;
     position: fixed;
     z-index: 5;
     color: #fff;
@@ -89,7 +90,7 @@
       left: 40px;
     }
 
-    &_dots {
+    &_list {
       @media screen and (max-width: 1250px) {
         display: flex;
         align-items: flex-end;
@@ -97,6 +98,33 @@
       }
       @media screen and (min-width: 1251px) {
         width: 40px;
+      }
+
+      &.is_active {
+        @keyframes mobile {
+          0% {
+            transform: translateY(100%);
+          }
+          100% {
+            transform: translateY(0);
+          }
+        }
+        @keyframes desktop {
+          0% {
+            transform: translateX(-100%);
+          }
+          100% {
+            transform: translateX(0);
+          }
+        }
+        @include mediaQuery(mobile) {
+          transform: translateY(100%);
+          animation: mobile .6s 1.4s forwards;
+        }
+        @include mediaQuery() {
+          transform: translateX(-100%);
+          animation: desktop .6s 1.4s forwards;
+        }
       }
     }
 

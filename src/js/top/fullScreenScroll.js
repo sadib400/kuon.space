@@ -8,12 +8,12 @@ export default function () {
   const slideWrapper = document.getElementById('js_slideWrap');
   const slide = document.querySelectorAll('.js_slide');
   //IE,safariは最後までtransition-durationが残っているとうまく動作しないので付け直す
-  let getDuration;
+  let time;
   const transitionReset = () => {
     setTimeout(() => {
       slideWrapper.style.transitionDuration = 0;
-      slideWrapper.style.transitionDuration = getDuration + 's';
-    }, getDuration * 1000);
+      slideWrapper.style.transitionDuration = time + 's';
+    }, time * 1000);
   };
 
 
@@ -35,7 +35,7 @@ export default function () {
       slideWrapper.style.transitionProperty = property;
       slideWrapper.style.transitionDuration = duration + 's';
       slideWrapper.style.transitionTimingFunction = timing;
-      getDuration = duration;
+      time = duration;
     }
   }
   w.addEventListener('resize', () => {
@@ -43,7 +43,7 @@ export default function () {
     setSlide.position();
   });
   setSlide.position();
-  setTimeout(setSlide.scrollTransiton, 600);
+  setTimeout(setSlide.scrollTransiton, 500);
 
 
   /** fullScreenScroll
@@ -87,7 +87,6 @@ export default function () {
       if (isMobile) {
         slideWrapper.addEventListener('touchstart', (event) => {
           touchStart = event.touches[0].pageY;
-          console.log(touchStart)
         });
         slideWrapper.addEventListener('touchmove', (event) => {
           touchMove = event.touches[0].pageY;
