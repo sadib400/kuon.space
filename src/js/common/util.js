@@ -24,17 +24,17 @@ const util = {
       }
     }
   },
-  sliceCall : (element) => {
-    return [].slice.call(element);
+  sliceCall: (element, callback = null) => {
+    return callback ? [].slice.call(element).forEach(callback) : [].slice.call(element);
   },
 
   /** setClasses (classの付け替え)
    * @param {String} element 対象セレクタ
    * @param {String} classList classList: 'add' or 'remove' or 'toggle'
-   * @param {String} className class名 初期値： 'is_intersection'
+   * @param {String} className class名
    */
   setClasses: (element, classList = 'add', className = 'is_intersection') => {
-    const condition = (element) => {
+    const classListType = (element) => {
       switch (classList) {
         case 'add':
           element.classList.add(className);
@@ -51,10 +51,10 @@ const util = {
     };
     if ({}.toString.call(element) === '[object NodeList]' || {}.toString.call(element) === '[object Array]') {
       [].slice.call(element).forEach((element) => {
-        condition(element);
+        classListType(element);
       });
     } else {
-      condition(element);
+      classListType(element);
     }
   },
 
@@ -66,7 +66,7 @@ const util = {
    */
   inViewClasses: (observeTarget, classTarget = observeTarget, visibleClassList = 'add', inVisibleClassList = null, root = null, rootMargin = '0px') => {
     const setClass = (entries) => {
-      if ({}.toString.call(entries) === '[object Array]') {
+      if ({}.toString.call(entries) === '[object NodeList]' || {}.toString.call(entries) === '[object Array]') {
         [].slice.call(entries).forEach((entry) => {
           if (entry.isIntersecting) {
             classTarget !== observeTarget ? setClasses(classTarget, visibleClassList) : setClasses(entry.target, visibleClassList);
@@ -78,12 +78,12 @@ const util = {
         entries.isIntersecting ? setClasses(classTarget, visibleClassList) : setClasses(classTarget, inVisibleClassList);
       }
     };
-    const options = {
+
+    const init = new IntersectionObserver(setClass, {
       root: root,
       rootMargin: rootMargin
-    };
+    });
 
-    const init = new IntersectionObserver(setClass, options);
     if ({}.toString.call(observeTarget) === '[object NodeList]' || {}.toString.call(observeTarget) === '[object Array]') {
       [].slice.call(observeTarget).forEach((observeTarget) => {
         init.observe(observeTarget);

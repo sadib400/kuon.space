@@ -1,4 +1,4 @@
-import {d, w, useId, useRegex, setClasses, sliceCall} from '../common/util';
+import {d, w, useId, useRegex, setClasses} from '../common/util';
 require('intersection-observer');
 import objectFitImages from 'object-fit-images';
 objectFitImages();
@@ -12,9 +12,9 @@ import Barba from "barba.js";
 
 
 // barba.js 対象クリック要素
-let linkTarget;
-Barba.Dispatcher.on('linkClicked', function(element) {
-  linkTarget = element;
+let barbaLink;
+Barba.Dispatcher.on('linkClicked', (element) => {
+  barbaLink = element;
 });
 
 
@@ -72,9 +72,9 @@ const backArrowTransition = Barba.BaseTransition.extend({
   }
 });
 
-Barba.Pjax.getTransition = function () {
+Barba.Pjax.getTransition = () => {
   let transition;
-  if (linkTarget == d.getElementById('js_arrowButton') || linkTarget == d.getElementById('js_topBack')) {
+  if (barbaLink == d.getElementById('js_arrowButton') || barbaLink == d.getElementById('js_topBack')) {
     transition = backArrowTransition;
   } else {
     transition = normalTransition;
@@ -144,7 +144,7 @@ w.addEventListener('load', init);
 
 
 // 新しい要素が読み込まれ、コンテナ要素に挿入されたとき
-Barba.Dispatcher.on('newPageReady', function (currentStatus, oldStatus, container, newPageRawHTML) {
+Barba.Dispatcher.on('newPageReady', (currentStatus, oldStatus, container, newPageRawHTML) => {
   if (Barba.HistoryManager.history.length === 1) {
     return;
   }
@@ -170,7 +170,7 @@ Barba.Dispatcher.on('newPageReady', function (currentStatus, oldStatus, containe
 
 // URLに#有りでも有効 参考:https://www.willstyle.co.jp/blog/1722/
 Barba.Pjax.originalPreventCheck = Barba.Pjax.preventCheck;
-Barba.Pjax.preventCheck = function (evt, element) {
+Barba.Pjax.preventCheck = (evt, element) => {
   if (!element) return;
   if (element) {
     const url = location.protocol + '//' + location.host + location.pathname;

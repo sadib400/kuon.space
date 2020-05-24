@@ -1,14 +1,17 @@
 import {d, w, isMobile, userAgentFunction, sliceCall} from '../common/util';
 export default function () {
   let slideNum = 0; //スライド番号
-  let scrollFlag = false; //スライドのスクロールフラグ
   let wrapperHeight = 0;
   let windowHeight = innerHeight;
   let touchStart, touchMove, touchEnd;
   const slideWrapper = document.getElementById('js_slideWrap');
   const slide = document.querySelectorAll('.js_slide');
-  //IE,safariは最後までtransition-durationが残っているとうまく動作しないので付け直す
-  let time;
+  let time; //slideInit.scrollTransitonの第2引数と同じ
+
+  /**
+   * IE11,safariは最後までtransition-durationが残っているとclass付替動作しないので付け直す
+   * IntersectionObserver_polyfillの対象ブラウザなのも要因？
+   */
   const transitionReset = () => {
     setTimeout(() => {
       slideWrapper.style.transitionDuration = 0;
@@ -17,13 +20,13 @@ export default function () {
   };
 
 
-  /** setSlide
+  /** slideInit
    * @property {object} position スライドの高さと表示位置を設定
-   * @property {object} scrollTransiton スライド要素のcss-transition
+   * @property {object} scrollTransiton スライド要素のcssTransition
    */
-  const setSlide = {
+  const slideInit = {
     position: () => {
-      sliceCall(slide).forEach((ele, index) => {
+      sliceCall(slide, (ele, index) => {
         if(location.hash == '#' + ele.id) slideNum = index;
         ele.style.height = windowHeight + `px`;
         wrapperHeight = windowHeight * slide.length;
@@ -40,10 +43,10 @@ export default function () {
   }
   w.addEventListener('resize', () => {
     windowHeight = innerHeight;
-    setSlide.position();
+    slideInit.position();
   });
-  setSlide.position();
-  setTimeout(setSlide.scrollTransiton, 500);
+  slideInit.position();
+  setTimeout(slideInit.scrollTransiton, 500);
 
 
   /** fullScreenScroll
@@ -52,35 +55,40 @@ export default function () {
    * @property {object} scrollChangeHash 表示されたスライドのハッシュにURL更新
    * @property {object} targetClass ナビクリックでハッシュ先に移動
    */
+  let scrollFlag = true; //スライドのスクロール可否
   const fullScreenScroll = {
     scrollProcessing: (event) => {
-      // SPとPCで条件文を分岐
+      // SPとPCで比較対象を分岐
       const scrollPosition = isMobile ? touchEnd : event.deltaY;
       const scrollDown = scrollPosition > 0;
-      if (!scrollFlag) {
-        scrollFlag = true;
+      if (scrollFlag) {
+        // 1画面スクロールを終えたらスクロール可に戻す
+        scrollFlag = false;
+        clearTimeout(timerId);
+        const timerId = setTimeout(() => {
+          scrollFlag = true;
+        }, time * 1000);
+
+        // 上下スクロールの処理
         userAgentFunction.isIE11(transitionReset);
         userAgentFunction.isSafari(transitionReset);
         if (scrollDown) {
+          // slideより増やさない
           if (slideNum >= slide.length - 1) {
-            slideNum = slide.length - 1; //スライド総数を超えない
+            slideNum = slide.length - 1;
           } else {
             slideNum++;
             slideWrapper.style.top = -windowHeight * slideNum + 'px';
           }
         } else {
+          // slideより減らさない
           if (slideNum <= 0) {
-            slideNum = 0; //スライド1枚目より前に移動させない
+            slideNum = 0;
           } else {
             slideNum--;
             slideWrapper.style.top = -windowHeight * slideNum + 'px';
           }
         }
-        clearTimeout(timerId);
-        const timerId = setTimeout(() => {
-          // 1画面スクロール終わってからfalseに戻す
-          scrollFlag = false;
-        }, 1000);
       }
     },
     scrollEventListener: () => {
@@ -92,7 +100,6 @@ export default function () {
           touchMove = event.touches[0].pageY;
         });
         slideWrapper.addEventListener('touchend', (event) => {
-          //スワイプ位置が変わっていなければ処理を抜ける
           if (touchMove == undefined || touchStart == (touchMove + touchEnd)) return;
           touchEnd = touchStart - touchMove;
           fullScreenScroll.scrollProcessing(event);
@@ -104,12 +111,12 @@ export default function () {
       }
     },
     scrollChangeHash: (entries) => {
-      sliceCall(entries).forEach((val) => {
-        if (val.isIntersecting) history.pushState(null, null, '#' + val.target.id);
+      sliceCall(entries, (entries) => {
+        if (entries.isIntersecting) history.pushState(null, null, '#' + entries.target.id);
       });
     },
-    moveHash: (targetClass) => {
-      sliceCall(targetClass).forEach((btn, index) => {
+    moveToHash: (targetClass) => {
+      sliceCall(targetClass, (btn, index) => {
         btn.addEventListener('click', (event) => {
           event.preventDefault();
           userAgentFunction.isIE11(transitionReset);
@@ -120,15 +127,14 @@ export default function () {
       });
     }
   };
-  const scrollOptions = {
+  const scrollObserver = new IntersectionObserver(fullScreenScroll.scrollChangeHash, {
     root: null,
     rootMargin: "-50% 0px"
-  };
-  const scrollObserver = new IntersectionObserver(fullScreenScroll.scrollChangeHash, scrollOptions);
-  sliceCall(slide).forEach((slideElement) => {
+  });
+  sliceCall(slide, (slideElement) => {
     scrollObserver.observe(slideElement);
   });
   fullScreenScroll.scrollEventListener();
-  fullScreenScroll.moveHash(d.querySelectorAll('.js_dot'));
-  fullScreenScroll.moveHash(d.querySelectorAll('.js_hash'));
+  fullScreenScroll.moveToHash(d.querySelectorAll('.js_dot'));
+  fullScreenScroll.moveToHash(d.querySelectorAll('.js_hash'));
 }

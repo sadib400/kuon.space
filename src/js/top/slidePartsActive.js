@@ -5,9 +5,9 @@ export default function () {
    * @param {String} add fade要素のis_active付替[true,false]
    */
   const slideFade = (element, add = true, target = '.js_slideIn') => {
-    sliceCall(d.querySelectorAll('#' + element.id + ' ' + target)).forEach((fadeElement) => {
+    sliceCall(d.querySelectorAll('#' + element.id + ' ' + target), (fadeElement) => {
       fadeElement.classList[add ? 'add' : 'remove']('is_active');
-    })
+    });
   };
 
   /** currentNav カレントナビ関連
@@ -22,7 +22,7 @@ export default function () {
   /** カレントナビとフェードイン実行 */
   const aboutButton = d.querySelector('#about .js_btn');
   const slideInEvent = (entries) => {
-    sliceCall(entries).forEach((entries) => {
+    sliceCall(entries, (entries) => {
       if (entries.isIntersecting) {
         currentNav(entries.target);
         slideFade(entries.target);
@@ -37,19 +37,19 @@ export default function () {
     rootMargin: "-50% 0px"
   };
   const slideInObserver = new IntersectionObserver(slideInEvent, slideInOptions);
-  sliceCall(document.querySelectorAll('.js_slide')).forEach((slideElement) => {
+  sliceCall(document.querySelectorAll('.js_slide'), (slideElement) => {
     slideInObserver.observe(slideElement);
   });
 
 
   /** 満月要素のフェードインアウト */
   const moonInEvent = (entries) => {
-    sliceCall(entries).forEach((entries) => {
+    sliceCall(entries, (entries) => {
       if (entries.isIntersecting) slideFade(entries.target, true, '.js_moonItem');
     });
   };
   const moonOutEvent = (entries) => {
-    sliceCall(entries).forEach((entries) => {
+    sliceCall(entries, (entries) => {
       if (!entries.isIntersecting) slideFade(entries.target, false, '.js_moonItem');
     });
   };
@@ -71,8 +71,8 @@ export default function () {
   moonOutObserver.observe(d.querySelector('#js_slideMoon'));
 
   w.addEventListener('resize', () => {
-    sliceCall(d.querySelectorAll('#js_slideMoon' + ' ' + '.js_moonItem')).forEach((moon) => {
+    sliceCall(d.querySelectorAll('#js_slideMoon' + ' ' + '.js_moonItem'), (moon) => {
       moon.classList.add('is_active');
-    })
+    });
   });
 }

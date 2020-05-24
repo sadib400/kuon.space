@@ -32,7 +32,7 @@ export default function () {
   }
 
   // クリック処理
-  sliceCall(d.querySelectorAll('.js_link')).forEach((link) => {
+  sliceCall(d.querySelectorAll('.js_link'), (link) => {
     link.addEventListener('click', () => {
       d.getElementById(link.id) === useId.hamburgerButton ? process.toggleOpen() : process.curtainOpen(link) ;
     });
