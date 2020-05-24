@@ -1,14 +1,13 @@
-import {d, w, useId, useRegex, setClass, sliceCall} from '../common/util';
+import {d, w, useId, useRegex, setClasses, sliceCall} from '../common/util';
 require('intersection-observer');
 import objectFitImages from 'object-fit-images';
 objectFitImages();
 import anime from 'animejs';
 import hamburgerMenu from '../common/hamburgerMenu';
 import backgroundMouseMove from '../top/backgroundMouseMove';
-import activeClass from '../top/activeClass';
+import slidePartsActive from '../top/slidePartsActive';
 import fullScreenScroll from '../top/fullScreenScroll';
-import headerTextColor from '../about/headerTextColor';
-import progressBar from '../about/progressBar';
+import inViewAbout from '../about/inView';
 import Barba from "barba.js";
 
 
@@ -31,8 +30,8 @@ const normalTransition = Barba.BaseTransition.extend({
 });
 
 const backArrowTransition = Barba.BaseTransition.extend({
-  start: function() {
-    this.move().then(this.removeClasses).then(this.newContainerLoading).then(this.finish.bind(this))
+  start: function () {
+    this.move().then(this.removeClasses).then(this.newContainerLoading).then(this.finish.bind(this));
   },
   move: function () {
     const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
@@ -57,11 +56,11 @@ const backArrowTransition = Barba.BaseTransition.extend({
   },
   removeClasses: function () {
     return new Promise(function (resolve) {
-      setClass(d.querySelectorAll('#js_hero .js_active'), 'remove', 'is_active');
+      setClasses(d.querySelectorAll('#js_hero .js_active'), 'remove', 'is_active');
       setTimeout(() => {
-        setClass(d.querySelectorAll('#about .js_fromAnother'), 'add', 'is_active');
-        setClass(d.querySelector('#about .js_btn'), 'add', 'is_position');
-        setClass(d.getElementById('js_currentNav'), 'add', 'is_active');
+        setClasses(d.querySelectorAll('#about .js_fromAnother'), 'add', 'is_active');
+        setClasses(d.querySelector('#about .js_btn'), 'add', 'is_position');
+        setClasses(d.getElementById('js_currentNav'), 'add', 'is_active');
       }, 500);
       setTimeout(() => {
         resolve();
@@ -105,25 +104,14 @@ const pageType = {
     });
   },
   top: () => {
-    activeClass();
+    slidePartsActive();
     fullScreenScroll();
-    backgroundMouseMove('js_background', .03);
-    backgroundMouseMove('js_background_star');
-    backgroundMouseMove('js_background_text', .02);
-    backgroundMouseMove('js_moon', .05);
-    backgroundMouseMove('js_cloud_upperLeft', .04);
-    backgroundMouseMove('js_cloud_upperRight', .03);
-    backgroundMouseMove('js_cloud_lowerLeft', .07);
-    backgroundMouseMove('js_cloud_lowerRight', .06);
-    backgroundMouseMove('js_cloud_center', .08);
-    setTimeout(() => { useId.header.classList.remove('is_intersection'); },150);
+    backgroundMouseMove();
+    setTimeout(() => { useId.header.classList.remove('is_intersection'); }, 100);
   },
   about: () => {
-    sliceCall(d.querySelectorAll('.js_active')).forEach((val) => {
-      val.classList.add('is_active');
-    });
-    headerTextColor();
-    w.addEventListener('scroll', progressBar);
+    setClasses(d.querySelectorAll('#js_hero .js_active'), 'add', 'is_active');
+    inViewAbout();
     setTimeout(() => { scrollTo(0, 0); });
   }
 }

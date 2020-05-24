@@ -28,85 +28,69 @@ const util = {
     return [].slice.call(element);
   },
 
-  /** setClass (classの付け替え)
+  /** setClasses (classの付け替え)
    * @param {String} element 対象セレクタ
    * @param {String} classList classList: 'add' or 'remove' or 'toggle'
    * @param {String} className class名 初期値： 'is_intersection'
    */
-  setClass: (element, classList = 'add', className = 'is_intersection') => {
-    const condition = (entry) => {
+  setClasses: (element, classList = 'add', className = 'is_intersection') => {
+    const condition = (element) => {
       switch (classList) {
         case 'add':
-          entry.classList.add(className);
+          element.classList.add(className);
           break;
         case 'remove':
-          entry.classList.remove(className);
+          element.classList.remove(className);
           break;
         case 'toggle':
-          entry.classList.toggle(className);
+          element.classList.toggle(className);
           break;
         default:
           break;
       }
     };
     if ({}.toString.call(element) === '[object NodeList]' || {}.toString.call(element) === '[object Array]') {
-      [].slice.call(element).forEach((entry) => {
-        condition(entry);
+      [].slice.call(element).forEach((element) => {
+        condition(element);
       });
     } else {
       condition(element);
     }
   },
 
-  /** checkElementType (NodeList or HTMLCollection 判定)
-   * @param {String} targetElement 対象セレクタ
-   * @param {Object} nodeListFunc nodeListの処理
-   * @param {Object} htmlCollectionFunc HTMLCollectionの処理
-   */
-  checkElementType: (targetElement, nodeListFunc, htmlCollectionFunc) => {
-    if ({}.toString.call(targetElement) === '[object NodeList]' || {}.toString.call(targetElement) === '[object Array]') {
-      nodeListFunc(targetElement);
-    } else {
-      htmlCollectionFunc(targetElement);
-    }
-  },
-
-  /** fadeClass (可視範囲のクラス付与)
+  /** inViewClasses (可視範囲のクラス付与)
    * @param {String} observeTarget 交差対象セレクタ (IntersectionObserverの発火要素)
-   * @param {String} classTarget class付替対象のセレクタ (常に画面内にいるようなposition:fixed要素のclass操作などに)
-   * @param {String} visibleClassList 可視のclassList ('add' or 'remove')
-   * @param {String} inVisibleClassList 不可視のclassList ('add' or 'remove')
+   * @param {String} classTarget class付替対象のセレクタ (常に画面内にあるfixed要素対策)
+   * @param {String} visibleClassList 可視範囲のclassList ('add' or 'remove')
+   * @param {String} inVisibleClassList 不可視範囲のclassList ('add' or 'remove')
    */
-  fadeClass: (observeTarget, classTarget = observeTarget, visibleClassList = 'add', inVisibleClassList = 'remove', root = null, rootMargin = '0px') => {
-    // class付与のコールバック
-    const callback = (entries) => {
+  inViewClasses: (observeTarget, classTarget = observeTarget, visibleClassList = 'add', inVisibleClassList = null, root = null, rootMargin = '0px') => {
+    const setClass = (entries) => {
       if ({}.toString.call(entries) === '[object Array]') {
         [].slice.call(entries).forEach((entry) => {
           if (entry.isIntersecting) {
-            classTarget !== observeTarget ? setClass(classTarget, visibleClassList) : setClass(entry.target, visibleClassList);
+            classTarget !== observeTarget ? setClasses(classTarget, visibleClassList) : setClasses(entry.target, visibleClassList);
           } else {
-            classTarget !== observeTarget ? setClass(classTarget, inVisibleClassList) : setClass(entry.target, inVisibleClassList);
+            classTarget !== observeTarget ? setClasses(classTarget, inVisibleClassList) : setClasses(entry.target, inVisibleClassList);
           }
         })
       } else {
-        entries.isIntersecting ? setClass(classTarget, visibleClassList) : setClass(classTarget, inVisibleClassList);
+        entries.isIntersecting ? setClasses(classTarget, visibleClassList) : setClasses(classTarget, inVisibleClassList);
       }
     };
-    let options = {
+    const options = {
       root: root,
       rootMargin: rootMargin
     };
-    // 実行
-    const init = new IntersectionObserver(callback, options);
-    const observerNode = (observeTarget) => {
-      [].slice.call(observeTarget).forEach((val) => {
-        init.observe(val);
+
+    const init = new IntersectionObserver(setClass, options);
+    if ({}.toString.call(observeTarget) === '[object NodeList]' || {}.toString.call(observeTarget) === '[object Array]') {
+      [].slice.call(observeTarget).forEach((observeTarget) => {
+        init.observe(observeTarget);
       })
-    }
-    const observerHtml = (observeTarget) => {
+    } else {
       init.observe(observeTarget);
     }
-    checkElementType(observeTarget, observerNode, observerHtml);
   }
 }
 
@@ -117,9 +101,8 @@ const useRegex = util.useRegex;
 const isMobile = util.isMobile;
 const userAgentFunction = util.userAgentFunction;
 const sliceCall = util.sliceCall;
-const setClass = util.setClass;
-const checkElementType = util.checkElementType;
-const fadeClass = util.fadeClass;
+const setClasses = util.setClasses;
+const inViewClasses = util.inViewClasses;
 
 export {
   d as d,
@@ -129,7 +112,6 @@ export {
   isMobile as isMobile,
   userAgentFunction as userAgentFunction,
   sliceCall as sliceCall,
-  setClass as setClass,
-  checkElementType as checkElementType,
-  fadeClass as fadeClass,
+  setClasses as setClasses,
+  inViewClasses as inViewClasses,
 };

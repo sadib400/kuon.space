@@ -1,4 +1,4 @@
-import {d, w, isMobile, setClass, sliceCall} from '../common/util';
+import {d, w, isMobile, setClasses, sliceCall} from '../common/util';
 export default function () {
   /** slideFade TOPページ用のフェードイン・アウト
    * @param {String} element fade対象セレクタ
@@ -28,7 +28,7 @@ export default function () {
         slideFade(entries.target);
       } else {
         slideFade(entries.target, false);
-        if (aboutButton && aboutButton.classList.contains('is_position')) setClass(aboutButton, 'remove', 'is_position');
+        if (aboutButton && aboutButton.classList.contains('is_position')) setClasses(aboutButton, 'remove', 'is_position');
       }
     });
   };

@@ -1,4 +1,4 @@
-import {d, useId, sliceCall, setClass, useRegex} from './util';
+import {d, useId, sliceCall, setClasses, useRegex} from './util';
 export default function () {
   /** process イベント処理
    * @property {object} toggleOpen リンク一覧の開閉
@@ -9,7 +9,7 @@ export default function () {
       d.body.classList.toggle('is_lock');
       useId.hamburgerButton.classList.toggle('is_close');
       d.querySelector('.js_menuOpen').classList.toggle('is_open');
-      if (useId.header.classList.contains('is_intersection')) setClass(useId.header, 'toggle', 'is_open');
+      if (useId.header.classList.contains('is_intersection')) setClasses(useId.header, 'toggle', 'is_open');
     },
     curtainOpen: (link) => {
       if (useRegex.topPath.test(location.pathname) && useRegex.topPath.test(link.getAttribute('href'))) {
@@ -20,7 +20,7 @@ export default function () {
         location.reload();
         return;
       }
-      if (useId.header.classList.contains('is_open')) setClass(useId.header, 'remove', 'is_open');
+      if (useId.header.classList.contains('is_open')) setClasses(useId.header, 'remove', 'is_open');
       d.getElementById('js_curtain').classList.add('is_active');
       setTimeout(() => {
         process.toggleOpen();
