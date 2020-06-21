@@ -1,9 +1,9 @@
-// 共通スタイル
-@import "../parts/reset";
-@import "../parts/base";
-@import "../parts/header";
-@import "../parts/button";
+// ベーススタイル
+@import "../base/reset";
+@import "../base/util";
+
+// 共通レイアウトスタイル
+@import "../parts/**";
 
 // ページスタイル
-@import "../pages/top";
-@import "../pages/about";
+@import "../pages/**";

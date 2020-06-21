@@ -3,6 +3,7 @@ const gulp = require("gulp");
 const sass = require("gulp-sass");
 const autoprefixer = require('gulp-autoprefixer');
 const browserSync = require("browser-sync");
+const sassGlob = require("gulp-sass-glob");
 
 // webpackの設定ファイルの読み込み
 const webpackStream = require("webpack-stream");
@@ -12,6 +13,7 @@ const webpackConfig = require("./webpack.config");
 // Sass
 gulp.task("sass", function () {
   return gulp.src('./src/css/entry/*.scss')
+    .pipe(sassGlob())
     .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
     .pipe(autoprefixer())
     .pipe(gulp.dest('./asset/css'));

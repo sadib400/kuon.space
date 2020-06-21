@@ -11,7 +11,6 @@
     "gulp-clean-css": "^4.3.0",
     "gulp-postcss": "^8.0.0",
     "gulp-sass": "^4.0.2",
-    "gulp-sass-glob": "^1.1.0",
     "object-fit-images": "^3.2.4",
     "postcss-import": "^12.0.1"
   },
@@ -20,6 +19,7 @@
     "@babel/preset-env": "^7.9.5",
     "babel-loader": "^8.1.0",
     "barba.js": "^1.0.0",
+    "gulp-sass-glob": "^1.1.0",
     "intersection-observer": "^0.9.0",
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11",
