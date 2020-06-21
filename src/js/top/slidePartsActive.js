@@ -1,18 +1,23 @@
 import { d, w, userAgentType, sliceCall } from '../common/util';
 import { setClasses } from '../module/setClasses';
 export default function () {
-  /** slideFade TOPページ用のフェードイン・アウト
-   * @param {Object} element fade対象セレクタ
-   * @param {String} add fade要素のis_active付替[true,false]
+  /** 
+   * slideFade
+   * フェードイン・アウト用のアクティブクラスの付け替え
+   * @param {Object} element fade対象セレクタ(entries.target)
+   * @param {String} classList fade要素のclassList指定
+   * @param {String} target elementの子孫要素(class付替対象)
    */
-  const slideFade = (element, add = true, target = '.js_slideIn') => {
+  const slideFade = (element, classList, target = '.js_slideIn') => {
     sliceCall(d.querySelectorAll('#' + element.id + ' ' + target), (fadeElement) => {
-      fadeElement.classList[add ? 'add' : 'remove']('is_active');
+      fadeElement.classList[classList]('is_active');
     });
   };
 
-  /** currentNav カレントナビ関連
-   * @param {Object} element 現在見えている範囲のidに合わせてナビをアクティブにする
+  /** 
+   * currentNav
+   * 現在のスライド(id)に合わせてナビをアクティブにする
+   * @param {Object} element 表示されているスライド要素(entries.target)
    */
   const currentNav = (element) => {
     const currentActive = d.querySelector(".js_dot.is_active");
@@ -26,9 +31,9 @@ export default function () {
     sliceCall(entries, (entries) => {
       if (entries.isIntersecting) {
         currentNav(entries.target);
-        slideFade(entries.target);
+        slideFade(entries.target, 'add');
       } else {
-        slideFade(entries.target, false);
+        slideFade(entries.target, 'remove');
         if (aboutButton && aboutButton.classList.contains('is_position')) setClasses(aboutButton, 'remove', 'is_position');
       }
     });
@@ -46,7 +51,7 @@ export default function () {
   /** 満月要素のフェードインアウト */
   const moonFadeEvent = (entries) => {
     sliceCall(entries, (entries) => {
-      entries.isIntersecting ? slideFade(entries.target, true, '.js_moonItem') : slideFade(entries.target, false, '.js_moonItem');
+      entries.isIntersecting ? slideFade(entries.target, 'add', '.js_moonItem') : slideFade(entries.target, 'remove', '.js_moonItem');
     });
   };
   

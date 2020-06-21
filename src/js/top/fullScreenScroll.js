@@ -50,23 +50,24 @@ export default function () {
 
 
   /** fullScreenScroll
+   * @property {Boolean} scrollFlag スライドのスクロール可否
    * @property {Object} scrollProcessing スクロール方向判定の処理
    * @property {Object} scrollEventListener scrollProcessing()をイベントリスナーに登録
    * @property {Object} scrollChangeHash 表示されたスライドのハッシュにURL更新
-   * @property {Object} targetClass ナビクリックでハッシュ先に移動
+   * @property {Object} moveToHash ナビクリックでハッシュ先に移動
    */
-  let scrollFlag = true; //スライドのスクロール可否
   const fullScreenScroll = {
+    scrollFlag: true,
     scrollProcessing: (event) => {
       // SPとPCで比較対象を分岐
       const scrollPosition = userAgentType.isMobile ? touchEnd : event.deltaY;
       const scrollDown = scrollPosition > 0;
-      if (scrollFlag) {
+      if (fullScreenScroll.scrollFlag) {
         // 1画面スクロールを終えたらスクロール可に戻す
-        scrollFlag = false;
+        fullScreenScroll.scrollFlag = false;
         clearTimeout(timerId);
         const timerId = setTimeout(() => {
-          scrollFlag = true;
+          fullScreenScroll.scrollFlag = true;
         }, time * 1000);
 
         // 上下スクロールの処理

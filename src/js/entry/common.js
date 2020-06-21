@@ -128,6 +128,7 @@ let nameSpaceType = Barba.BaseView.extend({
 });
 nameSpaceType.init();
 
+
 // Barba要素クリック時に、遷移先のコンテナー追加されたらnamespace再代入
 Barba.Dispatcher.on('linkClicked', () => {
   Barba.Dispatcher.on('newPageReady', function(currentStatus) {
