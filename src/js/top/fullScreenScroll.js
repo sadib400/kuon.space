@@ -1,4 +1,4 @@
-import {d, w, isMobile, userAgentFunction, sliceCall} from '../common/util';
+import {d, w, userAgentType, sliceCall} from '../common/util';
 export default function () {
   let slideNum = 0; //スライド番号
   let wrapperHeight = 0;
@@ -59,7 +59,7 @@ export default function () {
   const fullScreenScroll = {
     scrollProcessing: (event) => {
       // SPとPCで比較対象を分岐
-      const scrollPosition = isMobile ? touchEnd : event.deltaY;
+      const scrollPosition = userAgentType.isMobile ? touchEnd : event.deltaY;
       const scrollDown = scrollPosition > 0;
       if (scrollFlag) {
         // 1画面スクロールを終えたらスクロール可に戻す
@@ -70,8 +70,7 @@ export default function () {
         }, time * 1000);
 
         // 上下スクロールの処理
-        userAgentFunction.isIE11(transitionReset);
-        userAgentFunction.isSafari(transitionReset);
+        if (userAgentType.isIE11 || userAgentType.isSafari) transitionReset();
         if (scrollDown) {
           // slideより増やさない
           if (slideNum >= slide.length - 1) {
@@ -92,7 +91,7 @@ export default function () {
       }
     },
     scrollEventListener: () => {
-      if (isMobile) {
+      if (userAgentType.isMobile) {
         slideWrapper.addEventListener('touchstart', (event) => {
           touchStart = event.touches[0].pageY;
         });
@@ -119,8 +118,7 @@ export default function () {
       sliceCall(targetClass, (btn, index) => {
         btn.addEventListener('click', (event) => {
           event.preventDefault();
-          userAgentFunction.isIE11(transitionReset);
-          userAgentFunction.isSafari(transitionReset);
+          if (userAgentType.isIE11 || userAgentType.isSafari) transitionReset();
           slideWrapper.style.top = '-' + windowHeight * index + 'px';
           slideNum = index;
         });

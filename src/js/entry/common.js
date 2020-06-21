@@ -1,4 +1,5 @@
-import {d, w, useId, useRegex, setClasses} from '../common/util';
+import { d, w, useId, useRegex } from '../common/util';
+import { setClasses } from '../module/setClasses';
 require('intersection-observer');
 import objectFitImages from 'object-fit-images';
 objectFitImages();
@@ -7,7 +8,7 @@ import hamburgerMenu from '../common/hamburgerMenu';
 import backgroundMouseMove from '../top/backgroundMouseMove';
 import slidePartsActive from '../top/slidePartsActive';
 import fullScreenScroll from '../top/fullScreenScroll';
-import inViewAbout from '../about/inView';
+import inViewAbout from '../about/inViewAbout';
 import Barba from "barba.js";
 
 
@@ -24,7 +25,7 @@ const normalTransition = Barba.BaseTransition.extend({
     this.newContainerLoading.then(this.finish.bind(this));
   },
   finish: function() {
-    document.body.scrollTop = 0;
+    d.body.scrollTop = 0;
     this.done();
   }
 });
@@ -34,7 +35,7 @@ const backArrowTransition = Barba.BaseTransition.extend({
     this.move().then(this.removeClasses).then(this.newContainerLoading).then(this.finish.bind(this));
   },
   move: function () {
-    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const scrollTop = d.documentElement.scrollTop || d.body.scrollTop;
     if (scrollTop === 0) {
       return new Promise(function (resolve) {
         resolve();
@@ -96,8 +97,8 @@ const pageType = {
     },600);
     hamburgerMenu();
     d.querySelector('.js_instagram').classList[useId.top ? 'add' : 'remove']('is_hide');
-    d.getElementById('js_topBack').addEventListener('click', (link) => {
-      if (useRegex.topPath.test(location.pathname) && useRegex.topPath.test(link.target.getAttribute('href'))) {
+    d.getElementById('js_topBack').addEventListener('click', () => {
+      if (useRegex.pathTop.test(location.href)) {
         location.hash = '';
         location.reload();
       }
@@ -118,20 +119,28 @@ const pageType = {
 
 
 // barba.js 遷移分岐用
-const pageTop = Barba.BaseView.extend({
-  namespace: 'top',
+let getNameSpace = d.querySelector('.barba-container').getAttribute('data-namespace');
+let nameSpaceType = Barba.BaseView.extend({
+  namespace: getNameSpace,
   onEnterCompleted: () => {
-    pageType.top();
+    pageType[getNameSpace]();
   }
 });
-const pageAbout = Barba.BaseView.extend({
-  namespace: 'about',
-  onEnterCompleted: () => {
-    pageType.about();
-  }
+nameSpaceType.init();
+
+// Barba要素クリック時に、遷移先のコンテナー追加されたらnamespace再代入
+Barba.Dispatcher.on('linkClicked', () => {
+  Barba.Dispatcher.on('newPageReady', function(currentStatus) {
+    getNameSpace = currentStatus.namespace;
+    nameSpaceType = Barba.BaseView.extend({
+      namespace: getNameSpace,
+      onEnterCompleted: () => {
+        pageType[getNameSpace]();
+      }
+    });
+    nameSpaceType.init();
+  });
 });
-pageTop.init();
-pageAbout.init();
 
 
 // ページの初回表示用

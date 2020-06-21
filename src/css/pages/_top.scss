@@ -59,12 +59,6 @@
       will-change: transform;
     }
   }
-  _:-ms-lang(x)::-ms-backdrop, .bl_background {
-    transition: none;
-  }
-  _:-ms-lang(x)::backdrop, .bl_background {
-    transition: none;
-  }
   /* end bl_background
   ===================== */
 
@@ -260,13 +254,14 @@
         height: 2px;
         background-color: $red;
         border-radius: 4px;
+        @include mediaQuery(fromTablet) {
+          height: 4px;
+        }
         @include mediaQuery(tabletOnly) {
           width: 70px;
-          height: 4px;
         }
         @include mediaQuery(desktop) {
           width: 90px;
-          height: 4px;
         }
       }
       &:after {
@@ -318,18 +313,18 @@
         left: 50%;
         transform: translate(-50%,0);
       }
+      @include mediaQuery(fromTablet) {
+        width: 53%;
+        height: 75%;
+      }
       @include mediaQuery(tabletOnly) {
         top: 13%;
         right: 5.3%;
-        width: 53%;
-        height: 75%;
       }
       @include mediaQuery(desktop) {
         top: 50%;
         left: 39%;
         transform: translate(0,-50%);
-        width: 53%;
-        height: 75%;
         font-size: 3rem;
       }
 
@@ -455,10 +450,7 @@
         width: 2px;
         height: 34px;
         background-color: #fff;
-        @include mediaQuery(tabletOnly) {
-          height: 64px;
-        }
-        @include mediaQuery(desktop) {
+        @include mediaQuery(fromTablet) {
           height: 64px;
         }
       }
@@ -532,12 +524,6 @@
         }
       }
     }
-    _:-ms-lang(x)::-ms-backdrop, &_moonText {
-      transition: left .4s, opacity .6s;
-    }
-    _:-ms-lang(x)::backdrop, &_moonText {
-      transition: left .4s, opacity .6s;
-    }
 
     &_moonImg {
       overflow: hidden;
@@ -561,12 +547,6 @@
         opacity: 1;
         left: 0;
       }
-    }
-    _:-ms-lang(x)::-ms-backdrop, &_moonImg {
-      transition: left .6s, opacity .6s;
-    }
-    _:-ms-lang(x)::backdrop, &_moonImg {
-      transition: left .6s, opacity .6s;
     }
 
     &_cloudImg {
@@ -678,12 +658,6 @@
           }
         }
       }
-    }
-    _:-ms-lang(x)::-ms-backdrop, &_cloudImg {
-      transition: left .6s,opacity .6s;
-    }
-    _:-ms-lang(x)::backdrop, &_cloudImg {
-      transition: left .6s,opacity .6s;
     }
 
     &_awards {

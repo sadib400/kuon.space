@@ -1,4 +1,5 @@
-import {d, useId, sliceCall, setClasses, useRegex} from './util';
+import { d, useId, sliceCall, useRegex } from './util';
+import { setClasses } from '../module/setClasses';
 export default function () {
   /** process イベント処理
    * @property {object} toggleOpen リンク一覧の開閉
@@ -12,11 +13,11 @@ export default function () {
       if (useId.header.classList.contains('is_intersection')) setClasses(useId.header, 'toggle', 'is_open');
     },
     curtainOpen: (link) => {
-      if (useRegex.topPath.test(location.pathname) && useRegex.topPath.test(link.getAttribute('href'))) {
+      if (useRegex.pathTop.test(location.href) && useRegex.containsTop.test(link.getAttribute('href'))) {
         location.hash = '';
         location.reload();
         return;
-      } else if (!useRegex.topPath.test(location.pathname) && useRegex.aboutPath.test(link.getAttribute('href'))) {
+      } else if (useRegex.pathAbout.test(location.href) && useRegex.containsAbout.test(link.getAttribute('href'))) {
         location.reload();
         return;
       }
@@ -34,7 +35,7 @@ export default function () {
   // クリック処理
   sliceCall(d.querySelectorAll('.js_link'), (link) => {
     link.addEventListener('click', () => {
-      d.getElementById(link.id) === useId.hamburgerButton ? process.toggleOpen() : process.curtainOpen(link) ;
+      link === useId.hamburgerButton ? process.toggleOpen() : process.curtainOpen(link) ;
     });
   });
 };

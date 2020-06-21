@@ -17,11 +17,10 @@
     @include mediaQuery(mobile) {
       text-align: center;
     }
-    @include mediaQuery(tabletOnly) {
+    @include mediaQuery(fromTablet) {
       font-size: 4rem;
     }
     @include mediaQuery(desktop) {
-      font-size: 4rem;
       padding-left: 15%;
     }
   }
@@ -48,10 +47,7 @@
       transform: translateY(-50%);
       width: 25px;
       border-top: 2px solid $black;
-      @include mediaQuery(tabletOnly) {
-        width: 50px;
-      }
-      @include mediaQuery(desktop) {
+      @include mediaQuery(fromTablet) {
         width: 50px;
       }
     }
@@ -102,15 +98,15 @@
       padding: 0 25px;
       min-height: 188px;
     }
-    @include mediaQuery(tabletOnly) {
+    @include mediaQuery(fromTablet) {
       top: 50%;
-      left: 40px;
       transform: translate(0,-50%);
     }
+    @include mediaQuery(tabletOnly) {
+      left: 40px;
+    }
     @include mediaQuery(desktop) {
-      top: 50%;
       left: 11%;
-      transform: translate(0,-50%);
       padding-top: 10px;
     }
     &__first {
@@ -150,13 +146,14 @@
       height: 2px;
       background-color: $red;
       border-radius: 4px;
+      @include mediaQuery(fromTablet){
+        height: 4px;
+      }
       @include mediaQuery(tabletOnly) {
         width: 70px;
-        height: 4px;
       }
       @include mediaQuery(desktop) {
         width: 90px;
-        height: 4px;
       }
     }
     &:after {
@@ -200,18 +197,18 @@
       left: 50%;
       transform: translate(-50%,0);
     }
+    @include mediaQuery(fromTablet) {
+      width: 53%;
+      height: 75%;
+    }
     @include mediaQuery(tabletOnly) {
       top: 13%;
       right: 40px;
-      width: 53%;
-      height: 75%;
     }
     @include mediaQuery(desktop) {
       top: 50%;
       left: 39%;
       transform: translate(0,-50%);
-      width: 53%;
-      height: 75%;
       font-size: 3rem;
     }
 
@@ -224,10 +221,8 @@
       @include mediaQuery(tabletOnly) {
         top: 0;
         right: 0;
-        width: 63%;
-        height: 100%;
       }
-      @include mediaQuery(desktop) {
+      @include mediaQuery(fromTablet) {
         width: 63%;
         height: 100%;
       }
@@ -254,15 +249,15 @@
     @include mediaQuery(mobileOnly) {
       right: 20px;
     }
-    @include mediaQuery(tabletOnly) {
+    @include mediaQuery(fromTablet) {
       left: 40px;
-      font-size: 1.4em;
       padding-bottom: 20px;
     }
+    @include mediaQuery(tabletOnly) {
+      font-size: 1.4em;
+    }
     @include mediaQuery(desktop) {
-      left: 40px;
       font-size: 1.6rem;
-      padding-bottom: 20px;
     }
     &.is_active {
       @include mediaQuery(mobileOnly) {
@@ -307,15 +302,12 @@
     width: 36px;
     height: 36px;
     transition: transform .3s ease;
-    @include mediaQuery(tabletOnly) {
+    @include mediaQuery(fromTablet) {
       top: 120px;
       left: 40px;
       width: 64px;
     }
     @include mediaQuery(desktop) {
-      top: 120px;
-      left: 40px;
-      width: 64px;
       &:hover {
         transform: translateX(-14%);
       }
@@ -352,22 +344,21 @@
         height: 2px;
       }
     }
+    @mixin arrowPosition($rotate, $top, $left) {
+      top: $top;
+      left: $left;
+      transform: rotate($rotate);
+    }
     &:before {
-      top: -4px;
-      left: -2px;
-      transform: rotate(-45deg);
+      @include arrowPosition(-45deg, -4px, -2px);
       @include mediaQuery(fromTablet) {
-        top: -8px;
-        left: -4px;
+        @include arrowPosition(-45deg, -8px, -4px);
       }
     }
     &:after {
-      top: 4px;
-      left: -2px;
-      transform: rotate(45deg);
+      @include arrowPosition(45deg, 4px, -2px);
       @include mediaQuery(fromTablet) {
-        top: 8px;
-        left: -4px;
+        @include arrowPosition(45deg, 8px, -4px);
       }
     }
 
@@ -389,10 +380,7 @@
   .ly_article {
     color: $black;
     padding: 150px 0;
-    @include mediaQuery(tabletOnly) {
-      padding: 20rem 0;
-    }
-    @include mediaQuery(desktop) {
+    @include mediaQuery(fromTablet) {
       padding: 20rem 0;
     }
     img {
@@ -444,21 +432,17 @@
     font-size: 1.6rem;
     letter-spacing: .2em;
     @include font-family(primary);
-    @include mediaQuery(tabletOnly) {
-      font-size: 2.5rem;
-    }
-    @include mediaQuery(desktop) {
+    @include mediaQuery(fromTablet) {
       font-size: 2.5rem;
     }
     &__english {
       display: inline-block;
-      font-size: .7em;
+      font-size: .6em;
       @include mediaQuery(mobileOnly){
-        font-size: .6em;
         padding-top: 8px;
       }
-      @include mediaQuery(tabletOnly) {
-        font-size: .6em;
+      @include mediaQuery(desktop) {
+        font-size: .7em;
       }
     }
   }
@@ -468,23 +452,18 @@
     font-size: 1.4rem;
     line-height: 2;
     margin-top: 25px;
-    @include mediaQuery(tabletOnly) {
+    @include mediaQuery(fromTablet) {
       font-size: 1.6rem;
     }
     @include mediaQuery(desktop) {
       text-align: justify;
-      font-size: 1.6rem;
     }
   }
 
   .bl_who_image {
     margin-top: 40px;
     box-shadow: 0 20px 50px $silverGray;
-    @include mediaQuery(tabletOnly) {
-      margin-top: 60px;
-      box-shadow: 0 50px 80px $silverGray;
-    }
-    @include mediaQuery(desktop) {
+    @include mediaQuery(fromTablet) {
       margin-top: 60px;
       box-shadow: 0 50px 80px $silverGray;
     }
@@ -537,11 +516,7 @@
     letter-spacing: .2em;
     margin-top: 15px;
     @include font-family(medium);
-    @include mediaQuery(tabletOnly) {
-      font-size: 3.2rem;
-      margin-top: 25px;
-    }
-    @include mediaQuery(desktop) {
+    @include mediaQuery(fromTablet) {
       font-size: 3.2rem;
       margin-top: 25px;
     }
@@ -552,11 +527,7 @@
     font-size: 1.4rem;
     line-height: 2;
     margin-top: 12px;
-    @include mediaQuery(tabletOnly) {
-      font-size: 1.6rem;
-      margin-top: 25px;
-    }
-    @include mediaQuery(desktop) {
+    @include mediaQuery(fromTablet) {
       font-size: 1.6rem;
       margin-top: 25px;
     }
@@ -626,12 +597,11 @@
       @include mediaQuery(mobile) {
         order: 1 * $i;
       }
-    }
-  }
-
-  .bl_skill_item__order6 {
-    @include mediaQuery(mobileOnly) {
-      margin-top: 70px!important;
+      @if $i == 6 {
+        @include mediaQuery(mobileOnly) {
+          margin-top: 70px!important;
+        }
+      }
     }
   }
 
@@ -651,10 +621,7 @@
     font-weight: bold;
     letter-spacing: .2em;
     @include font-family(medium);
-    @include mediaQuery(tabletOnly) {
-      font-size: 2.4rem;
-    }
-    @include mediaQuery(desktop) {
+    @include mediaQuery(fromTablet) {
       font-size: 2.4rem;
     }
   }
@@ -664,12 +631,7 @@
     font-size: .8em;
     letter-spacing: .2em;
     margin-left: 12px;
-    @include mediaQuery(tabletOnly) {
-      font-size: .6em;
-      letter-spacing: .1em;
-      margin-left: 6px;
-    }
-    @include mediaQuery(desktop) {
+    @include mediaQuery(fromTablet) {
       font-size: .6em;
       letter-spacing: .1em;
       margin-left: 6px;
@@ -690,10 +652,7 @@
   .bl_skill_percentage {
     color: $black;
     font-size: .8em;
-    @include mediaQuery(tabletOnly) {
-      font-size: .7em;
-    }
-    @include mediaQuery(desktop) {
+    @include mediaQuery(fromTablet) {
       font-size: .7em;
     }
   }
@@ -706,10 +665,7 @@
     border-radius: 10px;
     box-shadow: 0 3px 12px 0px #ccc;
     transition: width 1.5s ease;
-    @include mediaQuery(tabletOnly) {
-      height: 14px;
-    }
-    @include mediaQuery(desktop) {
+    @include mediaQuery(fromTablet) {
       height: 14px;
     }
 
@@ -747,10 +703,7 @@
     flex-direction: column;
     padding: 9rem 0;
     background-image: linear-gradient(101deg, #072142, #8c2b7a 52%, #ff4d5a);
-    @include mediaQuery(tabletOnly) {
-      padding: 14rem 0;
-    }
-    @include mediaQuery(desktop) {
+    @include mediaQuery(fromTablet) {
       padding: 14rem 0;
     }
   }
@@ -762,18 +715,14 @@
     &:not(:first-child) {
       margin-top: 14px;
     }
-    @include mediaQuery(tabletOnly) {
+    @include mediaQuery(fromTablet) {
       font-size: 2.8rem;
       &:not(:first-child) {
         margin-top: 30px;
       }
     }
     @include mediaQuery(desktop) {
-      font-size: 2.8rem;
       transition: opacity .3s ease;
-      &:not(:first-child) {
-        margin-top: 30px;
-      }
       &:hover {
         opacity: .6;
       }
