@@ -2,8 +2,8 @@ import { d, useId, sliceCall, useRegex } from './util';
 import { setClasses } from '../module/setClasses';
 export default function () {
   /** process イベント処理
-   * @property {object} toggleOpen リンク一覧の開閉
-   * @property {object} curtainOpen 遷移時の黒幕表示
+   * @property {Object} toggleOpen リンク一覧の開閉
+   * @property {Object} curtainOpen 遷移時の黒幕表示
    */
   const process = {
     toggleOpen: () => {

@@ -21,8 +21,8 @@ export default function () {
 
 
   /** slideInit
-   * @property {object} position スライドの高さと表示位置を設定
-   * @property {object} scrollTransiton スライド要素のcssTransition
+   * @property {Object} position スライドの高さと表示位置を設定
+   * @property {Object} scrollTransiton スライド要素のcssTransition
    */
   const slideInit = {
     position: () => {
@@ -50,10 +50,10 @@ export default function () {
 
 
   /** fullScreenScroll
-   * @property {object} scrollProcessing スクロール方向判定の処理
-   * @property {object} scrollEventListener scrollProcessing()をイベントリスナーに登録
-   * @property {object} scrollChangeHash 表示されたスライドのハッシュにURL更新
-   * @property {object} targetClass ナビクリックでハッシュ先に移動
+   * @property {Object} scrollProcessing スクロール方向判定の処理
+   * @property {Object} scrollEventListener scrollProcessing()をイベントリスナーに登録
+   * @property {Object} scrollChangeHash 表示されたスライドのハッシュにURL更新
+   * @property {Object} targetClass ナビクリックでハッシュ先に移動
    */
   let scrollFlag = true; //スライドのスクロール可否
   const fullScreenScroll = {

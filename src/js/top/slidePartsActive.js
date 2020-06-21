@@ -2,7 +2,7 @@ import { d, w, userAgentType, sliceCall } from '../common/util';
 import { setClasses } from '../module/setClasses';
 export default function () {
   /** slideFade TOPページ用のフェードイン・アウト
-   * @param {String} element fade対象セレクタ
+   * @param {Object} element fade対象セレクタ
    * @param {String} add fade要素のis_active付替[true,false]
    */
   const slideFade = (element, add = true, target = '.js_slideIn') => {
@@ -12,7 +12,7 @@ export default function () {
   };
 
   /** currentNav カレントナビ関連
-   * @param {String} element 現在見えている範囲のidに合わせてナビをアクティブにする
+   * @param {Object} element 現在見えている範囲のidに合わせてナビをアクティブにする
    */
   const currentNav = (element) => {
     const currentActive = d.querySelector(".js_dot.is_active");

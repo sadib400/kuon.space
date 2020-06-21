@@ -1,8 +1,8 @@
 import { d } from '../common/util';
 export default function() {
   /** マウス移動で背景画像を逆追従
-   * @param {string} id 対象のセレクタ
-   * @param {number} movement 移動量の数値
+   * @param {Object} id 対象のセレクタ
+   * @param {Number} movement 移動量の数値
    */
   const backgroundMouseMove = (id, movement = .01) => {
     d.body.addEventListener('mousemove', (event) => {

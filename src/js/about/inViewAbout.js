@@ -2,10 +2,11 @@ import { d, useId } from '../common/util';
 import { setClasses } from '../module/setClasses';
 import { inView } from '../module/inView';
 export default function () {
-  /* 
+  /** 
    * isView.jsのコールバック用
    * inView.js内の'entry.target'を引数に使用するために処理分別
-  */
+   * @param  {Object} observe inView.jsのentry.target
+   */
   const addClass = (observe) => {
     setClasses(observe, 'add');
   }
