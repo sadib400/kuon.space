@@ -9,9 +9,6 @@ export default function () {
     d.body.addEventListener('mousemove', (event) => {
       const mouseX = event.pageX * movement;
       const mouseY = event.pageY * movement;
-      const bgX = Math.floor((mouseX * 10)) / 10;
-      const bgY = Math.floor((mouseY * 10)) / 10;
-      console.log(bgX, bgY);
       if (d.getElementById(id)) {
         anime({
           targets: d.getElementById(id),
