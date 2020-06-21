@@ -53,10 +53,7 @@
     &_image {
       width: 100%;
       transform: translate3d(0, 0 ,0);
-      transition: transform .3s ease-out;
       transform-style: preserve-3d;
-      backface-visibility: hidden;
-      will-change: transform;
     }
   }
   /* end bl_background
@@ -474,7 +471,6 @@
       transform: translate3d(-50%, 0, 0) rotate(0.0001deg);
       width: 65%;
       transform-style: preserve-3d;
-      backface-visibility: hidden;
       pointer-events: none;
       @include mediaQuery(tabletOnly) {
         top: 50%;
@@ -494,17 +490,16 @@
     &_moonText {
       opacity: 0;
       position: absolute;
-      top: 50%;
-      left: 30%;
-      transform: translate3d(0, -50% ,0);
+      top: 45%;
+      left: 32%;
+      transform: translate3d(0, 0 ,0);
       color: $red;
       font-size: 2.8rem;
       font-weight: bold;
       letter-spacing: .1em;
       text-shadow: 0 10px 10px rgba(0,0,0,.3);
-      transition: left .4s, opacity .6s, transform .3s ease-out;
+      transition: left .4s, opacity .6s;
       transform-style: preserve-3d;
-      backface-visibility: hidden;
       @include font_family(primary);
       @include mediaQuery(tabletOnly) {
         font-size: 3.2rem;
@@ -534,10 +529,8 @@
       width: 100%;
       margin: 0 auto;
       transform: translate3d(0, 0 ,0);
-      transition: left .6s, opacity .6s, transform .3s ease-out;
+      transition: left .6s, opacity .6s;
       transform-style: preserve-3d;
-      backface-visibility: hidden;
-      will-change: transform;
       @include mediaQuery(desktop) {
         left: 43%;
         width: 40%;
@@ -556,10 +549,8 @@
       left: 90%;
       width: 90%;
       transform: translate3d(0, 0 ,0);
-      transition: left .6s,opacity .6s, transform .3s ease-out;
+      transition: left .6s,opacity .6s;
       transform-style: preserve-3d;
-      will-change: transform;
-      backface-visibility: hidden;backface-visibility: hidden;
       @include mediaQuery(desktop) {
         left: 38%;
         width: 33%;
